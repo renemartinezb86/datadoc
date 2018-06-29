@@ -1,0 +1,54 @@
+{
+  "properties": {
+    "tuples": {
+      "type": "nested",
+      "properties": {
+        "_all": { "enabled": false },
+        "field_name_raw": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "long_value": {
+          "type": "long"
+        },
+        "double_value": {
+          "type": "double"
+        },
+        "date_value": {
+          "type": "date",
+          "format": "epoch_millis"
+        },
+        "time_value": {
+          "type": "long"
+        },
+        "bool_value": {
+          "type": "boolean"
+        },
+        "location_value": {
+          "type" : "geo_point"
+        },
+        "str_value_default": {
+          "type": "string",
+          "analyzer": "standard"
+        },
+        "str_value_ngram": {
+          "type": "string",
+          "analyzer": "index_ngram_analyzer"
+        },
+        "str_value_e_ngram": {
+          "type": "string",
+          "analyzer": "index_edge_ngram_analyzer"
+        },
+        "str_value_raw": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "str_value_sort": {
+          "fielddata": true,
+          "type": "string",
+          "analyzer": "sortable_analyzer"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+ALTER TABLE format_settings ADD COLUMN row_delimiter VARCHAR(8);

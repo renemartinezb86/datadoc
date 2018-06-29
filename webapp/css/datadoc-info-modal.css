@@ -1,0 +1,38 @@
+.datadoc-info-modal .info .datadoc, .datadoc-info-modal .info .sheet {
+  padding: 15px 0;
+  width: 100%; }
+  .datadoc-info-modal .info .datadoc .title, .datadoc-info-modal .info .sheet .title {
+    color: #999;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 5px 0 10px 0;
+    float: left; }
+  .datadoc-info-modal .info .datadoc .not-saved, .datadoc-info-modal .info .sheet .not-saved {
+    font-size: 15px;
+    font-style: italic;
+    color: #999; }
+  .datadoc-info-modal .info .datadoc .three-dots-loader, .datadoc-info-modal .info .sheet .three-dots-loader {
+    position: static;
+    float: left;
+    margin: 10px;
+    margin-left: 30px; }
+  .datadoc-info-modal .info .datadoc .dropdown, .datadoc-info-modal .info .sheet .dropdown {
+    margin: 10px 0; }
+    .datadoc-info-modal .info .datadoc .dropdown .dropdown-menu, .datadoc-info-modal .info .sheet .dropdown .dropdown-menu {
+      max-height: 160px;
+      overflow-y: auto;
+      position: absolute; }
+  .datadoc-info-modal .info .datadoc table, .datadoc-info-modal .info .sheet table {
+    width: 100%;
+    font-size: 14px; }
+    .datadoc-info-modal .info .datadoc table tr td:first-child, .datadoc-info-modal .info .sheet table tr td:first-child {
+      font-weight: bold;
+      width: 130px; }
+    .datadoc-info-modal .info .datadoc table tr td, .datadoc-info-modal .info .sheet table tr td {
+      padding: 3px; }
+
+.datadoc-info-modal .info .sheet {
+  border-top: 1px solid #ddd;
+  min-height: 245px; }
+  .datadoc-info-modal .info .sheet .storage-type {
+    color: #ddd; }

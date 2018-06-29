@@ -1,0 +1,47 @@
+.tooltip[class*="mouse"][class$="top"] > .tooltip-arrow {
+  border-top-color: #333;
+  border-width: 5px 5px 0;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%); }
+
+.tooltip[class*="mouse"][class$="left"] > .tooltip-arrow {
+  top: 50%;
+  right: -5px;
+  transform: translateY(-50%);
+  border-width: 5px 0 5px 5px;
+  border-left-color: #333; }
+
+.tooltip[class*="mouse"][class$="right"] > .tooltip-arrow {
+  top: 50%;
+  left: -5px;
+  transform: translateY(-50%);
+  border-width: 5px 5px 5px 0;
+  border-right-color: #333; }
+
+.tooltip[class*="mouse"][class$="bottom"] > .tooltip-arrow {
+  border-bottom-color: #333;
+  border-width: 0 5px 5px;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%); }
+
+.tooltip.top > .tooltip-arrow {
+  border-top-color: #333; }
+
+.tooltip.left > .tooltip-arrow {
+  border-left-color: #333; }
+
+.tooltip.right > .tooltip-arrow {
+  border-right-color: #333; }
+
+.tooltip.bottom > .tooltip-arrow {
+  border-bottom-color: #333; }
+
+.tooltip .tooltip-inner {
+  max-width: 450px;
+  background-color: #333;
+  border-radius: 0; }
+  .tooltip .tooltip-inner .tooltip-content {
+    text-align: left;
+    padding: 7px 3px; }

@@ -1,0 +1,38 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level [%X{request}] %msg %n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE-AUDIT"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log/server.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level [%X{request}] %msg %n
+            </pattern>
+        </encoder>
+
+        <rollingPolicy class="com.dataparse.server.config.TimeBasedRollingPolicyWithRemove">
+            <!-- rollover daily -->
+            <fileNamePattern>log/server.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>1</maxIndex>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE-AUDIT"/>
+    </root>
+
+    <logger name="org.hibernate" value="info"/>
+    <logger name="org.hibernate.orm.deprecation" level="error"/>
+
+</configuration>

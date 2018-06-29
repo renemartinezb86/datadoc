@@ -1,0 +1,174 @@
+<div ng-if=isIngestMode() id=status-bar class="search-results dark-status-bar ingest-bar-wrapper" style=padding:0;height:56px> <div class=ingest-status-bar ng-class="{'db-source-bar': isRemote()}"> <div class=ingest-source-buttons> <div class="options-buttons chart-change-buttons" ng-click="(isCommitted() && togglePageMode(true)) || goToMainPage(true)" pagemode=visualization> <i class=ingest-back-arrow aria-hidden=true ng-class="{'active': pageMode === PAGE_MODE.INGEST}"></i> </div> </div> <div class=ingest-source-section> <div class=disabled-ingest-message ng-if=isMobileView()>{{getDisabledPreviewMessage()}}</div> <div class=ingest-source-select-and-settings ng-hide="(isLiveSource() || isUningestedTab()) && isMobileView()"> <div class=commit-backdrop ng-show=isCommitRunning()></div> <div class=ingest-source-select> <sticky-note sn-template=/static/templates/include/popover/cant-ingest-file-due-to-errors.html sn-open=cantIngestFileDueToErrorsNote.opened sn-placement="'bottom-left'"> </sticky-note> <div class=search-autocomplete ng-if="ingestDataSummary.pageLoaded && (!ingestDataSummary.selectedSources.length || sourceSuggestionActive)"> <input ng-click=toggleSourceSuggestionActive(true) ng-model=sourceSearch.value placeholder="{{ingestDataSummary.selectedSources && !ingestDataSummary.selectedSources.length ? 'Find your source by searching or navigating below' : ''}}" uib-typeahead="item.name for item in sourceSuggestions($viewValue)" typeahead-on-select="sourceSuggestionSelected($item, $event)" typeahead-on-close=toggleSourceSuggestionActive(false) typeahead-excluding-close-selectors="['#tabs-list']" typeahead-min-length=0 typeahead-focus-first=false typeahead-popup-options=sourceSearchPopupOptions typeahead-popup-template-url=static/templates/include/search-nav-popup.html typeahead-template-url=static/templates/include/search-item.html typeahead-no-results=sourceSearch.noSearchResults autocorrect=off autocapitalize=none> <div class=no-results ng-if="sourceSearch.noSearchResults && uploadsExist && !updatingSourceSuggestions"> There are no sources that match your search. </div> <div class=no-results ng-if="!uploadsExist && !updatingSourceSuggestions"> You have not added any sources yet <a ui-sref="main.landing.my_data({ openAddSourceModal: true })">Click to add a source</a> </div> </div> <div class="ui-select-with-tooltip-block ui-select-container ui-select-multiple ui-select-bootstrap" ng-click="toggleSourceSuggestionActive(true, $event)" ng-if="ingestDataSummary.selectedSources.length && !sourceSuggestionActive"> <span class=ingest-source-match-container> <div class=ingest-source-match-item ng-repeat="source in ingestDataSummary.selectedSources"> <div class=icon> <div class="img icon-small {{getUploadIcon(source)}}"></div> </div> <span class=text-content> <span>{{source.fullName}}</span> </span> </div> </span> </div> <div class=loading-spinner ng-if=updatingSourceSuggestions> <svg class=spinner width=15px height=15px viewBox="0 0 66 66" xmlns=http://www.w3.org/2000/svg> <circle class=path fill=none stroke-width=7 stroke-linecap=round cx=33 cy=33 r=30></circle> </svg> </div> </div> <script type=text/ng-template id=settingPopoverTemplate.html> <div class="settings-popover-content">
+                        <div class="ingest-source-item showing-fields-settings dropdown-options"
+                             uib-dropdown>
+
+                            <div>
+                                <span class="highlighted-var">Fields to display:</span>
+                                <span class="ingest-source-item-select" uib-dropdown-toggle>
+                            {{ isCheckedIngestColumnsAll() ? 'All (' + getAllSelectedIngestColumns().length + ')' : getAllSelectedIngestColumns().length}}
+                            <span class="caret"></span>
+                        </span>
+                            </div>
+
+
+                            <div class="dropdown-menu pull-right"
+                                 uib-dropdown-menu>
+                                <div class="dropdown-arrow">
+                                    <div class="outer"></div>
+                                    <div class="inner"></div>
+                                </div>
+                                <ul class="sidebar-ul"
+                                    role="menu"
+                                    ng-click="$event.stopPropagation();">
+                                    <li role="menuitem"
+                                        class="menu-item-table select-all"
+                                        ng-click="toggleAllIngestColumns();">
+                                 <span>
+                                    <input type="checkbox"
+                                           ng-checked="isCheckedIngestColumnsAll();"
+                                           class="regular-checkbox arrowed">
+                                    <label></label>
+                                </span>
+                                        <a>Select All</a>
+                                    </li>
+                                </ul>
+                                <hr style="margin: 5px 0 7px 0">
+                                <div>
+                                    <ul class="sidebar-ul"
+                                        role="menu"
+                                        sv-root
+                                        sv-part="ingestDataSummary.columns"
+                                        sv-on-sort="onIngestColumnMoved($indexFrom, $indexTo)"
+                                        ng-click="$event.stopPropagation();">
+                                        <li role="menuitem" ng-repeat="col in ingestDataSummary.columns" ng-if="!col.blank"
+                                            ng-click="toggleIngestColumn(col);"
+                                            class="menu-item-table"
+                                            sv-element>
+                                            <span sv-handle class="handle" style="width: 10px; right: 12px;"><i
+                                                    class="fa fa-grip fa-rotate-90"></i></span>
+                                            <span>
+                                        <input type="checkbox" class="regular-checkbox arrowed"
+                                               ng-checked="!col.settings.removed"/>
+                                        <label></label>
+                                    </span>
+                                            <a>{{col.name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="ingest-source-item use-headers-settings dropdown-options" uib-dropdown
+                             ng-show="isShowHeaderInFirstRowOption()">
+
+                            <div>
+                                <span class="highlighted-var">Headers in first row:</span>
+                                <span class="ingest-source-item-select" uib-dropdown-toggle>
+                            {{getIngestSelectedSourceSettings().useHeaders ? 'Yes' : 'No'}}
+                            <span class="caret"></span>
+                        </span>
+                            </div>
+
+                            <ul uib-dropdown-menu
+                                class="dropdown-menu dropdown-settings sidebar-ul pull-right" role="menu">
+
+                                <li class="menu-item-table" ng-click="switchIngestUseHeaders(true)">
+                            <span>
+                                <input type="checkbox" class="regular-checkbox arrowed"
+                                       ng-checked="getIngestSelectedSourceSettings().useHeaders">
+                                <label></label>
+                            </span>
+                                    <a>Yes</a>
+                                </li>
+                                <li class="menu-item-table" ng-click="switchIngestUseHeaders(false)">
+                            <span>
+                                <input type="checkbox" class="regular-checkbox arrowed"
+                                       ng-checked="!getIngestSelectedSourceSettings().useHeaders">
+                                <label></label>
+                            </span>
+                                    <a>No</a>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <div class="ingest-source-item refresh-schedule dropdown-options"
+                             ng-if="isRemote()">
+                            <cron-selection ng-model='ingestDataSummary.runningSchedule.cronExpression'
+                                            ng-change="updateRunningSchedule()"
+                                            config="ingestDataSummary.runningSchedule.config"
+                                            timezone="ingestDataSummary.runningSchedule.timeZone.abbr">
+                                <timezone>
+                                    <div class="cron-select-wrap"
+                                         ng-show="ingestDataSummary.runningSchedule.cronExpression"
+                                         uib-dropdown>
+                        <input uib-dropdown-toggle
+                               ng-show="ingestDataSummary.runningSchedule.status !== 'Hourly'"
+                               readonly
+                               onClick="this.setSelectionRange(0, this.value.length)"
+                               onBlur="this.setSelectionRange(0, 0)"
+                               class="schedule-select timezone-input"
+                               ng-value="ingestDataSummary.runningSchedule.timeZone.abbr">
+                                        <ul class='dropdown-menu tool-bar-dropdown flexible-space-dropdown timezone-dropdown'
+                                            role="menu"
+                                            uib-dropdown-menu>
+                                            <li ng-repeat="item in ingestDataSummary.runningSchedule.availableTimeZones"
+                                                ng-click='updateRunningScheduleTimeZone(item)' class="timezone-item">
+                                                <i class="timezone-checkmark" ng-if="isSelectedTimeZone(item.abbr)"></i>
+                                                <div class="timezone-info">
+                                                    <span>({{item.displayZone}})</span>
+                                                    <span>{{item.text}}</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </timezone>
+                            </cron-selection>
+                        </div>
+
+                        <div class="ingest-source-item dropdown-options">
+                            <div>
+                                <span class="highlighted-var">Source Timezone:</span>
+                                <div class="ingest-source-item-select" uib-dropdown>
+                                    <div uib-dropdown-toggle>
+                                        <span>{{getBookmarkTimezoneAbbreviation()}}</span>
+                                        <span class="caret"></span>
+                                    </div>
+
+                                    <ul class='tool-bar-dropdown flexible-space-dropdown source-timezone-dropdown'
+                                        role="menu" uib-dropdown-menu>
+                                        <li ng-repeat="item in ingestDataSummary.runningSchedule.availableTimeZones"
+                                            ng-click='updateBookmarkTimezone(item.name)' class="timezone-item">
+                                            <i class="timezone-checkmark" ng-if="isSelectedBookmarkTimezone(item.name)"></i>
+                                            <div class="timezone-info">
+                                                <span>({{item.displayZone}})</span>
+                                                <span>{{item.text}}</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ingest-source-item dropdown-options">
+                            <div ng-if="isShowMore()">
+                        <span ng-click="toggleIngestOtherSettingsDropdown()"
+                              ng-class="{ dropup: isShowIngestOtherSettingsDropdown }">
+                            Show {{ isShowIngestOtherSettingsDropdown ? 'Less' : 'More'}}
+                            <span class="caret"></span>
+                        </span>
+                            </div>
+
+                            <div class="ingest-other-settings-dropdown-wrapper"
+                                 ng-show="isShowIngestOtherSettingsDropdown || !isShowMore()">
+                                <ingest-other-settings-dropdown></ingest-other-settings-dropdown>
+                            </div>
+
+                            <sticky-note sn-template="/static/templates/include/popover/cant-detect-delimiter.html"
+                                         sn-open="cantDetectDelimiterNote.opened"
+                                         sn-placement="'bottom-left'"
+                                         sn-on-close="closeDelimiterStickyNote()">
+                            </sticky-note>
+                        </div>
+                    </div> </script> <div class=ingest-source-settings ng-if="ingestDataSummary.selectedSources.length && !sourceSuggestionActive" ng-hide=isMobileView()> <div class="ingest-source-item start-section-title" uib-popover-template="'settingPopoverTemplate.html'" popover-trigger="'outsideClick'" popover-placement=bottom popover-class=ingest-settings-popover> <div ng-show=isRemote()> <span class=file-settings-label ng-show=isRemote()><b>Source settings</b></span> <span class="file-settings-description refresh-data-string">Refresh data {{ingestDataSummary.settingString}}</span> <span class=caret></span> </div> <div ng-show=!isRemote()> <span class=file-settings-label><b>File settings:</b></span> <span class=file-settings-description> <span class=file-settings-option> Showing <span ng-show=!isCheckedIngestColumnsAll() ng-bind=getAllSelectedIngestColumns().length></span> <span ng-show=isCheckedIngestColumnsAll()>all</span> fields{{getIngestSelectedSourceSettings().useHeaders ? ',' : ''}} </span> <span class=file-settings-option>{{getIngestSelectedSourceSettings().useHeaders ? 'using 1st row as headers' : ''}}</span> </span> <span class=caret></span> </div> </div> </div> </div> <div class=extra-options ng-hide=isMobileView() ng-class="{'committing': isCommitRunning()}"> <div class="preview-limit no-overflow" ng-show="ingestDataSummary.selectedSources.length && !isCommitRunning()"> <div class="preview-mode-info no-overflow"> <span class=preview-title><b>Preview mode</b></span> <span class=preview-description>{{totalRowsCount > 1000 ? 'Limited to ' + (previewLimit | number) + ' rows' : ''}}</span> </div> </div> <div class=commit-section ng-show=ingestDataSummary.selectedSources.length ng-class="{'progress-section': isCommitRunning()}"> <div class=btn-query-wrapper-collapsed ng-show=!isCommitRunning()> <button class="btn btn-filters" href=javascript:void(0) ng-disabled=!isIndexChanged() ng-if=isCommitted() ng-click=resetIngestSettings()> Reset </button> <button class="btn btn-filters btn-filters-blue" href=javascript:void(0) ng-disabled="((!isIndexChanged() || !ingestPreviewLoaded) && !ingestDataSummary.query)" ng-click=commit()> {{getSaveDataMessage()}} </button> </div> <div class=data-model-progress ng-show=isCommitRunning()> <uib-progressbar class=active max=100 ng-class="{'complete': commitProgress.getValue() >= 100, 'started': commitProgress.getValue() <= 0}" value=commitProgress.getValue()> <span class=progress-step>{{commitProgress.getText()}}</span> </uib-progressbar> <button class="btn btn-sm" ladda=isCommitCancelling() ladda-spinner-color=#000 ng-click=cancelCommit() uib-tooltip="Cancel ingest&nbsp;" tooltip-placement=left tooltip-popup-delay=250 tooltip-class=main-page-tooltip>&times; </button> </div> </div> </div> </div> </div> </div>

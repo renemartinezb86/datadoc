@@ -1,0 +1,1 @@
+ALTER TABLE db_query_descriptor DROP COLUMN new_query;

@@ -1,0 +1,70 @@
+.icon .img {
+  background-size: 25px;
+  background-repeat: no-repeat; }
+
+.icon .img, .upload-item-helper {
+  height: 20px;
+  width: 17px;
+  background-size: 17px; }
+  .icon .img.index-icon, .upload-item-helper.index-icon {
+    background-image: url("/static/img/main-page/datadoc.png"); }
+    .icon .img.index-icon.icon-small, .upload-item-helper.index-icon.icon-small {
+      background-image: url("/static/img/main-page/small/datadoc.png"); }
+
+.icon .img.excel, .drag-source-helper.index-icon {
+  background-image: url("/static/img/main-page/datadoc.png"); }
+  .icon .img.excel.icon-small, .drag-source-helper.index-icon.icon-small {
+    background-image: url("/static/img/main-page/small/datadoc.png"); }
+
+.icon .img.excel, .drag-source-helper.excel {
+  background-image: url("/static/img/main-page/excel.png"); }
+  .icon .img.excel.icon-small, .drag-source-helper.excel.icon-small {
+    background-image: url("/static/img/main-page/small/excel.png"); }
+
+.icon .img.db, .drag-source-helper.db {
+  background-image: url("/static/img/main-page/database.png"); }
+  .icon .img.db.icon-small, .drag-source-helper.db.icon-small {
+    background-image: url("/static/img/main-page/small/database.png"); }
+
+.icon .img.query, .drag-source-helper.query {
+  background-image: url("/static/img/main-page/query.png"); }
+  .icon .img.query.icon-small, .drag-source-helper.query.icon-small {
+    background-image: url("/static/img/main-page/small/query.png"); }
+
+.icon .img.folder, .drag-source-helper.folder {
+  background-position: 0 center;
+  background-image: url("/static/img/main-page/folder.png"); }
+  .icon .img.folder.icon-small, .drag-source-helper.folder.icon-small {
+    background-image: url("/static/img/main-page/small/folder.png"); }
+
+.icon .img.unknown, .drag-source-helper.unknown {
+  background-image: url("/static/img/main-page/upload.png"); }
+
+.icon .img.archive, .drag-source-helper.archive {
+  background-image: url("/static/img/main-page/archive.png"); }
+
+.icon .img.invalid, .drag-source-helper.invalid {
+  background-image: url("/static/img/main-page/invalid.png"); }
+  .icon .img.invalid.icon-small, .drag-source-helper.invalid.icon-small {
+    background-image: url("/static/img/main-page/small/invalid.png"); }
+
+.icon .img.csv, .drag-source-helper.csv,
+.icon .img.xml, .drag-source-helper.xml,
+.icon .img.pdf, .drag-source-helper.pdf,
+.icon .img.text, .drag-source-helper.text,
+.icon .img.json, .drag-source-helper.json,
+.icon .img.file, .drag-source-helper.file,
+.icon .img.code, .drag-source-helper.code,
+.icon .img.image, .drag-source-helper.image,
+.icon .img.video, .drag-source-helper.video {
+  background-image: url("/static/img/main-page/other-file.png"); }
+  .icon .img.csv.icon-small, .drag-source-helper.csv.icon-small,
+  .icon .img.xml.icon-small, .drag-source-helper.xml.icon-small,
+  .icon .img.pdf.icon-small, .drag-source-helper.pdf.icon-small,
+  .icon .img.text.icon-small, .drag-source-helper.text.icon-small,
+  .icon .img.json.icon-small, .drag-source-helper.json.icon-small,
+  .icon .img.file.icon-small, .drag-source-helper.file.icon-small,
+  .icon .img.code.icon-small, .drag-source-helper.code.icon-small,
+  .icon .img.image.icon-small, .drag-source-helper.image.icon-small,
+  .icon .img.video.icon-small, .drag-source-helper.video.icon-small {
+    background-image: url("/static/img/main-page/small/other-file.png"); }

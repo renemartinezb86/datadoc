@@ -1,0 +1,125 @@
+.popover {
+  max-width: 430px;
+  white-space: nowrap;
+  border-radius: 0; }
+  .popover.ingest-settings-popover {
+    left: 155px !important; }
+  .popover.bottom {
+    margin-top: 18px; }
+  .popover .popover-content {
+    padding: 9px 12px; }
+
+.settings-popover-content {
+  width: 402px; }
+
+.ingest-source-item {
+  color: #000;
+  font-size: 13px;
+  line-height: 46px;
+  border-bottom: 1px solid #efefef;
+  padding: 0 24px 0 16px; }
+  .ingest-source-item .source-timezone-dropdown {
+    max-height: calc(100vh - 345px);
+    overflow: auto; }
+    .ingest-source-item .source-timezone-dropdown li:not(.divider) {
+      height: auto;
+      padding: 0 13px; }
+      .ingest-source-item .source-timezone-dropdown li:not(.divider) .timezone-info {
+        padding-left: 26px; }
+    .ingest-source-item .source-timezone-dropdown .timezone-checkmark {
+      position: absolute;
+      background: url(/static/img/checkmark.png) no-repeat;
+      width: 21px;
+      height: 21px; }
+  .ingest-source-item .caret {
+    color: #666; }
+  .ingest-source-item .ingest-source-item-select {
+    float: right;
+    cursor: pointer; }
+  .ingest-source-item .highlighted-var {
+    font-weight: bold; }
+  .ingest-source-item.use-headers-settings {
+    min-width: 160px; }
+  .ingest-source-item.showing-fields-settings {
+    min-width: 125px; }
+    .ingest-source-item.showing-fields-settings .dropdown-menu {
+      max-width: 360px; }
+  .ingest-source-item.start-section-title {
+    padding-top: 2px;
+    margin: 0;
+    font-size: 12px;
+    line-height: 15px;
+    color: #ddd;
+    cursor: pointer;
+    white-space: nowrap; }
+    .ingest-source-item.start-section-title .refresh-data-string {
+      padding-left: 2px; }
+    @media only screen and (max-width: 934px) {
+      .ingest-source-item.start-section-title .file-settings-description {
+        display: none; } }
+    .ingest-source-item.start-section-title b {
+      color: white;
+      font-size: 13px; }
+  .ingest-source-item.start-section-title, .ingest-source-item:last-child {
+    border-bottom: none; }
+
+.ingest-other-settings-dropdown-wrapper {
+  margin: 0 -24px 0 -16px; }
+
+.limit-settings-dropdown .limit-settings-pill-wrapper {
+  position: relative;
+  padding: 10px 16px;
+  margin: 0; }
+  .limit-settings-dropdown .limit-settings-pill-wrapper .info-button {
+    position: absolute;
+    top: 14px;
+    right: 2px;
+    margin: 0; }
+  .limit-settings-dropdown .limit-settings-pill-wrapper .limit-settings-pill-section {
+    position: relative;
+    display: flex;
+    align-items: center; }
+    .limit-settings-dropdown .limit-settings-pill-wrapper .limit-settings-pill-section .limit-settings-pill-caption {
+      flex-grow: 1;
+      font-weight: bold;
+      font-size: 13px; }
+    .limit-settings-dropdown .limit-settings-pill-wrapper .limit-settings-pill-section .limit-settings-select {
+      display: flex;
+      width: 165px;
+      justify-content: flex-end;
+      padding-right: 10px;
+      outline: none; }
+    .limit-settings-dropdown .limit-settings-pill-wrapper .limit-settings-pill-section .limit-item-value {
+      display: block;
+      line-height: 2.15;
+      height: 27px;
+      color: #333;
+      white-space: nowrap;
+      overflow: hidden;
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis; }
+      .limit-settings-dropdown .limit-settings-pill-wrapper .limit-settings-pill-section .limit-item-value .caret {
+        color: #666;
+        margin-left: 4px; }
+    .limit-settings-dropdown .limit-settings-pill-wrapper .limit-settings-pill-section .dropdown-menu {
+      width: 200px; }
+      .limit-settings-dropdown .limit-settings-pill-wrapper .limit-settings-pill-section .dropdown-menu .dropdown-menuitem.selected {
+        font-weight: bold;
+        background: url(/static/img/checkmark.png) 2% 49% no-repeat; }
+        .limit-settings-dropdown .limit-settings-pill-wrapper .limit-settings-pill-section .dropdown-menu .dropdown-menuitem.selected:hover {
+          background-color: #eee;
+          border-color: #eee; }
+    .limit-settings-dropdown .limit-settings-pill-wrapper .limit-settings-pill-section .limit-input-wrapper {
+      width: 62px; }
+      .limit-settings-dropdown .limit-settings-pill-wrapper .limit-settings-pill-section .limit-input-wrapper input {
+        min-width: 62px;
+        border: 1px solid #ededed;
+        border-radius: 2px;
+        padding: 5px 10px; }
+        .limit-settings-dropdown .limit-settings-pill-wrapper .limit-settings-pill-section .limit-input-wrapper input[type="number"] {
+          padding-right: 0;
+          -moz-appearance: textfield; }
+          .limit-settings-dropdown .limit-settings-pill-wrapper .limit-settings-pill-section .limit-input-wrapper input[type="number"]::-webkit-outer-spin-button, .limit-settings-dropdown .limit-settings-pill-wrapper .limit-settings-pill-section .limit-input-wrapper input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0; }

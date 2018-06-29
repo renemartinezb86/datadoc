@@ -1,0 +1,1 @@
+alter table file add column preview_descriptor bigint;

@@ -1,0 +1,1 @@
+ALTER TABLE table_schema ADD COLUMN last_commit_duration bigint;

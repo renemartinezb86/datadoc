@@ -1,0 +1,8 @@
+[
+  {
+    "origin": ["https://*datadocs.com", "http://localhost:9100"],
+    "responseHeader": ["*"],
+    "method": ["PUT", "POST"],
+    "maxAgeSeconds": 3600
+  }
+]

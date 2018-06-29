@@ -1,0 +1,65 @@
+.data-type-modal {
+  table-layout: fixed; }
+  .data-type-modal .dropdown-option {
+    font-size: 13px;
+    margin-top: 35px; }
+    .data-type-modal .dropdown-option thead > tr > th,
+    .data-type-modal .dropdown-option tbody > tr > td {
+      padding: 6px 15px; }
+    .data-type-modal .dropdown-option thead > tr, .data-type-modal .dropdown-option th {
+      background-color: #f4f4f4;
+      border-bottom-width: 1px; }
+    .data-type-modal .dropdown-option tbody > tr > td.example-value {
+      color: #666;
+      font-style: italic;
+      max-width: 100px;
+      word-wrap: break-word; }
+    .data-type-modal .dropdown-option .header {
+      color: black !important;
+      cursor: default !important; }
+    .data-type-modal .dropdown-option .modal-text-input {
+      border: solid 1px transparent;
+      outline: none;
+      border-radius: 3px;
+      -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+      -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+      transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s; }
+      .data-type-modal .dropdown-option .modal-text-input:hover {
+        border: 1px solid #e5e5e5; }
+      .data-type-modal .dropdown-option .modal-text-input:focus {
+        border: 1px solid #4d90fe; }
+    .data-type-modal .dropdown-option .text {
+      width: 180px;
+      color: #000; }
+    .data-type-modal .dropdown-option .select {
+      margin-left: 10px;
+      white-space: nowrap;
+      position: relative;
+      cursor: pointer; }
+      .data-type-modal .dropdown-option .select .dropdown-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; }
+        .data-type-modal .dropdown-option .select .dropdown-toggle .icon {
+          opacity: 0.3;
+          height: 24px;
+          width: 24px;
+          display: inline-block; }
+          .data-type-modal .dropdown-option .select .dropdown-toggle .icon.number {
+            background: url("/static/img/visualization/types/number.png"); }
+          .data-type-modal .dropdown-option .select .dropdown-toggle .icon.string {
+            background: url("/static/img/visualization/types/string.png"); }
+          .data-type-modal .dropdown-option .select .dropdown-toggle .icon.boolean {
+            background: url("/static/img/visualization/types/boolean.png"); }
+          .data-type-modal .dropdown-option .select .dropdown-toggle .icon.time {
+            background: url("/static/img/visualization/types/time.png"); }
+          .data-type-modal .dropdown-option .select .dropdown-toggle .icon.date {
+            background: url("/static/img/visualization/types/date.png"); }
+  .data-type-modal .column-list {
+    padding-top: 20px;
+    max-height: 400px;
+    overflow-y: auto; }
+  .data-type-modal .re-save-notification {
+    width: 240px;
+    font-size: 13px;
+    line-height: 15px; }

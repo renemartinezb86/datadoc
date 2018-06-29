@@ -1,0 +1,1 @@
+ALTER TABLE column_info ADD COLUMN repeated BOOLEAN DEFAULT false;

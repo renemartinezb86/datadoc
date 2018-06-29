@@ -1,0 +1,206 @@
+.auth-logo-wrapper {
+  display: none;
+  justify-content: center;
+  background: #fff;
+  padding: 20px; }
+  .auth-logo-wrapper .brand-logo {
+    padding: 0;
+    background: url(/static/img/datadocs-logo.svg) center center/cover no-repeat;
+    min-width: 15em;
+    min-height: 4em; }
+  @media only screen and (max-device-width: 1024px) {
+    .auth-logo-wrapper {
+      display: flex;
+      position: absolute;
+      width: 100%;
+      z-index: 1; } }
+
+@media only screen and (max-device-width: 1024px) {
+  .login-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-top: 96px; } }
+
+.login-panel .login-content-wrapper, .login-panel .register-content-wrapper, .login-panel .forgot-password-content-wrapper {
+  height: 100vh; }
+
+.login-panel .login-content-wrapper {
+  min-height: 450px; }
+  @media only screen and (max-device-width: 1024px) {
+    .login-panel .login-content-wrapper {
+      height: auto;
+      padding: 0;
+      margin: 0;
+      min-height: auto; } }
+
+.login-panel .register-content-wrapper {
+  min-height: 610px; }
+  @media only screen and (max-device-width: 1024px) {
+    .login-panel .register-content-wrapper {
+      height: auto;
+      padding: 0;
+      margin: 0;
+      min-height: auto; } }
+
+.login-panel .forgot-password-content-wrapper {
+  min-height: 390px; }
+  @media only screen and (max-device-width: 1024px) {
+    .login-panel .forgot-password-content-wrapper {
+      height: auto;
+      padding: 0;
+      margin: 0;
+      min-height: auto; } }
+
+.login-panel .content {
+  width: 355px;
+  position: relative;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+  @media only screen and (max-device-width: 1024px) {
+    .login-panel .content {
+      transform: none;
+      position: static; } }
+
+.login-panel .panel {
+  display: flex;
+  flex-flow: column; }
+  @media only screen and (max-device-width: 1024px) {
+    .login-panel .panel {
+      margin: 0; } }
+
+.login-panel .panel-content-wrapper section {
+  padding-bottom: 13px; }
+  .login-panel .panel-content-wrapper section input {
+    height: 45px;
+    border-radius: 0; }
+    .login-panel .panel-content-wrapper section input::-webkit-input-placeholder {
+      color: #aaa; }
+    .login-panel .panel-content-wrapper section input::-moz-placeholder {
+      color: #aaa; }
+    .login-panel .panel-content-wrapper section input:-moz-placeholder {
+      color: #aaa; }
+    .login-panel .panel-content-wrapper section input:-ms-input-placeholder {
+      color: #aaa; }
+
+.login-panel .panel-content-wrapper section.error-section {
+  padding-bottom: 0; }
+
+.login-panel .panel-content-wrapper section.sign-in-button-wrapper {
+  padding-top: 15px; }
+  .login-panel .panel-content-wrapper section.sign-in-button-wrapper button.sign-in {
+    width: 100%;
+    border: 1px solid #3079ed;
+    color: #fff;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+    background-color: #4d90fe;
+    background-image: -webkit-linear-gradient(top, #4d90fe, #4787ed);
+    font-size: 13px;
+    font-weight: 700;
+    height: 36px; }
+    .login-panel .panel-content-wrapper section.sign-in-button-wrapper button.sign-in:hover, .login-panel .panel-content-wrapper section.sign-in-button-wrapper button.sign-in:active {
+      background-color: #357ae8;
+      background-image: -webkit-linear-gradient(top, #4d90fe, #357ae8);
+      background-image: -moz-linear-gradient(top, #4d90fe, #357ae8);
+      background-image: -ms-linear-gradient(top, #4d90fe, #357ae8);
+      background-image: -o-linear-gradient(top, #4d90fe, #357ae8);
+      background-image: linear-gradient(top, #4d90fe, #357ae8); }
+    .login-panel .panel-content-wrapper section.sign-in-button-wrapper button.sign-in:hover {
+      border: 1px solid #2f5bb7;
+      color: #fff;
+      text-shadow: 0 1px rgba(0, 0, 0, 0.3); }
+    .login-panel .panel-content-wrapper section.sign-in-button-wrapper button.sign-in:active {
+      -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+      -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3); }
+
+.login-panel .panel {
+  background: #fbfbfb; }
+
+.login-panel .panel-heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90px;
+  border-bottom: none;
+  background: #fbfbfb; }
+
+.login-panel .panel-title {
+  -webkit-font-smoothing: antialiased;
+  font-size: 18px;
+  font-weight: normal;
+  color: #555; }
+
+.login-panel .panel-body {
+  padding: 0 35px 40px 45px; }
+
+.login-panel .input-group-addon {
+  background-color: #f5f5f5; }
+
+.login-panel .forgot-password {
+  color: #427fed;
+  font-size: 12px; }
+
+.login-panel .error {
+  color: #dd4b39; }
+
+.login-panel .revision {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 12px;
+  color: #bbb;
+  padding-right: 10px; }
+  @media only screen and (max-device-width: 1024px) {
+    .login-panel .revision {
+      font-size: 13px;
+      display: flex;
+      position: static;
+      padding-right: 0;
+      margin: 15px 0; } }
+
+.image-choosing {
+  font-weight: normal;
+  color: #555;
+  cursor: text; }
+  .image-choosing.placeholder {
+    color: #999; }
+
+.uploading-avatar-backdrop {
+  background: rgba(255, 255, 255, 0.25);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transition: background .5s ease; }
+  .uploading-avatar-backdrop .avatar-spinner {
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+    border-radius: 100%;
+    -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+    animation: sk-scaleout 1.0s infinite ease-in-out; }
+
+@-webkit-keyframes sk-scaleout {
+  0% {
+    -webkit-transform: scale(0); }
+  100% {
+    -webkit-transform: scale(1);
+    opacity: 0; } }
+
+@keyframes sk-scaleout {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0); }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0; } }

@@ -1,0 +1,1 @@
+ALTER TABLE table_schema ADD COLUMN total_ingested BIGINT;

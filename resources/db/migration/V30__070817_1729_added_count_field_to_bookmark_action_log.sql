@@ -1,0 +1,1 @@
+ALTER TABLE bookmark_action_log ADD COLUMN count_query BOOLEAN DEFAULT FALSE;

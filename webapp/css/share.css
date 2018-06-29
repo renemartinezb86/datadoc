@@ -1,0 +1,735 @@
+.ui-select-choices-row:nth-child(12n+1) .random-color,
+.sharing-member-list-item:nth-child(12n+1) .random-color {
+  background: #F44336 !important; }
+
+.ui-select-choices-row:nth-child(12n+2) .random-color,
+.sharing-member-list-item:nth-child(12n+2) .random-color {
+  background: #E91E63 !important; }
+
+.ui-select-choices-row:nth-child(12n+3) .random-color,
+.sharing-member-list-item:nth-child(12n+3) .random-color {
+  background: #03A9F4 !important; }
+
+.ui-select-choices-row:nth-child(12n+4) .random-color,
+.sharing-member-list-item:nth-child(12n+4) .random-color {
+  background: #E91E63 !important; }
+
+.ui-select-choices-row:nth-child(12n+5) .random-color,
+.sharing-member-list-item:nth-child(12n+5) .random-color {
+  background: #F44336 !important; }
+
+.ui-select-choices-row:nth-child(12n+6) .random-color,
+.sharing-member-list-item:nth-child(12n+6) .random-color {
+  background: #9C27B0 !important; }
+
+.ui-select-choices-row:nth-child(12n+7) .random-color,
+.sharing-member-list-item:nth-child(12n+7) .random-color {
+  background: #03A9F4 !important; }
+
+.ui-select-choices-row:nth-child(12n+8) .random-color,
+.sharing-member-list-item:nth-child(12n+8) .random-color {
+  background: #FF9800 !important; }
+
+.ui-select-choices-row:nth-child(12n+9) .random-color,
+.sharing-member-list-item:nth-child(12n+9) .random-color {
+  background: #E91E63 !important; }
+
+.ui-select-choices-row:nth-child(12n+10) .random-color,
+.sharing-member-list-item:nth-child(12n+10) .random-color {
+  background: #2196F3 !important; }
+
+.ui-select-choices-row:nth-child(12n+11) .random-color,
+.sharing-member-list-item:nth-child(12n+11) .random-color {
+  background: #00BCD4 !important; }
+
+.ui-select-choices-row:nth-child(12n+12) .random-color,
+.sharing-member-list-item:nth-child(12n+12) .random-color {
+  background: #009688 !important; }
+
+.ui-select-choices-row:nth-child(12n+13) .random-color,
+.sharing-member-list-item:nth-child(12n+13) .random-color {
+  background: #00BCD4 !important; }
+
+.ui-select-choices-row:nth-child(12n+14) .random-color,
+.sharing-member-list-item:nth-child(12n+14) .random-color {
+  background: #00BCD4 !important; }
+
+.ui-select-choices-row:nth-child(12n+15) .random-color,
+.sharing-member-list-item:nth-child(12n+15) .random-color {
+  background: #009688 !important; }
+
+.ui-select-choices-row:nth-child(12n+16) .random-color,
+.sharing-member-list-item:nth-child(12n+16) .random-color {
+  background: #2196F3 !important; }
+
+.ui-select-choices-row:nth-child(12n+17) .random-color,
+.sharing-member-list-item:nth-child(12n+17) .random-color {
+  background: #9C27B0 !important; }
+
+.ui-select-choices-row:nth-child(12n+18) .random-color,
+.sharing-member-list-item:nth-child(12n+18) .random-color {
+  background: #03A9F4 !important; }
+
+.ui-select-choices-row:nth-child(12n+19) .random-color,
+.sharing-member-list-item:nth-child(12n+19) .random-color {
+  background: #F44336 !important; }
+
+.ui-select-choices-row:nth-child(12n+20) .random-color,
+.sharing-member-list-item:nth-child(12n+20) .random-color {
+  background: #009688 !important; }
+
+.share-window {
+  display: flex !important;
+  justify-content: center;
+  align-items: center; }
+
+/* ----- Helpers ----- */
+.share {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 10px; }
+
+.section {
+  border-bottom: 1px solid #e8e8e8;
+  padding: 16px 24px 15px; }
+
+.font-strong {
+  font-weight: 600; }
+
+.row-flex, .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .contacts-menu .contacts-menu-item .contact-content, .share-window .modal-dialog .share-modal .share-modal-main-section .link-info, .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%; }
+
+/* ----- Helpers ----- */
+.share-button {
+  box-shadow: none;
+  background: #4d90fe -webkit-linear-gradient(top, #4d90fe, #4787ed);
+  border: 1px solid #3079ed;
+  font-weight: 600;
+  color: #fff !important;
+  font-size: 11px;
+  min-width: 54px;
+  height: 27px;
+  padding: 0 8px; }
+  .share-button:hover {
+    background: #357ae8 -webkit-linear-gradient(top, #4d90fe, #357ae8);
+    border: 1px solid #2f5bb7; }
+  .share-button:active {
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+    background: #357ae8;
+    border: 1px solid #2f5bb7; }
+  .share-button .share-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(//ssl.gstatic.com/docs/documents/share/images/sprite-22.svg) no-repeat 0 -48px;
+    margin: -3px 2px 0px -5px;
+    vertical-align: middle; }
+
+.share-window .sprite, .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper .share-button-dropdown .sharing-access-bubble-menu .sharing-access-menu-item .bubble-check .check-icon, .share-window .modal-dialog .share-modal .share-modal-main-section .link-info .link-info-icon .link-icon, .share-window .modal-dialog .share-modal .modal-footer .folder-settings .text-button .settings-icon {
+  width: 16px;
+  height: 16px;
+  background: url(https://cfl.dropboxstatic.com/static/images/sprites/web_sprites-vflT1pLW1.png) no-repeat 0 16px; }
+
+.share-window .modal-dialog {
+  border-radius: 5px;
+  -webkit-box-shadow: 1px 1px 2px rgba(61, 70, 77, 0.5);
+  box-shadow: 1px 1px 2px rgba(61, 70, 77, 0.5);
+  width: 540px;
+  font-size: 13px; }
+  .share-window .modal-dialog .share-modal .modal-header {
+    background: #fafafa;
+    text-align: left;
+    padding: 24px 24px 20px; }
+    .share-window .modal-dialog .share-modal .modal-header .modal-title {
+      width: 70%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #222;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 24px; }
+    .share-window .modal-dialog .share-modal .modal-header .close {
+      margin-top: 0; }
+  .share-window .modal-dialog .share-modal .modal-body {
+    padding: 24px; }
+    .share-window .modal-dialog .share-modal .modal-body .share-with-label {
+      color: #686868;
+      margin-bottom: 5px; }
+    .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      width: 100%; }
+      .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input {
+        border: 1px solid #E0E0E0;
+        border-bottom-color: #CBCBCB;
+        border-radius: 0;
+        padding: 6px 0 3px 8px;
+        box-shadow: 0 1px 5px -2px #7a7a7a;
+        min-width: 0;
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        vertical-align: middle;
+        width: 100%;
+        max-height: 119px;
+        margin: auto 5px auto 0;
+        font-size: 13px;
+        outline: 0; }
+        .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .uis-transclude-tag-content {
+          display: flex;
+          align-items: center; }
+          .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .uis-transclude-tag-content .person-icon {
+            display: flex;
+            align-items: center; }
+            .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .uis-transclude-tag-content .person-icon svg {
+              fill: #646464;
+              height: 18px;
+              width: 18px; }
+        .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .ui-select-match-item {
+          background-color: #E0E0E0; }
+          .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .ui-select-match-item.invalid-match {
+            background-color: #FCBCBC; }
+        .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .ui-select-match-close {
+          color: #595959; }
+        .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .contacts-menu {
+          padding: 0;
+          margin: 0;
+          top: 35px;
+          min-width: 50px;
+          list-style-type: none;
+          background: #fff;
+          background-clip: padding-box;
+          cursor: default;
+          border: 0;
+          -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
+          .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .contacts-menu a {
+            background-color: transparent; }
+            .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .contacts-menu a:hover {
+              color: #007ee5;
+              background-color: transparent; }
+          .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .contacts-menu .ui-select-choices-row {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 3px; }
+            .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .contacts-menu .ui-select-choices-row:not(:first-child) {
+              border-top: none; }
+          .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .contacts-menu .contacts-menu-item {
+            padding: 8px;
+            display: block;
+            margin: 0;
+            font-size: 13px;
+            list-style-type: none;
+            border-top: 1px solid transparent;
+            border-bottom: 1px solid transparent;
+            cursor: pointer; }
+            .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .contacts-menu .contacts-menu-item:hover {
+              background-color: rgba(204, 230, 250, 0.7);
+              color: #007ee5; }
+            .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .contacts-menu .contacts-menu-item .contact-content .contact-avatar {
+              border: none;
+              height: 32px;
+              width: 32px;
+              min-width: 32px;
+              overflow: hidden;
+              color: #fff;
+              border-radius: 50%;
+              perspective: 1px;
+              position: relative;
+              -webkit-perspective: 1px;
+              -webkit-box-sizing: border-box;
+              box-sizing: border-box;
+              text-align: center;
+              display: inline-block;
+              font-weight: 600;
+              font-size: 13px;
+              vertical-align: middle;
+              line-height: 32px;
+              margin-right: 8px; }
+              .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .contacts-menu .contacts-menu-item .contact-content .contact-avatar:after {
+                content: attr(data-initials);
+                -webkit-box-shadow: none;
+                box-shadow: none;
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                pointer-events: none; }
+              .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .contacts-menu .contacts-menu-item .contact-content .contact-avatar img {
+                width: 100%;
+                height: 100%; }
+            .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .contacts-menu .contacts-menu-item .contact-content .text {
+              line-height: 18.2px; }
+          .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper #share-with-input .contacts-menu .ui-select-choices-row:not(:last-child) a li {
+            border-bottom-color: rgba(37, 40, 43, 0.1); }
+      .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper .share-button-dropdown .share-access-button {
+        color: #47525d;
+        background: #f3f3f3;
+        padding: 7px 8px;
+        display: inline-block;
+        font-size: 13px;
+        white-space: nowrap;
+        text-align: center;
+        text-decoration: none;
+        border: 1px solid #d0d4d9;
+        border-radius: 3px;
+        cursor: pointer; }
+        .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper .share-button-dropdown .share-access-button .gray-arrow {
+          display: inline-block;
+          padding: 2px 2px 0 6px; }
+          .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper .share-button-dropdown .share-access-button .gray-arrow .arrow-down-gray {
+            display: inline-block;
+            width: 9px;
+            height: 5px;
+            background: url(https://cfl.dropboxstatic.com/static/images/sprites/web_sprites-vflT1pLW1.png) no-repeat left -11792px; }
+        .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper .share-button-dropdown .share-access-button:focus {
+          -webkit-box-shadow: 0 0 0 2px rgba(0, 126, 229, 0.3);
+          box-shadow: 0 0 0 2px rgba(0, 126, 229, 0.3);
+          outline: none; }
+      .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper .share-button-dropdown .sharing-access-bubble-menu {
+        padding: 0;
+        margin: 0;
+        top: 40px;
+        min-width: 50px;
+        list-style-type: none;
+        background: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        cursor: default;
+        border-radius: 3px;
+        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
+        .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper .share-button-dropdown .sharing-access-bubble-menu .sharing-access-menu-item {
+          display: block;
+          border-bottom: 1px solid #e8e8e8;
+          line-height: 20px;
+          min-width: 250px;
+          cursor: pointer;
+          padding: 10px 20px;
+          white-space: nowrap;
+          text-align: left;
+          background-color: transparent; }
+          .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper .share-button-dropdown .sharing-access-bubble-menu .sharing-access-menu-item:hover {
+            background-color: rgba(204, 230, 250, 0.3); }
+          .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper .share-button-dropdown .sharing-access-bubble-menu .sharing-access-menu-item.selected .bubble-check {
+            visibility: visible; }
+          .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper .share-button-dropdown .sharing-access-bubble-menu .sharing-access-menu-item .bubble-check {
+            display: inline-block;
+            visibility: hidden;
+            width: 30px; }
+            .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper .share-button-dropdown .sharing-access-bubble-menu .sharing-access-menu-item .bubble-check .check-icon {
+              background-position: left -8617px;
+              width: 12px;
+              height: 10px; }
+          .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper .share-button-dropdown .sharing-access-bubble-menu .sharing-access-menu-item .bubble-text {
+            display: inline-block;
+            vertical-align: top;
+            width: 220px; }
+            .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper .share-button-dropdown .sharing-access-bubble-menu .sharing-access-menu-item .bubble-text .title {
+              white-space: nowrap;
+              color: #000;
+              font-size: 14px; }
+            .share-window .modal-dialog .share-modal .modal-body .share-with-wrapper .share-button-dropdown .sharing-access-bubble-menu .sharing-access-menu-item .bubble-text .description {
+              white-space: normal;
+              color: #7b8994;
+              font-size: 12px; }
+  .share-window .modal-dialog .share-modal .invalid-results-section {
+    background: #EF928A;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 13px;
+    margin-bottom: 6px; }
+  .share-window .modal-dialog .share-modal .share-sources-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    margin-bottom: 6px; }
+    .share-window .modal-dialog .share-modal .share-sources-wrapper .share-sources-checkbox {
+      margin-right: 5px; }
+      .share-window .modal-dialog .share-modal .share-sources-wrapper .share-sources-checkbox label {
+        cursor: pointer;
+        margin: 0;
+        top: 0; }
+  .share-window .modal-dialog .share-modal .share-modal-main-section {
+    padding: 0;
+    max-height: 220px; }
+    .share-window .modal-dialog .share-modal .share-modal-main-section .link-info {
+      padding-left: 24px;
+      padding-right: 24px;
+      margin-bottom: 16px; }
+      .share-window .modal-dialog .share-modal .share-modal-main-section .link-info.link-created .link-info-icon {
+        background-color: #d0d4d9; }
+        .share-window .modal-dialog .share-modal .share-modal-main-section .link-info.link-created .link-info-icon .link-icon {
+          background-position: left -7855px; }
+      .share-window .modal-dialog .share-modal .share-modal-main-section .link-info.link-created .link-details .description {
+        color: #000; }
+      .share-window .modal-dialog .share-modal .share-modal-main-section .link-info.link-created .link-details .link-holder {
+        margin-right: 50px; }
+        .share-window .modal-dialog .share-modal .share-modal-main-section .link-info.link-created .link-details .link-holder .generated-link {
+          border-radius: 3px;
+          border: 1px solid #ccc;
+          height: 26px;
+          line-height: 16px;
+          padding: 0 5px;
+          width: 100%;
+          font-size: 12px;
+          cursor: text; }
+          .share-window .modal-dialog .share-modal .share-modal-main-section .link-info.link-created .link-details .link-holder .generated-link:focus {
+            border-color: #66afe9;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
+      .share-window .modal-dialog .share-modal .share-modal-main-section .link-info.link-created .link-created-action {
+        display: inherit;
+        -webkit-box-align: inherit;
+        -ms-flex-align: inherit;
+        align-items: inherit;
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        vertical-align: middle;
+        white-space: nowrap;
+        list-style-type: none;
+        margin-right: 0; }
+        .share-window .modal-dialog .share-modal .share-modal-main-section .link-info.link-created .link-created-action .sharing-link-status {
+          margin: 0;
+          padding: 0;
+          cursor: pointer;
+          color: #7b8994;
+          background: 0 0;
+          border: 0; }
+          .share-window .modal-dialog .share-modal .share-modal-main-section .link-info.link-created .link-created-action .sharing-link-status:hover {
+            color: #2895F1; }
+      .share-window .modal-dialog .share-modal .share-modal-main-section .link-info .link-info-icon {
+        border: 2px solid #d0d4d9;
+        border-radius: 50%;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        display: inline-block;
+        height: 32px;
+        padding: 7px;
+        width: 32px;
+        background-color: #fff; }
+        .share-window .modal-dialog .share-modal .share-modal-main-section .link-info .link-info-icon .link-icon {
+          background-position: left -7839px;
+          width: 14px;
+          height: 14px; }
+      .share-window .modal-dialog .share-modal .share-modal-main-section .link-info .link-details {
+        min-width: 0;
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        vertical-align: middle;
+        width: 100%;
+        font-size: 13px;
+        color: #6A7C8F;
+        padding-left: 16px; }
+        .share-window .modal-dialog .share-modal .share-modal-main-section .link-info .link-details .shared-states-wrapper {
+          display: flex; }
+          .share-window .modal-dialog .share-modal .share-modal-main-section .link-info .link-details .shared-states-wrapper .shared-states-description {
+            display: flex;
+            cursor: pointer; }
+          .share-window .modal-dialog .share-modal .share-modal-main-section .link-info .link-details .shared-states-wrapper .shared-states-title {
+            margin-right: 5px; }
+          .share-window .modal-dialog .share-modal .share-modal-main-section .link-info .link-details .shared-states-wrapper .shared-states-action .gray-arrow {
+            padding-left: 0; }
+      .share-window .modal-dialog .share-modal .share-modal-main-section .link-info .link-action {
+        display: inherit;
+        -webkit-box-align: inherit;
+        -ms-flex-align: inherit;
+        align-items: inherit;
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        vertical-align: middle;
+        white-space: nowrap;
+        list-style-type: none;
+        margin-right: 0; }
+        .share-window .modal-dialog .share-modal .share-modal-main-section .link-info .link-action .button-as-link {
+          margin: 0;
+          padding: 0;
+          cursor: pointer;
+          color: #2895F1;
+          background: none;
+          border: 0; }
+          .share-window .modal-dialog .share-modal .share-modal-main-section .link-info .link-action .button-as-link:hover {
+            text-decoration: underline; }
+      .share-window .modal-dialog .share-modal .share-modal-main-section .link-info .gray-arrow, .share-window .modal-dialog .share-modal .share-modal-main-section .link-info .blue-arrow {
+        display: inline-block;
+        padding-left: 3px; }
+      .share-window .modal-dialog .share-modal .share-modal-main-section .link-info .gray-arrow .arrow-down-gray, .share-window .modal-dialog .share-modal .share-modal-main-section .link-info .blue-arrow .arrow-down-blue {
+        display: inline-block;
+        width: 9px;
+        height: 6px; }
+      .share-window .modal-dialog .share-modal .share-modal-main-section .link-info .gray-arrow .arrow-down-gray {
+        background: url(https://cfl.dropboxstatic.com/static/images/sprites/web_sprites-vflT1pLW1.png) no-repeat left -11792px; }
+      .share-window .modal-dialog .share-modal .share-modal-main-section .link-info .blue-arrow .arrow-down-blue {
+        background: url(https://cfl.dropboxstatic.com/static/images/sprites/web_sprites-vflT1pLW1.png) no-repeat left -11785px; }
+    .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list {
+      padding-left: 24px;
+      padding-right: 24px;
+      margin-bottom: 16px; }
+      .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item {
+        margin-bottom: 16px; }
+        .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item .member-avatar {
+          border: none;
+          height: 32px;
+          width: 32px;
+          min-width: 32px;
+          overflow: hidden;
+          color: #fff;
+          border-radius: 50%;
+          perspective: 1px;
+          position: relative;
+          -webkit-perspective: 1px;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+          text-align: center;
+          display: inline-block;
+          font-weight: 600;
+          font-size: 13px;
+          vertical-align: middle;
+          line-height: 32px;
+          margin-right: 8px; }
+          .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item .member-avatar:after {
+            content: attr(data-initials);
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            pointer-events: none; }
+          .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item .member-avatar img {
+            width: 100%;
+            height: 100%; }
+        .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item .sharing-member-info {
+          min-width: 0;
+          -webkit-box-flex: 1;
+          -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+          vertical-align: middle;
+          width: 100%;
+          font-size: 13px;
+          color: #6a7c8f;
+          padding-left: 16px; }
+          .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item .sharing-member-info .member-name-title {
+            color: #1B2733;
+            font-weight: normal; }
+          .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item .sharing-member-info .member-email {
+            color: #7b8994; }
+            .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item .sharing-member-info .member-email.no-member-name {
+              color: #1B2733;
+              font-weight: normal; }
+        .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item .member-role {
+          display: inherit;
+          -webkit-box-align: inherit;
+          -ms-flex-align: inherit;
+          align-items: inherit;
+          -webkit-box-flex: 0;
+          -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+          vertical-align: middle;
+          white-space: nowrap;
+          list-style-type: none;
+          margin-right: 0; }
+          .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item .member-role .button-as-link.user-role-link {
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            color: #7b8994;
+            background: 0 0;
+            border: 0; }
+            .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item .member-role .button-as-link.user-role-link .gray-arrow {
+              display: inline-block;
+              padding-left: 3px; }
+              .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item .member-role .button-as-link.user-role-link .gray-arrow .arrow-down-gray {
+                display: inline-block;
+                width: 9px;
+                height: 5px;
+                background: url(https://cfl.dropboxstatic.com/static/images/sprites/web_sprites-vflT1pLW1.png) no-repeat left -11792px; }
+            .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item .member-role .button-as-link.user-role-link .blue-arrow {
+              display: inline-block;
+              padding-left: 3px; }
+              .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item .member-role .button-as-link.user-role-link .blue-arrow .arrow-down-blue {
+                display: inline-block;
+                width: 9px;
+                height: 5px;
+                background: url(https://cfl.dropboxstatic.com/static/images/sprites/web_sprites-vflT1pLW1.png) no-repeat left -11785px; }
+          .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item .member-role .button-as-link.user-role-owner {
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            color: #7b8994;
+            background: 0 0;
+            border: 0; }
+            .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item .member-role .button-as-link.user-role-owner:focus {
+              outline: none;
+              -webkit-box-shadow: 0 0 0 2px #cce6fa;
+              box-shadow: 0 0 0 2px #cce6fa;
+              border-radius: 3px; }
+          .share-window .modal-dialog .share-modal .share-modal-main-section .sharing-member-list .sharing-member-list-item .member-role:hover .user-role-link {
+            color: #2895f1;
+            text-decoration: underline; }
+    .share-window .modal-dialog .share-modal .share-modal-main-section.message-pad-horizontal {
+      width: 100%;
+      padding-left: 24px !important;
+      padding-right: 24px !important; }
+      .share-window .modal-dialog .share-modal .share-modal-main-section.message-pad-horizontal .message-wrapper {
+        height: 140px; }
+        .share-window .modal-dialog .share-modal .share-modal-main-section.message-pad-horizontal .message-wrapper textarea {
+          height: 100%;
+          width: 100%;
+          resize: none;
+          font-size: 13px;
+          outline: 0;
+          border: 1px solid #e0e0e0;
+          border-bottom-color: #cbcbcb;
+          border-radius: 0;
+          padding: 10px;
+          box-shadow: 0 1px 5px -2px #7a7a7a; }
+  .share-window .modal-dialog .share-modal .modal-footer {
+    background: #fff;
+    border: none;
+    padding: 24px; }
+    .share-window .modal-dialog .share-modal .modal-footer .folder-settings {
+      visibility: hidden;
+      float: left; }
+      .share-window .modal-dialog .share-modal .modal-footer .folder-settings .text-button {
+        color: #7b8994;
+        background-color: #fff;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
+        outline: 0;
+        height: 32px;
+        border: 0; }
+        .share-window .modal-dialog .share-modal .modal-footer .folder-settings .text-button .settings-icon {
+          margin: -2px 8px auto auto;
+          display: inline-block;
+          vertical-align: middle;
+          background-position: left -11154px; }
+    .share-window .modal-dialog .share-modal .modal-footer .share-submit {
+      float: right; }
+      .share-window .modal-dialog .share-modal .modal-footer .share-submit .btn-primary-goog {
+        margin: 0; }
+      .share-window .modal-dialog .share-modal .modal-footer .share-submit .btn-default-flat-goog {
+        margin-right: 0; }
+      .share-window .modal-dialog .share-modal .modal-footer .share-submit .share-send {
+        font-size: 12px;
+        color: #fff;
+        background-color: #007ee5;
+        background: -webkit-gradient(linear, left top, left bottom, from(#007ee5), to(#0071ce));
+        background: linear-gradient(#007ee5, #0071ce);
+        font-weight: 600;
+        display: inline-block;
+        padding: 7px 12px;
+        line-height: 1.4;
+        text-align: center;
+        text-decoration: none;
+        border: 1px solid #0071ce;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-right: 7px;
+        text-transform: uppercase; }
+        .share-window .modal-dialog .share-modal .modal-footer .share-submit .share-send:hover {
+          background: #007ee5; }
+        .share-window .modal-dialog .share-modal .modal-footer .share-submit .share-send:focus {
+          -webkit-box-shadow: 0 0 0 2px rgba(0, 126, 229, 0.3);
+          box-shadow: 0 0 0 2px rgba(0, 126, 229, 0.3);
+          outline: none; }
+        .share-window .modal-dialog .share-modal .modal-footer .share-submit .share-send:active {
+          background: #0071ce; }
+      .share-window .modal-dialog .share-modal .modal-footer .share-submit .share-cancel {
+        background: #fff;
+        border: 1px solid #bbb;
+        color: #47525d;
+        font-weight: 600;
+        display: inline-block;
+        padding: 7px 12px;
+        line-height: 1.4;
+        border-radius: 3px;
+        font-size: 12px;
+        text-transform: uppercase; }
+        .share-window .modal-dialog .share-modal .modal-footer .share-submit .share-cancel:hover {
+          background: -webkit-gradient(linear, left top, left bottom, from(#fffffe), to(#f2f2f2));
+          background: linear-gradient(#fffffe, #f2f2f2); }
+        .share-window .modal-dialog .share-modal .modal-footer .share-submit .share-cancel:focus {
+          border: 1px solid #a0bacf;
+          -webkit-box-shadow: 0px 0px 0px 2px #a0d1fa;
+          box-shadow: 0px 0px 0px 2px #a0d1fa; }
+    .share-window .modal-dialog .share-modal .modal-footer:before {
+      content: " ";
+      display: table; }
+    .share-window .modal-dialog .share-modal .modal-footer:after {
+      content: "";
+      display: block;
+      clear: both;
+      visibility: hidden;
+      line-height: 0;
+      height: 0; }
+
+.sharing-member-bubble-menu {
+  padding: 0;
+  margin: 0;
+  min-width: 50px;
+  list-style-type: none;
+  background: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: default;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
+  .sharing-member-bubble-menu .sharing-member-menu-item {
+    display: block;
+    border-bottom: 1px solid #e8e8e8;
+    line-height: 20px;
+    min-width: 250px;
+    cursor: pointer;
+    padding: 10px 20px;
+    white-space: nowrap;
+    text-align: left;
+    background-color: transparent; }
+    .sharing-member-bubble-menu .sharing-member-menu-item:hover {
+      background-color: rgba(204, 230, 250, 0.3); }
+    .sharing-member-bubble-menu .sharing-member-menu-item.selected .bubble-check {
+      visibility: visible; }
+    .sharing-member-bubble-menu .sharing-member-menu-item .bubble-check {
+      display: inline-block;
+      visibility: hidden;
+      width: 30px; }
+      .sharing-member-bubble-menu .sharing-member-menu-item .bubble-check .check-icon {
+        background: url(https://cfl.dropboxstatic.com/static/images/sprites/web_sprites-vflT1pLW1.png) no-repeat left -8617px;
+        width: 12px;
+        height: 10px; }
+    .sharing-member-bubble-menu .sharing-member-menu-item .bubble-text {
+      display: inline-block;
+      vertical-align: top;
+      width: 220px; }
+      .sharing-member-bubble-menu .sharing-member-menu-item .bubble-text .title {
+        white-space: nowrap;
+        color: #000;
+        font-size: 14px; }
+        .sharing-member-bubble-menu .sharing-member-menu-item .bubble-text .title.title-danger {
+          color: #e82110; }
+      .sharing-member-bubble-menu .sharing-member-menu-item .bubble-text .description {
+        white-space: normal;
+        color: #7b8994;
+        font-size: 12px; }

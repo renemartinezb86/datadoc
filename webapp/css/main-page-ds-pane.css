@@ -1,0 +1,71 @@
+.main-page-ds-pane {
+  background-color: #fff; }
+  .main-page-ds-pane.no-sources {
+    background-color: #fff; }
+  .main-page-ds-pane .col-md-12 {
+    display: flex;
+    background-color: #fff;
+    border-right: 1px solid #e3e3e3;
+    border-left: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e3e3e3; }
+    .main-page-ds-pane .col-md-12 .empty-folder-description {
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      padding: 15px 7px; }
+  .main-page-ds-pane .upload-item {
+    height: 52px;
+    border-right: 1px solid #e3e3e3;
+    border-left: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e3e3e3;
+    background-color: #fff; }
+    .main-page-ds-pane .upload-item.drop-active {
+      background-color: #eef6ff;
+      box-shadow: inset 0 0 0 2px #0480be; }
+    .main-page-ds-pane .upload-item.selected {
+      background-color: #3E82F8 !important;
+      border-bottom: 1px solid transparent;
+      border-right: 1px solid #3E82F8;
+      border-left: 1px solid #3E82F8; }
+      .main-page-ds-pane .upload-item.selected .first-column .icon {
+        background: #fff; }
+      .main-page-ds-pane .upload-item.selected .first-column .ingesting-progress {
+        color: white; }
+      .main-page-ds-pane .upload-item.selected .name, .main-page-ds-pane .upload-item.selected .second-column, .main-page-ds-pane .upload-item.selected .third-column {
+        color: white; }
+    .main-page-ds-pane .upload-item.highlight-selected {
+      box-shadow: inset #FFFFFF 0 0 1px 1px;
+      outline: 1px solid #3E82F8;
+      border-bottom: none;
+      border-left: 1px solid transparent;
+      border-right: 1px solid transparent; }
+    .main-page-ds-pane .upload-item.highlight-non-selected {
+      box-shadow: inset #3E82F8 0 0 1px 1px;
+      outline: 1px solid #FFFFFF;
+      border-bottom: none;
+      border-left: 1px solid transparent;
+      border-right: 1px solid transparent; }
+    .main-page-ds-pane .upload-item.last {
+      border-bottom: none; }
+    .main-page-ds-pane .upload-item .name {
+      user-select: none; }
+      .main-page-ds-pane .upload-item .name > div {
+        user-select: none; }
+    @media only screen and (max-device-width: 1024px) {
+      .main-page-ds-pane .upload-item div[class*='col-']:first-of-type {
+        width: 100%; }
+      .main-page-ds-pane .upload-item div[class*='col-']:not(:first-of-type) {
+        display: none; } }
+  .main-page-ds-pane.last {
+    border-bottom: none; }
+    .main-page-ds-pane.last .upload-item.highlight-selected {
+      border-bottom: 1px solid #3E82F8 !important; }
+  .main-page-ds-pane .first-column {
+    padding: 8px 5px; }
+  .main-page-ds-pane .first-column .name {
+    margin-left: 10px; }
+    .main-page-ds-pane .first-column .name .has-subitems {
+      display: flex; }
+  .main-page-ds-pane .first-column .ingesting-progress {
+    color: gray;
+    opacity: .8; }

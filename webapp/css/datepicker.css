@@ -1,0 +1,172 @@
+.datepicker-range {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+  .datepicker-range div {
+    text-align: center; }
+    .datepicker-range div.datepicker {
+      width: 105px;
+      position: relative; }
+      .datepicker-range div.datepicker .focus-border-wrapper {
+        position: relative; }
+      .datepicker-range div.datepicker input {
+        border: none;
+        width: 100%;
+        background-color: #f5f5f5;
+        height: 36px;
+        text-align: center;
+        color: #000;
+        outline: none; }
+        .datepicker-range div.datepicker input[disabled] {
+          color: #ccc !important; }
+        .datepicker-range div.datepicker input::selection {
+          color: black;
+          background: #aed3fb; }
+        .datepicker-range div.datepicker input ~ .focus-border {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          width: 0;
+          height: 2px;
+          background-color: #3399FF;
+          transition: 0.4s; }
+        .datepicker-range div.datepicker input:focus ~ .focus-border {
+          width: 100%;
+          transition: 0.4s;
+          left: 0; }
+        .datepicker-range div.datepicker input.ng-invalid {
+          border: none; }
+          .datepicker-range div.datepicker input.ng-invalid ~ .focus-border {
+            width: 100%;
+            left: 0;
+            background-color: #F44336; }
+      .datepicker-range div.datepicker .timepicker-wrapper {
+        margin-top: 5px; }
+        .datepicker-range div.datepicker .timepicker-wrapper input.timepicker {
+          background-color: #fff;
+          font-size: 12px;
+          height: auto;
+          left: 0;
+          color: #333;
+          opacity: .8;
+          bottom: -23px; }
+      .datepicker-range div.datepicker span.date-container {
+        display: block;
+        width: 105px;
+        text-align: left; }
+        .datepicker-range div.datepicker span.date-container span.date-of-week {
+          font-size: 13px;
+          color: #9d9d9d; }
+    .datepicker-range div.icon {
+      align-self: flex-start;
+      padding: 5px; }
+
+.uib-datepicker-popup {
+  cursor: default;
+  border: none;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2); }
+  .uib-datepicker-popup .btn {
+    border: none; }
+    .uib-datepicker-popup .btn.btn-info {
+      color: #4285f4;
+      background-color: #fff; }
+    .uib-datepicker-popup .btn.active, .uib-datepicker-popup .btn:active {
+      color: #fff;
+      background-color: #4285f4; }
+  .uib-datepicker-popup .uib-daypicker {
+    outline: none; }
+    .uib-datepicker-popup .uib-daypicker .uib-title-wrapper {
+      line-height: 30px; }
+    .uib-datepicker-popup .uib-daypicker .uib-day-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #757575; }
+    .uib-datepicker-popup .uib-daypicker .uib-title {
+      width: auto;
+      font-size: 12px;
+      font-weight: 400;
+      color: #757575;
+      opacity: .8;
+      background-color: #fff;
+      text-align: left;
+      transition: opacity 100ms linear; }
+      .uib-datepicker-popup .uib-daypicker .uib-title:hover {
+        opacity: 1; }
+    .uib-datepicker-popup .uib-daypicker .uib-left, .uib-datepicker-popup .uib-daypicker .uib-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 6px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.54);
+      height: 24px;
+      width: 24px;
+      padding: 0;
+      border-radius: 50%;
+      background-color: #fff;
+      transition: background-color,opacity 100ms linear; }
+      .uib-datepicker-popup .uib-daypicker .uib-left:hover, .uib-datepicker-popup .uib-daypicker .uib-right:hover {
+        background-color: rgba(0, 0, 0, 0.07); }
+    .uib-datepicker-popup .uib-daypicker .uib-date-button {
+      width: 36px;
+      height: 28px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff; }
+      .uib-datepicker-popup .uib-daypicker .uib-date-button.active .uib-date-label {
+        color: white !important;
+        background-color: #4285f4 !important; }
+        .uib-datepicker-popup .uib-daypicker .uib-date-button.active .uib-date-label:hover {
+          background-color: #4285f4; }
+      .uib-datepicker-popup .uib-daypicker .uib-date-button .uib-date-label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        font-size: 12px;
+        background-color: #fff;
+        transition: background-color 100ms linear; }
+        .uib-datepicker-popup .uib-daypicker .uib-date-button .uib-date-label.current-date {
+          color: #4285f4; }
+        .uib-datepicker-popup .uib-daypicker .uib-date-button .uib-date-label:hover {
+          background-color: #e0e0e0; }
+    .uib-datepicker-popup .uib-daypicker div {
+      font-weight: normal;
+      height: 30px; }
+      .uib-datepicker-popup .uib-daypicker div small {
+        font-size: 14px;
+        display: block;
+        position: relative;
+        visibility: hidden;
+        left: 7px; }
+        .uib-datepicker-popup .uib-daypicker div small:first-letter {
+          visibility: visible; }
+    .uib-datepicker-popup .uib-daypicker button {
+      border-radius: 0;
+      border: 0;
+      padding: 5px 10px;
+      font-size: 14px; }
+      .uib-datepicker-popup .uib-daypicker button[disabled] {
+        color: graytext; }
+  .uib-datepicker-popup .uib-options-bar {
+    margin: 5px 10px;
+    border-top: 1px solid #e9e9e9;
+    padding: 5px 0 0; }
+    .uib-datepicker-popup .uib-options-bar > * {
+      display: inline-block; }
+    .uib-datepicker-popup .uib-options-bar > span {
+      color: #767676;
+      font-size: 12px;
+      padding-left: 10px; }
+    .uib-datepicker-popup .uib-options-bar > div > select {
+      margin-left: 10px;
+      border-radius: 2px;
+      padding: 0 5px;
+      height: 28px;
+      font-size: 13px; }
