@@ -1,1 +1,0 @@
-alter table descriptor add column engine integer;

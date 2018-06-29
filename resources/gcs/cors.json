@@ -1,8 +1,0 @@
-[
-  {
-    "origin": ["https://test1.datadocs.com"],
-    "responseHeader": ["*"],
-    "method": ["PUT", "POST"],
-    "maxAgeSeconds": 3600
-  }
-]

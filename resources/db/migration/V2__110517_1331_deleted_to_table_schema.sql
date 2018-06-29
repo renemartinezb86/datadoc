@@ -1,1 +1,0 @@
-alter table table_schema add column deleted boolean default false;

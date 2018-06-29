@@ -1,1 +1,0 @@
-ALTER TABLE db_query_history_item ALTER COLUMN query TYPE text;

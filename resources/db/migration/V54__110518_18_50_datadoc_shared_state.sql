@@ -1,1 +1,0 @@
-ALTER table datadoc add column shared_state_id uuid;

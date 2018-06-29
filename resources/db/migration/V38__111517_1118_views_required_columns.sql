@@ -1,1 +1,0 @@
-ALTER table table_bookmark add column current_state uuid;

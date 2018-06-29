@@ -1,1 +1,0 @@
-ALTER TABLE abstract_file ADD COLUMN embedded BOOLEAN;

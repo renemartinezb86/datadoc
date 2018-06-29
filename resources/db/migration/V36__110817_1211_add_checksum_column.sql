@@ -1,2 +1,0 @@
-ALTER TABLE upload ADD COLUMN checksum VARCHAR(255);
-

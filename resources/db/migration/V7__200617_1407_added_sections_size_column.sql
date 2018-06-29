@@ -1,1 +1,0 @@
-alter table upload add column sections_size INTEGER;
