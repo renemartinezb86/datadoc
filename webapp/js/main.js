@@ -56,10 +56,7 @@ require.config({
         'tag-context-menu': 'lib/tag-context-menu',
         'KeyJS': 'lib/key.min',
         'app': 'modules/app/module',
-        'bluebird': 'lib/bluebird',
-        'ng-intl-tel-input': 'lib/ng-intl-tel-input/dist/ng-intl-tel-input.min',
-        'intl-tel-input': 'lib/intl-tel-input/build/js/intlTelInput.min',
-        'ng-intl-tel-input-util': 'lib/intl-tel-input/build/js/utils'
+        'bluebird': 'lib/bluebird'
     },
 
     /**
@@ -164,15 +161,6 @@ require.config({
         },
         'KeyJS': {
             exports: "KeyJS"
-        },
-        'ng-intl-tel-input': {
-            deps: ['angular','ng-intl-tel-input-util', 'intl-tel-input']
-        },
-        'intl-tel-input': {
-            deps: ['jquery']
-        },
-        'ng-intl-tel-input-util': {
-            deps: ['jquery']
         }
     }
 });

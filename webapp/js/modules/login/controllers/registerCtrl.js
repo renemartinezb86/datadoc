@@ -21,12 +21,11 @@ define(['./module', 'common', 'lodash'], function (controllers, cc, _) {
                     email: $scope.user.email,
                     password: $scope.user.password,
                     fullName: $scope.user.fullName,
-                    mobile: $scope.user.mobile,
                     avatarPath: $scope.userAvatar
                 }).then(() => {
                     $scope.isUploading = false;
                     cc.showSuccess({message: "Registration completed"});
-                    $state.go('auth.confirm-register', {'email':$scope.user.email});
+                    $state.go('auth.login', $stateParams);
                 }).catch(err => {
                     $scope.isUploading = false;
                     cc.showError(err);
@@ -40,7 +39,9 @@ define(['./module', 'common', 'lodash'], function (controllers, cc, _) {
                 else if (!$scope.user.password) {
                     cc.showError({message: "Password is required!"})
                 }
-                else  {
+                else if ($scope.user.password !== $scope.user.passwordConfirm) {
+                    cc.showError({message: "Passwords doesn't match!"})
+                } else {
                     if ($scope.user.image) {
                         $scope.isUploading = true;
                         $scope.user.image.upload();

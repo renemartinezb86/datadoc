@@ -22,10 +22,7 @@ define([
 
     'cached-templates/templates-app',
     'modules/app/directives/index',
-    'modules/app/services/index',
-    'intl-tel-input',
-    'ng-intl-tel-input',
-    'ng-intl-tel-input-util'
+    'modules/app/services/index'
 ], function (angular, _, alertify, cc, NotificationsUtils) {
     'use strict';
 
@@ -39,14 +36,8 @@ define([
         'oc.lazyLoad.uiRouterDecorator',
         'templates-app',
         'app.services',
-        'app.directives',
-        'ngIntlTelInput'
-    ]).config(['$provide', '$httpProvider', '$compileProvider', '$urlMatcherFactoryProvider', 'ngIntlTelInputProvider', function($provide, $httpProvider, $compileProvider, $urlMatcherFactoryProvider, ngIntlTelInputProvider){
-
-        ngIntlTelInputProvider.set({
-            initialCountry: 'us',
-            utilsScript: 'lib/intl-tel-input/build/js/utils.js'
-        });
+        'app.directives'
+    ]).config(['$provide', '$httpProvider', '$compileProvider', '$urlMatcherFactoryProvider', function($provide, $httpProvider, $compileProvider, $urlMatcherFactoryProvider){
 
         const GUID_REGEXP = /^[a-f\d]{8}-([a-f\d]{4}-){3}[a-f\d]{12}$/i;
         $urlMatcherFactoryProvider.type('guid', {
@@ -203,11 +194,6 @@ define([
                     url: "/register?state&param",
                     controller: "registerCtrl",
                     templateUrl: "/static/templates/auth/register.html",
-                    omitAuth: true
-                }).state('auth.confirm-register', {
-                    url: "/confirm-register?email",
-                    controller: "confirmRegisterCtrl",
-                    templateUrl: "/static/templates/auth/confirm-register.html",
                     omitAuth: true
                 })
                 .state('auth.forgot-password', {

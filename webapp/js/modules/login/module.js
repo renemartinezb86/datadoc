@@ -5,5 +5,5 @@ define([
 ], function (ng) {
     'use strict';
 
-    return ng.module('app.login', [ 'app.login.controllers', 'templates-auth'])
+    return ng.module('app.login', ['app.login.controllers', 'templates-auth'])
 });

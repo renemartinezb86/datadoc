@@ -35,29 +35,6 @@ dd .form-group {
     user-select: none;
 }
 
-.logo-google {
-    width: 24px;
-    height: 24px;
-}
-
-.singup-text{
-    margin-bottom: 15px;
-    margin-top: 15px;
-    text-align: center;
-    font-size: small;
-}
-.login-text{
-    color: #989898;
-    font-weight: 400;
-}
-
-.btn-login-google{
-    background: #ffffff !important;
-    border: 1px solid #c1c1c1 !important;
-    color: #595959 !important;
-    border-radius: 40px !important;
-}
-
 .no-overflow {
     white-space: nowrap;
     overflow-x: hidden;
@@ -415,12 +392,6 @@ dd .form-group {
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.23);
     -webkit-font-smoothing: antialiased;
     border-radius: 2px;
-}
-
-.panel-default>.panel-heading {
-
-    background-color: #f5f5f500 !important;
-
 }
 
 .btn-default-cstm:hover {

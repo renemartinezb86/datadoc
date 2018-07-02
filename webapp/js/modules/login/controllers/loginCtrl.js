@@ -1,4 +1,4 @@
-define(['./module', 'jquery', 'ladda', 'lodash'], function (controllers, jquery, ladda, cc, _) {
+define(['./module', 'jquery', 'ladda', 'lodash'], function (controllers, jquery, ladda, _) {
     'use strict';
 
     controllers.controller('loginCtrl',['$scope','$rootScope','$http','$state','User', '$stateParams',
@@ -8,13 +8,8 @@ define(['./module', 'jquery', 'ladda', 'lodash'], function (controllers, jquery,
             $scope.signIn = function (anon) {
                 $scope.signingIn = true;
                 User.signIn($scope.login, $scope.password, anon).then(function () {
-                    console.log('Login ' + User.UserModel);
-                    debugger;
                     var nextPage = $rootScope.nextPageAfterLogin;
-                    if (!User.getCurrent().active)  {
-                        //cc.showSuccess({message: "You must verify your account"});
-                        $state.go('auth.confirm-register', {'email':User.getCurrent().email});
-                    }
+
                     if($stateParams.state && $stateParams.param) {
                         //todo replace this one day with lodash fromPairs
                         const params = _.reduce(_.chunk($stateParams.param.split(':'), 2), (acc, val, key) => {
@@ -32,11 +27,7 @@ define(['./module', 'jquery', 'ladda', 'lodash'], function (controllers, jquery,
 
                 }, function(){
                     $scope.signingIn = false;
-                    if (!User.getCurrent().active)  {
-                        $state.go('auth.confirm-register', {'email':User.getCurrent().email});
-                    }else {
-                        $scope.error = "Incorrect login or password";
-                    }
+                    $scope.error = "Incorrect login or password";
                 });
             };
 
