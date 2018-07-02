@@ -1,1 +1,27 @@
-<div ng-if=isLandingPage() class=search-autocomplete> <input ng-model=searchInput.value ng-enter="searchInputChange(searchInput.value, true)" uib-typeahead="item.name for item in getSuggestions($viewValue)" typeheade-force-on-change=true typeahead-on-select="onSuggestionSelected($item, $model, $label, $event)" typeahead-focus-first=false typeahead-template-url=static/templates/include/search-item.html typeahead-no-results=searchInput.noSearchResults typeahead-is-open=searchInput.opened typeahead-keep-closed=searchInput.keepClosed placeholder=Search autocorrect=off autocapitalize=none> <button type=button ng-click="searchInputChange(searchInput.value, true)"><i class="fa fa-search"></i></button> <div class=no-results ng-show=searchInput.noSearchResults>There are no recent records that match your search.</div> </div> <div ng-if=isVisualization() class="search-autocomplete ng-cloak"> <div ng-transclude=dropdownOptions style=position:absolute></div> <input ng-model=searchInput.value ng-enter="searchInputChange(searchInput.value, true)" ng-change=delayedSearchInputChange(searchInput.value) ng-trim=false placeholder=Search> <button type=button ng-click="searchInputChange(searchInput.value, true)"><i class="fa fa-search"></i></button> </div>
+<div ng-if="isLandingPage()" class="search-autocomplete">
+    <input type="text"
+           ng-model="searchInput.value"
+           ng-enter="searchInputChange(searchInput.value, true)"
+           uib-typeahead="item.name for item in getSuggestions($viewValue)"
+           typeheade-force-on-change="true"
+           typeahead-on-select="onSuggestionSelected($item, $model, $label, $event)"
+           typeahead-focus-first="false"
+           typeahead-template-url="static/templates/include/search-item.html"
+           typeahead-no-results="searchInput.noSearchResults"
+           typeahead-is-open="searchInput.opened"
+           typeahead-keep-closed="searchInput.keepClosed"
+           placeholder="Search"
+           autocorrect="off" autocapitalize="none">
+    <button type="button" ng-click="searchInputChange(searchInput.value, true)"><i class="fa fa-search"></i></button>
+    <div class="no-results" ng-show="searchInput.noSearchResults">There are no recent records that match your search.</div>
+</div>
+<div ng-if="isVisualization()" class="search-autocomplete ng-cloak">
+    <div ng-transclude="dropdownOptions" style="position: absolute"></div>
+    <input type="text"
+           ng-model="searchInput.value"
+           ng-enter="searchInputChange(searchInput.value, true)"
+           ng-change="delayedSearchInputChange(searchInput.value)"
+           ng-trim="false"
+           placeholder="Search">
+    <button type="button" ng-click="searchInputChange(searchInput.value, true)"><i class="fa fa-search"></i></button>
+</div>

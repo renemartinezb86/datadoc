@@ -1,1 +1,379 @@
-<div id=sidebar-wrapper-filters class="sidebar-wrapper no-select" resizable="{id:filterId, min: 215, default: 300, max: 600, save: savePaneWidth, hideOnInit: true, minResizeCallback: toggleRightFilters}" ng-init="filtersDropDownOpened = true"> <div class="resize-handle-h resize-handle-filter"></div> <div class=sidebar-filters-body> <div class=filter-title-header> <div class=title>Filters</div> <div class=loading-filters-spinner ng-if=filtersStatus.refreshing> <svg class=spinner width=15px height=15px viewBox="0 0 66 66" xmlns=http://www.w3.org/2000/svg> <circle class=path fill=none stroke-width=7 stroke-linecap=round cx=33 cy=33 r=30></circle> </svg> </div> <div class=close-filters ng-click=toggleRightFilters()> <i class="fa fa-lg fa-angle-double-left"></i> </div> </div> <div class="filter-dropdown-header dropdown-options" uib-dropdown on-toggle=onSidebarUlToggle() uib-dropdown-toggle> <div class=filter-add-remove> <div class=descr> <span ng-if="controllerName == ctrlNames.VIZ">Click to add, remove, or sort filters</span> </div> <div class=reset> <a ng-click="$event.stopPropagation(); resetAllFilters()" ng-show=isResetAllShow()>Reset all</a> </div> </div> <div class="dropdown-menu sidebar-ul-wrapper" uib-dropdown-menu> <div class=dropdown-arrow> <div class=outer></div> <div class=inner></div> </div> <ul class=sidebar-ul role=menu ng-click=$event.stopPropagation();> <li role=menuitem class="menu-item-table select-all" ng-click=toggleSelectAllFilters();> <a>{{isAllFiltersSelected() ? "Deselect All" : "Select All"}}</a> </li> </ul> <hr style="margin:5px 0 7px 0"> <ul class="sidebar-ul filters-ul" role=menu sv-root sv-part=dataSummary.filters sv-on-sort="filterMoved($item, $indexTo)" ng-click=$event.stopPropagation();> <li role=menuitem ng-repeat="one_filter in dataSummary.filters track by one_filter.field" class=menu-item-table ng-switch=one_filter.col.type ng-if=!one_filter.hidden ng-click="addFilter(one_filter); $event.stopPropagation();" sv-element> <span sv-handle class=handle><i class="fa fa-grip fa-rotate-90"></i></span> <span> <input type=checkbox ng-model=one_filter.selected class=regular-checkbox> <label></label> </span> <a>{{one_filter.col.name}}</a> </li> </ul> </div> </div> <div class=filters-section-wrapper ng-show="activeSection == SECTION_NAME.FILTERS"> <div class=filters-section> <div id=sidebar-body-wrapper> <div ng-if=!dataSummary.advancedModeCheck id=sidebar-filters> <div class=sidebar-filters sv-root sv-part=dataSummary.filters sv-on-sort="filterMoved($item, $indexTo)"> <div class=filters-list ng-repeat="filter in dataSummary.filters track by filter.field" on-render=onRenderFilters() ng-if="!filter.hidden && filter.selected" sv-element> <div class=sidebar-header> <div class=sidebar-title-wrapper-t sv-handle> <div class=sbar-title-name> <span class=filter-name>{{filter.col.name}}</span> <a ng-if=isDecimalColFormattedAsDate(filter) class=info-button uib-tooltip-html=getTooltipForFilter(filter) tooltip-placement=top-left tooltip-popup-close-delay=2000 tooltip-append-to-body=true tooltip-popup-delay=250 tooltip-class=main-page-tooltip></a> </div> <div class=sbar-title-right-side> <div class=sbar-title-link> <a ng-click=reset(filter) ng-show=isResetShow(filter)>Clear</a> </div> <div class=sbar-mode-switch ng-if=filter.listMode> <div class=mode-button> <span ng-if=filter.listMode ng-click=switchAndOr(filter)> <i class="fa fa-chain-broken" ng-if=!filter.and_or uib-tooltip="Switch to AND" tooltip-popup-delay=500 tooltip-append-to-body=true></i> <i class="fa fa-chain" ng-if=filter.and_or uib-tooltip="Switch to OR" tooltip-popup-delay=500 tooltip-append-to-body=true></i> </span> </div> </div> <div class=sbar-mode-switch ng-if="filter.col.type == 'DATE' || filter.col.type == 'DECIMAL'" uib-tooltip={{getModeSwitchTooltip(filter)}} tooltip-popup-delay=500 tooltip-append-to-body=true> <div class=mode-button ng-click="filter.listMode = !filter.listMode"> <i class="fa fa-calendar-o" ng-if="filter.col.type == 'DATE' && !filter.listMode"></i> <i class="fa fa-sliders" ng-if="filter.col.type == 'DECIMAL' && !filter.listMode"></i> <i class="fa fa-list" ng-if="(filter.col.type == 'DECIMAL' || filter.col.type == 'DATE') && filter.listMode"></i> </div> </div> </div> </div> </div> <div class=no-results ng-if=showNoValues(filter)>There are no values for this filter </div> <div ng-if=filter.listMode> <div class=search ng-hide="filter.col.type == 'BOOLEAN' || !filter.showSearch || showNoValues(filter)"> <input type=search class="form-control search-input" placeholder=Search ng-model=filter.search ng-if="filter.col.type != 'DATE'" ng-enter="filterSearch(filter, true)" ng-change=delayedFilterSearch(filter)> <input type=search class="form-control search-input" placeholder="mmm d, yyyy" ng-model=filter.search ng-if="filter.col.type == 'DATE'" ng-enter="filterSearch(filter, true)" ng-change=delayedFilterSearch(filter)> <div class=right-icons> <div ng-show="!filter.search || !autoRefresh" ng-click="filterSearch(filter, true)"> <i class="fa fa-search"></i> </div> <div class=search-reset ng-show=filter.search ng-click=clearSearch(filter) style=margin-left:5px> <i class="fa fa-close"></i> </div> </div> </div> <div class=no-results ng-if=showNoResults(filter)>No search results </div> <ul class=items> <li class=item ng-class="{'filter-removed': !agg.show}" ng-click="selectFilter(agg, filter)" ng-if="!filter.search || agg.key !== undefined" ng-repeat="agg in filter.list|orderBy:(filter.search ? ['selected','!show','-docCount','key'] : ['show', '!selected','-docCount','key'])"> <div class=list-item-table> <div class=list-item-left-side> <div class=checkbox-cell> <span> <input type=checkbox ng-model=agg.selected class=regular-checkbox> <label></label> </span> </div> <div class="title-cell no-overflow"> <div class=title-wrapper> <div class=term-name> <span ng-if="agg.key != null" ng-switch=filter.col.type> <a class=title ng-switch-when=STRING tooltip-placement=top-left tooltip-append-to-body=true tooltip-popup-delay=1000 uib-tooltip={{agg.key}}>{{agg.key|numberFilter:filter.col.settings.format}}</a> <a class=title ng-switch-when=LOCATION_COUNTRY_CODES>{{agg.key}}</a> <a class=title ng-switch-when=LOCATION_USA_STATE_CODES>{{agg.key}}</a> <a class=title ng-switch-when=DECIMAL>{{agg.key|numberFilter:filter.col.settings.format}}</a> <a class=title ng-switch-when=TIME>{{agg.key|numberFilter:filter.col.settings.format}}</a> <a class=title ng-switch-when=DATE>{{agg.key|numberFilter:filter.col.settings.format}}</a> <a class=title ng-switch-when=BOOLEAN>{{agg.key|numberFilter:filter.col.settings.format}}</a> </span> <span ng-if="agg.key == null"> <a class=title>[Empty value]</a> </span> </div> <div class=term-count> <span class=count>{{agg.docCount > 0 ? '(' + agg.docCount + ')' : ''}}</span> </div> </div> </div> </div> <div class=hidden-button-cell> <a class=only ng-click="only(filter, agg); $event.stopPropagation();">only</a> <a class=remove ng-click="remove(filter, agg); $event.stopPropagation();" ng-show=agg.show>x</a> </div> </div> </li> </ul> </div> <div ng-if="!filter.listMode && filter.col.type!='DATE' && !showNoValues(filter)"> <div class=slider-vals style=width:250px ng-cloak> <span class=slider-from> <span class=slider-from-to-wrapper> <span class=slider-from-to ng-if="filter.col.type == 'DECIMAL'"> {{filter.value1|numberFilter:filter.col.settings.format}} <input class=slider-input ng-model=filter.value1 ng-blur=blurSliderInput(filter) ng-change=changeSliderInput(filter) ng-keypress=keyPressSliderInput($event)> </span> </span> <span ng-if="filter.col.type=='TIME'"> {{filter.value1|date:'HH:mm:ss':'UTC'}} </span> </span> <span> ‒ </span> <span class=slider-to> <span class=slider-from-to-wrapper> <span class=slider-from-to ng-if="filter.col.type == 'DECIMAL'"> {{filter.value2|numberFilter:filter.col.settings.format}} <input class=slider-input ng-model=filter.value2 ng-blur=blurSliderInput(filter) ng-change=changeSliderInput(filter) ng-keypress=keyPressSliderInput($event)> </span> </span> <span ng-if="filter.col.type=='TIME'"> {{filter.value2|date:'HH:mm:ss':'UTC'}} </span> </span> </div> <div class=slider-container> <rzslider ng-if="filter.col.type=='TIME' || filter.linlog" rz-slider-options=filter.options rz-slider-model=filter.value1 rz-slider-high=filter.value2 ng-mouseup=changeSliderInput(filter);></rzslider> <rzslider ng-if="filter.col.type!='TIME' && !filter.linlog" rz-slider-options=filter.options rz-slider-model=filter.value1exp rz-slider-high=filter.value2exp ng-mouseup=changeSliderInput(filter);></rzslider> </div> </div> <div class=datepicker-container ng-if="!filter.listMode && filter.col.type=='DATE' && !showNoValues(filter)"> <div ng-init="startOpened = false; endOpened = false" class=datepicker-range> <div class="datepicker from"> <div class=focus-border-wrapper> <input uib-datepicker-popup="MMM dd, yyyy" ng-model=filter.options.fromDate ng-change="changeDateInput(filter, true)" ng-model-options="{updateOn : 'change blur'}" ng-click="selectText($event); startOpened = true;" alt-input-formats="['yyyy-M!-d!', 'M!/d!/yyyy', 'd!/M!/yyyy', 'MMM d!, yyyy', 'MMM d! yyyy']" ng-disabled=filter.isFixedDateEnabled is-open=startOpened datepicker-options=filter.datepickerOptionsFrom on-open-focus=false show-button-bar=false datepicker-append-to-body=true selected-fixed=filter.options available-fixed-dates=getAvailableFixedPeriods(filter) datepicker-popup-template-url=static/templates/include/datepicker-popup.html> <span class=focus-border></span> </div> <div class=timepicker-wrapper ng-if=filter.isTimePickerEnabled> <input class=timepicker ng-disabled=filter.isFixedDateEnabled ng-model-options="{updateOn : 'change blur'}" ng-change=changeTimeInput(filter) ng-click=selectText($event) ng-model=filter.options.displayFromTime> </div> </div> <div class=icon> <span>to</span> </div> <div class="datepicker to"> <div class=focus-border-wrapper> <input uib-datepicker-popup="MMM dd, yyyy" ng-model=filter.options.toDate ng-model-options="{updateOn : 'change blur'}" ng-change="changeDateInput(filter, true)" ng-click="selectText($event); endOpened = true" alt-input-formats="['yyyy-M!-d!', 'M!/d!/yyyy', 'd!/M!/yyyy', 'MMM d!, yyyy', 'MMM d! yyyy']" ng-disabled=filter.isFixedDateEnabled is-open=endOpened datepicker-options=filter.datepickerOptionsTo on-open-focus=false show-button-bar=false datepicker-append-to-body=true selected-fixed=filter.options available-fixed-dates=getAvailableFixedPeriods(filter) datepicker-popup-template-url=static/templates/include/datepicker-popup.html> <span class=focus-border></span> </div> <div class=timepicker-wrapper ng-if=filter.isTimePickerEnabled> <input class=timepicker ng-disabled=filter.isFixedDateEnabled ng-model-options="{updateOn : 'change blur'}" ng-change=changeTimeInput(filter) ng-click=selectText($event) ng-model=filter.options.displayToTime> </div> </div> </div> <div class=fixed-date> <div class=fixed-date-option ng-click="toggleFixedDateFilter($event, filter)"> <input title="Fixed date" type=checkbox ng-model=filter.isFixedDateEnabled> <label class=fixed-date-checkbox></label> <span>Fixed date</span> </div> <div class=fixed-date-suggestions ng-show=filter.isFixedDateEnabled uib-dropdown is-open=filter.options.isFixedDateDropdownOpened> <div class=fixed-date-toggle uib-dropdown-toggle> <span>{{getSelectedFixedPeriod(filter)}}</span> <i class="fa fa-caret-down"></i> </div> <div uib-dropdown-menu class="tool-bar-dropdown flexible-space-dropdown date-filter-dropdown dropdown-menu-right"> <li ng-repeat="period in getAvailableFixedPeriods()" ng-click="selectFixedDateFilter(filter, period)">{{period.label}}</li> </div> </div> </div> </div> <div class=separator></div> </div> </div> </div> <div ng-if=dataSummary.advancedModeCheck class=form-group style="height:300px;padding:15px 10px 2px;margin-bottom:0"> <ui-codemirror ui-codemirror-opts=complexFilterEditorOptions ng-model=dataSummary.advancedFilterQuery> </ui-codemirror> <button class="btn btn-primary-cstm pull-right" ng-click=executeQuery() style=margin-right:10px>Execute </button> </div> </div> </div> </div> </div> </div>
+<div id="sidebar-wrapper-filters"
+     class="sidebar-wrapper no-select"
+     resizable="{id:filterId, min: 215, default: 300, max: 600, save: savePaneWidth, hideOnInit: true, minResizeCallback: toggleRightFilters}"
+     ng-init="filtersDropDownOpened = true">
+    <div class="resize-handle-h resize-handle-filter"></div>
+    <div class="sidebar-filters-body">
+        <div class="filter-title-header">
+            <div class="title">Filters</div>
+            <div class="loading-filters-spinner" ng-if="filtersStatus.refreshing">
+                <svg class="spinner" width="15px" height="15px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="path" fill="none" stroke-width="7" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                </svg>
+            </div>
+            <div class="close-filters"
+                 ng-click="toggleRightFilters()">
+                <i class="fa fa-lg fa-angle-double-left"></i>
+            </div>
+        </div>
+        <div class="filter-dropdown-header dropdown-options"
+             uib-dropdown
+             on-toggle="onSidebarUlToggle()"
+             uib-dropdown-toggle>
+            <div class="filter-add-remove">
+                <div class="descr">
+                    <span ng-if="controllerName == ctrlNames.VIZ">Click to add, remove, or sort filters</span>
+                </div>
+                <div class="reset">
+                    <a ng-click="$event.stopPropagation(); resetAllFilters()"
+                       ng-show="isResetAllShow()">Reset all</a>
+                </div>
+            </div>
+            <div class="dropdown-menu sidebar-ul-wrapper"
+                 uib-dropdown-menu>
+                <div class="dropdown-arrow">
+                    <div class="outer"></div>
+                    <div class="inner"></div>
+                </div>
+                <ul class="sidebar-ul"
+                    role="menu"
+                    ng-click="$event.stopPropagation();">
+                    <li role="menuitem"
+                        class="menu-item-table select-all"
+                        ng-click="toggleSelectAllFilters();">
+                        <a>{{isAllFiltersSelected() ? "Deselect All" : "Select All"}}</a>
+                    </li>
+                </ul>
+                <hr style="margin: 5px 0 7px 0">
+                <ul class="sidebar-ul filters-ul"
+                    role="menu"
+                    sv-root
+                    sv-part="dataSummary.filters"
+                    sv-on-sort="filterMoved($item, $indexTo)"
+                    ng-click="$event.stopPropagation();">
+                    <li role="menuitem" ng-repeat="one_filter in dataSummary.filters track by one_filter.field"
+                        class="menu-item-table" ng-switch="one_filter.col.type"
+                        ng-if="!one_filter.hidden"
+                        ng-click="addFilter(one_filter); $event.stopPropagation();"
+                        sv-element>
+                        <span sv-handle class="handle"><i class="fa fa-grip fa-rotate-90"></i></span>
+                        <span>
+                                    <input type="checkbox" ng-model="one_filter.selected"
+                                           class="regular-checkbox">
+                                    <label></label>
+                                </span>
+                        <a>{{one_filter.col.name}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="filters-section-wrapper" ng-show="activeSection == SECTION_NAME.FILTERS">
+            <div class="filters-section">
+                <div id="sidebar-body-wrapper">
+                    <div ng-if="!dataSummary.advancedModeCheck" id="sidebar-filters">
+                        <div class="sidebar-filters"
+                             sv-root
+                             sv-part="dataSummary.filters"
+                             sv-on-sort="filterMoved($item, $indexTo)">
+                            <div class="filters-list"
+                                 ng-repeat="filter in dataSummary.filters track by filter.field"
+                                 on-render="onRenderFilters()"
+                                 ng-if="!filter.hidden && filter.selected"
+                                 sv-element>
+                                <div class="sidebar-header">
+                                    <div class="sidebar-title-wrapper-t" sv-handle>
+                                        <div class="sbar-title-name" >
+                                            <span class="filter-name">{{filter.col.name}}</span>
+                                            <a ng-if="isDecimalColFormattedAsDate(filter)"
+                                                class="info-button"
+                                                uib-tooltip-html="getTooltipForFilter(filter)"
+                                                tooltip-placement="top-left"
+                                                tooltip-popup-close-delay="2000"
+                                                tooltip-append-to-body="true"
+                                                tooltip-popup-delay="250"
+                                                tooltip-class="main-page-tooltip"></a>
+                                        </div>
+                                        <div class="sbar-title-right-side">
+                                            <div class="sbar-title-link">
+                                                <a ng-click="reset(filter)"
+                                                   ng-show="isResetShow(filter)">Clear</a>
+                                            </div>
+                                            <div class="sbar-mode-switch" ng-if="filter.listMode">
+                                                <div class="mode-button">
+                                                <span ng-if="filter.listMode" ng-click="switchAndOr(filter)">
+                                                    <i class="fa fa-chain-broken" ng-if="!filter.and_or"
+                                                       uib-tooltip="Switch to AND"
+                                                       tooltip-popup-delay="500"
+                                                       tooltip-append-to-body="true"></i>
+                                                    <i class="fa fa-chain" ng-if="filter.and_or"
+                                                       uib-tooltip="Switch to OR"
+                                                       tooltip-popup-delay="500"
+                                                       tooltip-append-to-body="true"></i>
+                                                </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="sbar-mode-switch"
+                                                 ng-if="filter.col.type == 'DATE' || filter.col.type == 'DECIMAL'"
+                                                 uib-tooltip="{{getModeSwitchTooltip(filter)}}"
+                                                 tooltip-popup-delay="500"
+                                                 tooltip-append-to-body="true">
+                                                <div class="mode-button"
+                                                     ng-click="filter.listMode = !filter.listMode">
+                                                    <i class="fa fa-calendar-o"
+                                                       ng-if="filter.col.type == 'DATE' && !filter.listMode"></i>
+                                                    <i class="fa fa-sliders"
+                                                       ng-if="filter.col.type == 'DECIMAL' && !filter.listMode"></i>
+                                                    <i class="fa fa-list"
+                                                       ng-if="(filter.col.type == 'DECIMAL' || filter.col.type == 'DATE') && filter.listMode"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="no-results"
+                                     ng-if="showNoValues(filter)">There are no values for this filter
+                                </div>
+
+                                <div ng-if="filter.listMode">
+                                    <div class="search"
+                                         ng-hide="filter.col.type == 'BOOLEAN' || !filter.showSearch || showNoValues(filter)">
+                                        <input type="search"
+                                               class="form-control search-input"
+                                               placeholder="Search"
+                                               ng-model="filter.search" ng-if="filter.col.type != 'DATE'"
+                                               ng-enter="filterSearch(filter, true)"
+                                               ng-change="delayedFilterSearch(filter)"/>
+                                        <input type="search"
+                                               class="form-control search-input"
+                                               placeholder="mmm d, yyyy"
+                                               ng-model="filter.search" ng-if="filter.col.type == 'DATE'"
+                                               ng-enter="filterSearch(filter, true)"
+                                               ng-change="delayedFilterSearch(filter)"/>
+
+                                        <div class="right-icons">
+                                            <div ng-show="!filter.search || !autoRefresh"
+                                                 ng-click="filterSearch(filter, true)">
+                                                <i class="fa fa-search"></i>
+                                            </div>
+                                            <div class="search-reset" ng-show="filter.search"
+                                                 ng-click="clearSearch(filter)"
+                                                 style="margin-left: 5px">
+                                                <i class="fa fa-close"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="no-results"
+                                         ng-if="showNoResults(filter)">No search results
+                                    </div>
+                                    <ul class="items">
+                                        <li class="item" ng-class="{'filter-removed': !agg.show}"
+                                            ng-click="selectFilter(agg, filter)"
+                                            ng-if="!filter.search || agg.key !== undefined"
+                                            ng-repeat="agg in filter.list|orderBy:(filter.search ? ['selected','!show','-docCount','key'] : ['show', '!selected','-docCount','key'])">
+                                            <div class="list-item-table">
+                                                <div class="list-item-left-side">
+                                                    <div class="checkbox-cell">
+                                                    <span>
+                                                        <input type="checkbox" ng-model="agg.selected"
+                                                               class="regular-checkbox">
+                                                        <label></label>
+                                                    </span>
+                                                    </div>
+                                                    <div class="title-cell no-overflow">
+                                                        <div class="title-wrapper">
+                                                            <div class="term-name">
+                                                        <span ng-if="agg.key != null" ng-switch="filter.col.type">
+                                                            <a class="title" ng-switch-when="STRING"
+                                                               tooltip-placement="top-left"
+                                                               tooltip-append-to-body="true"
+                                                               tooltip-popup-delay="1000"
+                                                               uib-tooltip="{{agg.key}}">{{agg.key|numberFilter:filter.col.settings.format}}</a>
+                                                            <a class="title" ng-switch-when="LOCATION_COUNTRY_CODES">{{agg.key}}</a>
+                                                            <a class="title" ng-switch-when="LOCATION_USA_STATE_CODES">{{agg.key}}</a>
+                                                            <a class="title" ng-switch-when="DECIMAL">{{agg.key|numberFilter:filter.col.settings.format}}</a>
+                                                            <a class="title" ng-switch-when="TIME">{{agg.key|numberFilter:filter.col.settings.format}}</a>
+                                                            <a class="title" ng-switch-when="DATE">{{agg.key|numberFilter:filter.col.settings.format}}</a>
+                                                            <a class="title" ng-switch-when="BOOLEAN">{{agg.key|numberFilter:filter.col.settings.format}}</a>
+                                                        </span>
+                                                                <span ng-if="agg.key == null">
+                                                            <a class="title">[Empty value]</a>
+                                                        </span>
+                                                            </div>
+                                                            <div class="term-count">
+                                                                <span class="count">{{agg.docCount > 0 ? '(' + agg.docCount + ')' : ''}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="hidden-button-cell">
+                                                    <a class="only"
+                                                       ng-click="only(filter, agg); $event.stopPropagation();">only</a>
+                                                    <a class="remove"
+                                                       ng-click="remove(filter, agg); $event.stopPropagation();"
+                                                       ng-show="agg.show">x</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div ng-if="!filter.listMode && filter.col.type!='DATE' && !showNoValues(filter)">
+                                    <div class="slider-vals" style="width:250px" ng-cloak>
+                                        <span class="slider-from">
+                                            <span class="slider-from-to-wrapper">
+                                                <span class="slider-from-to"
+                                                      ng-if="filter.col.type == 'DECIMAL'">
+                                                    {{filter.value1|numberFilter:filter.col.settings.format}}
+                                                    <input class="slider-input"
+                                                           ng-model="filter.value1"
+                                                           ng-blur="blurSliderInput(filter)"
+                                                           ng-change="changeSliderInput(filter)"
+                                                           ng-keypress="keyPressSliderInput($event)">
+                                                </span>
+                                            </span>
+                                            <span ng-if="filter.col.type=='TIME'">
+                                                {{filter.value1|date:'HH:mm:ss':'UTC'}}
+                                            </span>
+                                        </span>
+                                        <span> ‒ </span>
+                                        <span class="slider-to">
+                                            <span class="slider-from-to-wrapper">
+                                                <span class="slider-from-to"
+                                                      ng-if="filter.col.type == 'DECIMAL'">
+                                                    {{filter.value2|numberFilter:filter.col.settings.format}}
+                                                    <input class="slider-input"
+                                                           ng-model="filter.value2"
+                                                           ng-blur="blurSliderInput(filter)"
+                                                           ng-change="changeSliderInput(filter)"
+                                                           ng-keypress="keyPressSliderInput($event)">
+                                                </span>
+                                            </span>
+                                            <span ng-if="filter.col.type=='TIME'">
+                                                {{filter.value2|date:'HH:mm:ss':'UTC'}}
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="slider-container">
+                                        <rzslider ng-if="filter.col.type=='TIME' || filter.linlog"
+                                                  rz-slider-options="filter.options"
+                                                  rz-slider-model="filter.value1"
+                                                  rz-slider-high="filter.value2"
+                                                  ng-mouseup="changeSliderInput(filter);"></rzslider>
+                                        <rzslider ng-if="filter.col.type!='TIME' && !filter.linlog"
+                                                  rz-slider-options="filter.options"
+                                                  rz-slider-model="filter.value1exp"
+                                                  rz-slider-high="filter.value2exp"
+                                                  ng-mouseup="changeSliderInput(filter);"></rzslider>
+                                    </div>
+                                </div>
+                                <div class="datepicker-container"
+                                     ng-if="!filter.listMode && filter.col.type=='DATE' && !showNoValues(filter)">
+                                    <div ng-init="startOpened = false; endOpened = false"
+                                         class="datepicker-range">
+                                        <div class="datepicker from">
+                                            <div class="focus-border-wrapper">
+                                                <input type="text"
+                                                       uib-datepicker-popup="MMM dd, yyyy"
+                                                       ng-model="filter.options.fromDate"
+                                                       ng-change="changeDateInput(filter, true)"
+                                                       ng-model-options="{updateOn : 'change blur'}"
+                                                       ng-click="selectText($event); startOpened = true;"
+                                                       alt-input-formats="['yyyy-M!-d!', 'M!/d!/yyyy', 'd!/M!/yyyy', 'MMM d!, yyyy', 'MMM d! yyyy']"
+                                                       ng-disabled="filter.isFixedDateEnabled"
+                                                       is-open="startOpened"
+                                                       datepicker-options="filter.datepickerOptionsFrom"
+                                                       on-open-focus="false"
+                                                       show-button-bar="false"
+                                                       datepicker-append-to-body="true"
+                                                       selected-fixed="filter.options"
+                                                       available-fixed-dates="getAvailableFixedPeriods(filter)"
+                                                       datepicker-popup-template-url="static/templates/include/datepicker-popup.html"/>
+                                                <span class="focus-border"></span>
+                                            </div>
+                                            <div class="timepicker-wrapper" ng-if="filter.isTimePickerEnabled">
+                                                <input class="timepicker"
+                                                       type="text"
+                                                       ng-disabled="filter.isFixedDateEnabled"
+                                                       ng-model-options="{updateOn : 'change blur'}"
+                                                       ng-change="changeTimeInput(filter)"
+                                                       ng-click="selectText($event)"
+                                                       ng-model="filter.options.displayFromTime"/>
+                                            </div>
+                                        </div>
+                                        <div class="icon">
+                                            <!--<i class="fa fa-long-arrow-right"></i>-->
+                                            <span>to</span>
+                                        </div>
+                                        <div class="datepicker to">
+                                            <div class="focus-border-wrapper">
+                                                <input type="text"
+                                                       uib-datepicker-popup="MMM dd, yyyy"
+                                                       ng-model="filter.options.toDate"
+                                                       ng-model-options="{updateOn : 'change blur'}"
+                                                       ng-change="changeDateInput(filter, true)"
+                                                       ng-click="selectText($event); endOpened = true"
+                                                       alt-input-formats="['yyyy-M!-d!', 'M!/d!/yyyy', 'd!/M!/yyyy', 'MMM d!, yyyy', 'MMM d! yyyy']"
+                                                       ng-disabled="filter.isFixedDateEnabled"
+                                                       is-open="endOpened"
+                                                       datepicker-options="filter.datepickerOptionsTo"
+                                                       on-open-focus="false"
+                                                       show-button-bar="false"
+                                                       datepicker-append-to-body="true"
+                                                       selected-fixed="filter.options"
+                                                       available-fixed-dates="getAvailableFixedPeriods(filter)"
+                                                       datepicker-popup-template-url="static/templates/include/datepicker-popup.html"/>
+                                                <span class="focus-border"></span>
+                                            </div>
+                                            <div class="timepicker-wrapper" ng-if="filter.isTimePickerEnabled">
+                                                <input class="timepicker"
+                                                       type="text"
+                                                       ng-disabled="filter.isFixedDateEnabled"
+                                                       ng-model-options="{updateOn : 'change blur'}"
+                                                       ng-change="changeTimeInput(filter)"
+                                                       ng-click="selectText($event)"
+                                                       ng-model="filter.options.displayToTime"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fixed-date">
+                                        <div class="fixed-date-option" ng-click="toggleFixedDateFilter($event, filter)">
+                                            <input title="Fixed date" type="checkbox"
+                                                   ng-model="filter.isFixedDateEnabled">
+                                            <label class="fixed-date-checkbox"></label>
+                                            <span>Fixed date</span>
+                                        </div>
+                                        <div class="fixed-date-suggestions" ng-show="filter.isFixedDateEnabled" uib-dropdown is-open="filter.options.isFixedDateDropdownOpened">
+                                            <div class="fixed-date-toggle" uib-dropdown-toggle>
+                                                <span>{{getSelectedFixedPeriod(filter)}}</span>
+                                                <i class="fa fa-caret-down"></i>
+                                            </div>
+                                            <div uib-dropdown-menu
+                                                 class="tool-bar-dropdown flexible-space-dropdown date-filter-dropdown dropdown-menu-right">
+                                                <li ng-repeat="period in getAvailableFixedPeriods()" ng-click="selectFixedDateFilter(filter, period)">{{period.label}}</li>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="separator"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="dataSummary.advancedModeCheck"
+                         class="form-group"
+                         style="height: 300px; padding:15px 10px 2px; margin-bottom:0;">
+                        <ui-codemirror ui-codemirror-opts="complexFilterEditorOptions"
+                                       ng-model="dataSummary.advancedFilterQuery">
+                        </ui-codemirror>
+                        <button class="btn btn-primary-cstm pull-right"
+                                ng-click="executeQuery()"
+                                style="margin-right: 10px;">Execute
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

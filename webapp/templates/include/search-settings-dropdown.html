@@ -1,1 +1,196 @@
-<div class="dropdown-options dropdown" click-out=searchOptionsDropdown.toggle(false) click-out-excluding-classes="['dropdown-menu']"> <div ng-click=searchOptionsDropdown.toggle() class=dropdown-toggle uib-tooltip="Edit search settings" tooltip-append-to-body=true tooltip-placement=bottom> <span class=gear></span> </div> <div ng-show=searchOptionsDropdown.opened class="dropdown-menu sidebar-ul"> <div class=search-dropdown-wrapper> <div class=search-dropdown-title> <span>Search is currently working across <strong>{{searchOptionsDropdown.enabledItemsCount}}</strong> of {{searchOptionsDropdown.columns.length}} fields.</span> </div> <div class=search-dropdown-section> <span> <strong>Instant search</strong> <a class=info-button uib-tooltip="Like Google search, your results will show up as you type." tooltip-placement=top tooltip-append-to-body=true tooltip-popup-delay=250 tooltip-class=main-page-tooltip></a> </span> <span uib-dropdown is-open=searchOptionsDropdown.isInstantSearchDropdownOpened class=select dropdown-append-to-body=true ng-class="{'disabled': !autoRefresh}" uib-tooltip="Auto-Query must be turned on to use Instant Search." tooltip-enable=!autoRefresh tooltip-placement=right tooltip-append-to-body=true tooltip-popup-delay=250 tooltip-class=main-page-tooltip> <span ng-click=searchOptionsDropdown.toggleInstantSearchDropdown($event)> <span>{{searchOptionsDropdown.instantSearch.text}}</span> <span class=caret></span> </span> <ul class="dropdown-menu checkable" style=width:200px uib-dropdown-menu> <li ng-repeat="choice in searchOptionsDropdown.onOffOptions" ng-click="searchOptionsDropdown.onInstantSearchSelect($event, choice)" ng-class="{'selected': choice.value == searchOptionsDropdown.instantSearch.value}" class=dropdown-menuitem> <a> <span class=dropdown-menuitem-content>{{choice.text}}</span> </a> </li> </ul> </span> </div> <div class=search-dropdown-section> <span> <strong>Highlight matches</strong> <a class=info-button uib-tooltip="Whatever matches your search will be highlighted in yellow." tooltip-placement=top tooltip-append-to-body=true tooltip-popup-delay=250 tooltip-class=main-page-tooltip></a> </span> <span uib-dropdown class=select dropdown-append-to-body=true> <span uib-dropdown-toggle> <span>{{searchOptionsDropdown.highlightMatches.text}}</span> <span class=caret></span> </span> <ul class="dropdown-menu checkable" style=width:200px uib-dropdown-menu> <li ng-repeat="choice in searchOptionsDropdown.onOffOptions" ng-click="searchOptionsDropdown.onHighlightMatchesSelect($event, choice)" ng-class="{'selected': choice.value == searchOptionsDropdown.highlightMatches.value}" class=dropdown-menuitem> <a> <span class=dropdown-menuitem-content>{{choice.text}}</span> </a> </li> </ul> </span> </div> <div class=search-main> <div class=dropdown-option> <div class=search-options-wrapper> <div class=option-name> <input type=checkbox ng-model=searchOptionsDropdown.allSelected ng-model-options="{getterSetter: true}" id=setAll> <label for=setAll></label> <span class="text no-overflow">All Fields</span> </div> <span ng-click="searchOptionsDropdown.toggleSearchTypeOptions($event, searchOptionsDropdown.allColumnsOption)" uib-dropdown is-open=searchOptionsDropdown.searchTypeMenuOpened[searchOptionsDropdown.allColumnsOption.field] ng-class="{'disabled': col.disabled}" class=select> <span ng-bind-html=searchOptionsDropdown.getTypeName(searchOptionsDropdown.allColumnsOption.searchType)></span> <span class=caret></span> <ul class="dropdown-menu-right checkable" style=width:200px uib-dropdown-menu ng-if=searchOptionsDropdown.searchTypeMenuOpened[searchOptionsDropdown.allColumnsOption.field]> <li ng-repeat="choice in searchOptionsDropdown.getAvailableSearchTypes(searchOptionsDropdown.allColumnsOption)" ng-click="searchOptionsDropdown.onSearchTypeSelect($event, choice, searchOptionsDropdown.allColumnsOption)" ng-class="{'selected': choice.value == searchOptionsDropdown.allColumnsOption.searchType}" class=dropdown-menuitem> <a> <span class=dropdown-menuitem-content ng-bind-html=choice.text></span> </a> </li> </ul> </span> </div> </div> <div ng-repeat="col in searchOptionsDropdown.columns" class=dropdown-option uib-tooltip-html=col.disabledTooltip tooltip-enable=col.disabled tooltip-placement=right tooltip-append-to-body=true tooltip-popup-delay=250 tooltip-class=main-page-tooltip uib-dropdown is-open=searchOptionsDropdown.searchTypeMenuOpened[col.field]> <div class=search-options-wrapper> <div class=option-name> <input id={{col.name}} type=checkbox ng-model=col.selected ng-disabled=col.disabled ng-click=searchOptionsDropdown.refreshInfo()> <label for={{col.name}}></label> <span class="text no-overflow">{{col.name}}: </span> </div> <span ng-click="searchOptionsDropdown.toggleSearchTypeOptions($event, col)" ng-class="{'disabled': col.disabled}" class=select> <span ng-bind-html=searchOptionsDropdown.getTypeName(col.settings.searchType)></span> <span class=caret></span> </span> </div> <ul class="dropdown-menu-right checkable" uib-dropdown-menu ng-if=searchOptionsDropdown.searchTypeMenuOpened[col.field]> <li ng-repeat="choice in searchOptionsDropdown.getAvailableSearchTypes(col)" ng-click="searchOptionsDropdown.onSearchTypeSelect($event, choice, col)" ng-class="{'selected': choice.value == col.settings.searchType}" class=dropdown-menuitem> <a> <span class=dropdown-menuitem-content ng-bind-html=choice.text></span> </a> </li> </ul> </div> </div> <div class=search-save-changes> <div> <button class="btn btn-primary-goog save-changes-btn" ng-click=searchOptionsDropdown.saveChanges() ladda=searchOptionsDropdown.savingChanges ng-disabled=!searchOptionsDropdown.hasChangesToCommit> Save Changes </button> <button class="btn btn-default-flat-goog" ng-disabled=!searchOptionsDropdown.hasChangesToCommit> Reset </button> </div> <div class="est-time small"> <span ng-if=searchOptionsDropdown.hasChangesToCommit> Est time to save changes: <b>{{ getLastCommitDuration() || '-' }}</b> </span> <span ng-if=!searchOptionsDropdown.hasChangesToCommit> All changes applied. </span> </div> </div> </div> </div> </div>
+<div class="dropdown-options dropdown"
+     click-out="searchOptionsDropdown.toggle(false)"
+     click-out-excluding-classes="['dropdown-menu']">
+    <div ng-click="searchOptionsDropdown.toggle()"
+         class="dropdown-toggle"
+         uib-tooltip="Edit search settings"
+         tooltip-append-to-body="true"
+         tooltip-placement="bottom">
+        <span class="gear"></span>
+    </div>
+    <div ng-show="searchOptionsDropdown.opened"
+         class="dropdown-menu sidebar-ul">
+        <div class="search-dropdown-wrapper">
+            <div class="search-dropdown-title">
+                <span>Search is currently working across <strong>{{searchOptionsDropdown.enabledItemsCount}}</strong> of {{searchOptionsDropdown.columns.length}} fields.</span>
+            </div>
+            <div class="search-dropdown-section">
+                <span>
+                    <strong>Instant search</strong>
+                    <a class="info-button"
+                       uib-tooltip="Like Google search, your results will show up as you type."
+                       tooltip-placement="top"
+                       tooltip-append-to-body="true"
+                       tooltip-popup-delay="250"
+                       tooltip-class="main-page-tooltip"></a>
+                </span>
+                <span uib-dropdown
+                      is-open="searchOptionsDropdown.isInstantSearchDropdownOpened"
+                      class="select"
+                      dropdown-append-to-body="true"
+                      ng-class="{'disabled': !autoRefresh}"
+                      uib-tooltip="Auto-Query must be turned on to use Instant Search."
+                      tooltip-enable="!autoRefresh"
+                      tooltip-placement="right"
+                      tooltip-append-to-body="true"
+                      tooltip-popup-delay="250"
+                      tooltip-class="main-page-tooltip">
+                    <span ng-click="searchOptionsDropdown.toggleInstantSearchDropdown($event)">
+                        <span>{{searchOptionsDropdown.instantSearch.text}}</span>
+                        <span class="caret"></span>
+                    </span>
+                    <ul class="dropdown-menu checkable"
+                        style="width: 200px;"
+                        uib-dropdown-menu>
+                        <li ng-repeat="choice in searchOptionsDropdown.onOffOptions"
+                            ng-click="searchOptionsDropdown.onInstantSearchSelect($event, choice)"
+                            ng-class="{'selected': choice.value == searchOptionsDropdown.instantSearch.value}"
+                            class="dropdown-menuitem">
+                            <a>
+                                <span class="dropdown-menuitem-content">{{choice.text}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+            <div class="search-dropdown-section">
+                <span>
+                    <strong>Highlight matches</strong>
+                    <a class="info-button"
+                       uib-tooltip="Whatever matches your search will be highlighted in yellow."
+                       tooltip-placement="top"
+                       tooltip-append-to-body="true"
+                       tooltip-popup-delay="250"
+                       tooltip-class="main-page-tooltip"></a>
+                </span>
+                <span uib-dropdown
+                      class="select"
+                      dropdown-append-to-body="true">
+                    <span uib-dropdown-toggle>
+                        <span>{{searchOptionsDropdown.highlightMatches.text}}</span>
+                        <span class="caret"></span>
+                    </span>
+                    <ul class="dropdown-menu checkable"
+                        style="width: 200px;"
+                        uib-dropdown-menu>
+                        <li ng-repeat="choice in searchOptionsDropdown.onOffOptions"
+                            ng-click="searchOptionsDropdown.onHighlightMatchesSelect($event, choice)"
+                            ng-class="{'selected': choice.value == searchOptionsDropdown.highlightMatches.value}"
+                            class="dropdown-menuitem">
+                            <a>
+                                <span class="dropdown-menuitem-content">{{choice.text}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+
+            <div class="search-main">
+                <div class="dropdown-option">
+                    <div class="search-options-wrapper">
+                        <div class="option-name">
+                            <input type="checkbox" ng-model="searchOptionsDropdown.allSelected"
+                                   ng-model-options="{getterSetter: true}" id="setAll"/>
+                            <label for="setAll"></label>
+                            <span class="text no-overflow">All Fields</span>
+                        </div>
+                        <span ng-click="searchOptionsDropdown.toggleSearchTypeOptions($event, searchOptionsDropdown.allColumnsOption)"
+                              uib-dropdown
+                              is-open="searchOptionsDropdown.searchTypeMenuOpened[searchOptionsDropdown.allColumnsOption.field]"
+                              ng-class="{'disabled': col.disabled}"
+                              class="select">
+                        <span ng-bind-html="searchOptionsDropdown.getTypeName(searchOptionsDropdown.allColumnsOption.searchType)"></span>
+                        <span class="caret"></span>
+                        <ul class="dropdown-menu-right checkable"
+                            style="width: 200px;"
+                            uib-dropdown-menu
+                            ng-if="searchOptionsDropdown.searchTypeMenuOpened[searchOptionsDropdown.allColumnsOption.field]">
+                            <li ng-repeat="choice in searchOptionsDropdown.getAvailableSearchTypes(searchOptionsDropdown.allColumnsOption)"
+                                ng-click="searchOptionsDropdown.onSearchTypeSelect($event, choice, searchOptionsDropdown.allColumnsOption)"
+                                ng-class="{'selected': choice.value == searchOptionsDropdown.allColumnsOption.searchType}"
+                                class="dropdown-menuitem">
+                                <a>
+                                    <span class="dropdown-menuitem-content" ng-bind-html="choice.text"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </span>
+                    </div>
+                </div>
+                <div ng-repeat="col in searchOptionsDropdown.columns"
+                     class="dropdown-option"
+                     uib-tooltip-html="col.disabledTooltip"
+                     tooltip-enable="col.disabled"
+                     tooltip-placement="right"
+                     tooltip-append-to-body="true"
+                     tooltip-popup-delay="250"
+                     tooltip-class="main-page-tooltip"
+                     uib-dropdown
+                     is-open="searchOptionsDropdown.searchTypeMenuOpened[col.field]">
+
+                    <div class="search-options-wrapper">
+                        <div class="option-name">
+                            <input id="{{col.name}}"
+                                   type="checkbox"
+                                   ng-model="col.selected"
+                                   ng-disabled="col.disabled"
+                                   ng-click="searchOptionsDropdown.refreshInfo()">
+                            <label for="{{col.name}}"></label>
+                            <span class="text no-overflow">{{col.name}}: </span>
+                        </div>
+                        <span ng-click="searchOptionsDropdown.toggleSearchTypeOptions($event, col)"
+
+                              ng-class="{'disabled': col.disabled}"
+                              class="select">
+                        <span ng-bind-html="searchOptionsDropdown.getTypeName(col.settings.searchType)"></span>
+                        <span class="caret"></span>
+
+                    </span>
+                    </div>
+                    <ul class="dropdown-menu-right checkable"
+                        uib-dropdown-menu
+                        ng-if="searchOptionsDropdown.searchTypeMenuOpened[col.field]">
+                        <li ng-repeat="choice in searchOptionsDropdown.getAvailableSearchTypes(col)"
+                            ng-click="searchOptionsDropdown.onSearchTypeSelect($event, choice, col)"
+                            ng-class="{'selected': choice.value == col.settings.searchType}"
+                            class="dropdown-menuitem">
+                            <a>
+                                <span class="dropdown-menuitem-content" ng-bind-html="choice.text"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="search-save-changes">
+                <!--
+                <span ng-show="!searchOptionsDropdown.hasChangesToCommit" class="changes-applied"><i>All changes applied.</i></span>
+                <span ng-show="searchOptionsDropdown.hasChangesToCommit"><i>Your data must be re-saved to apply all changes to search.</i></span>
+                <button class="btn btn-primary-goog pull-right"
+                        ng-click="searchOptionsDropdown.saveChanges()"
+                        ladda="searchOptionsDropdown.savingChanges"
+                        ng-disabled="!searchOptionsDropdown.hasChangesToCommit">Save Changes</button>
+                -->
+                <div>
+                    <button class="btn btn-primary-goog save-changes-btn"
+                            ng-click="searchOptionsDropdown.saveChanges()"
+                            ladda="searchOptionsDropdown.savingChanges"
+                            ng-disabled="!searchOptionsDropdown.hasChangesToCommit">
+                        Save Changes
+                    </button>
+                    <button class="btn btn-default-flat-goog"
+                            ng-disabled="!searchOptionsDropdown.hasChangesToCommit">
+                        Reset
+                    </button>
+                </div>
+                <div class="est-time small">
+                    <span ng-if="searchOptionsDropdown.hasChangesToCommit">
+                        Est time to save changes: <b>{{ getLastCommitDuration() || '-' }}</b>
+                    </span>
+                    <span ng-if="!searchOptionsDropdown.hasChangesToCommit">
+                        All changes applied.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

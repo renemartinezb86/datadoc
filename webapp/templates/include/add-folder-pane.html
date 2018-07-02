@@ -1,1 +1,27 @@
-<div class=upload-item> <div class=col-md-6> <div class=first-column> <div class=icon> <div class="img folder"></div> </div> <div class=name> <input class=new-folder-name ng-model=editedFolder.name> </div> <div class=add-folder-loader ng-if=loading> <svg class=spinner width=22px height=22px viewBox="0 0 66 66" xmlns=http://www.w3.org/2000/svg> <circle class=path fill=none stroke-width=7 stroke-linecap=round cx=33 cy=33 r=30></circle> </svg> </div> </div> </div> <div class=col-md-3> <div class=second-column> &#8212; </div> </div> <div class=col-md-3> <div class=third-column></div> </div> </div>
+<div class="upload-item">
+<div class="col-md-6">
+    <div class="first-column">
+        <div class="icon">
+            <div class="img folder"></div>
+        </div>
+        <div class="name">
+            <input type="text"
+                   class="new-folder-name"
+                   ng-model="editedFolder.name">
+        </div>
+        <div class="add-folder-loader" ng-if="loading">
+            <svg class="spinner" width="22px" height="22px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                <circle class="path" fill="none" stroke-width="7" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+            </svg>
+        </div>
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="second-column">
+        &#8212;
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="third-column"></div>
+</div>
+</div>

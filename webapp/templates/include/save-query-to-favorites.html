@@ -1,1 +1,45 @@
-<form class="delete-modal add-source-modal save-to-favorites" name=$parent.saveFavoriteForm novalidate> <div class=modal-header> <button type=button class=close ng-click=closeSaveQueryModal()>&times;</button> <h4 class=modal-title> <span>Save Query</span> </h4> </div> <div class=modal-body> <div class=flex-inline> <span>Name:</span> <div class=form-group> <input name=queryName class=form-control ng-model=saveQueryModalSettings.queryName required autofocus autocomplete=off spellcheck=false> </div> </div> <div ng-show=saveQueryModalSettings.update class=placeholder> To create a new query, change the query name </div> <div ng-show="saveFavoriteForm.queryName.$error.required && saveFavoriteForm.queryName.$dirty" class=error>Name is required </div> </div> <div class=modal-footer> <button type=button class="btn btn-default-flat-goog pull-right" style=margin-left:10px ng-click=closeSaveQueryModal()>Cancel </button> <button type=submit ng-disabled=saveFavoriteForm.$invalid class="btn btn-primary-goog pull-right" ladda=saveQueryModalSettings.saving ng-click=saveFavoriteQuery()> {{isSaveOrUpdate() ? 'Update' : 'Save'}} </button> </div> </form>
+<form class="delete-modal add-source-modal save-to-favorites" name="$parent.saveFavoriteForm" novalidate>
+<div class="modal-header">
+    <button type="button" class="close" ng-click="closeSaveQueryModal()">&times;</button>
+    <h4 class="modal-title">
+        <span>Save Query</span>
+    </h4>
+</div>
+<div class="modal-body">
+    <div class="flex-inline">
+    <span>Name:</span>
+    <div class="form-group">
+        <input name="queryName"
+               class="form-control"
+               ng-model="saveQueryModalSettings.queryName"
+               required
+               autofocus
+               autocomplete="off"
+               spellcheck="false">
+    </div>
+    </div>
+    <div ng-show="saveQueryModalSettings.update" class="placeholder">
+        To create a new query, change the query name
+    </div>
+    <div ng-show="saveFavoriteForm.queryName.$error.required && saveFavoriteForm.queryName.$dirty"
+         class="error">Name is required
+    </div>
+</div>
+<div class="modal-footer">
+
+    <button type="button"
+            class="btn btn-default-flat-goog pull-right"
+            style="margin-left: 10px"
+            ng-click="closeSaveQueryModal()">Cancel
+    </button>
+
+    <button type="submit"
+            ng-disabled="saveFavoriteForm.$invalid"
+            class="btn btn-primary-goog pull-right"
+            ladda="saveQueryModalSettings.saving"
+            ng-click="saveFavoriteQuery()">
+        {{isSaveOrUpdate() ? 'Update' : 'Save'}}
+    </button>
+
+</div>
+</form>

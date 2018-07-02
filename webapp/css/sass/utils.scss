@@ -1,0 +1,17 @@
+.bold {
+  font-weight: bold;
+}
+
+.note {
+  font-size: 0.9em;
+}
+
+.flex-column-no-wrap {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.flex-row-wrap {
+  display: flex;
+  flex-flow: column wrap;
+}

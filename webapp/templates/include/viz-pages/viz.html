@@ -1,1 +1,311 @@
-<div id=search-results ng-if="isVizMode() && dataTabs.results" class="widget resizable-wrapper"> <div class="results page-content-wrapper"> <table style=width:100%;height:100%> <tr class=collapsed-tags-row click-out=setShowCollapsedTags(true) click-out-excluding-classes="['ui-select-choices', 'context-submenu', 'sort-section']"> <td id=non-collapsed-tags ng-show="!isCurrentView('chart')" style=height:82px;display:none> <div class=show-me-bar-table> <div class=table-wrapper> <table class=query-table style=min-height:82px> <tbody> <tr id=show-me-row> <td class=section-name> <span>Show me </span> <a href=javascript:void(0) ng-show="dataSummary.shows.length > 0" style=margin-right:5px;color:#aaa;float:right ng-click=removeAllShowMe()> <i class="fa fa-times" uib-tooltip="Remove all items" tooltip-append-to-body=true tooltip-placement=right tooltip-popup-delay=250 tooltip-class=main-page-tooltip></i> </a> </td> <td> <table style=width:100%;height:100%;table-layout:fixed> <tr> <td> <ui-select id=shows-select multiple=multiple ng-model=dataSummary.shows on-remove="showMeOnRemove($item, $select)" on-select="showMeOnSelect($item, false, $select)" sortable=true not-remove-selected=true close-on-select=false without-choices context-menu-options=showMeContextMenuOptions focus-on=FocusOnShowMe> <ui-select-match> <span ng-bind-html=$item.showName></span> </ui-select-match> <ui-select-choices first-item-active=false position=down repeat="col in showMeAutoCompleteList | filter: matchFn($select.search)" ng-hide=!$select.search.length> <span> <i class="fa fa-fw" ng-class="{'fa-check': showMeColChecked(col)}"></i> <span ng-bind-html=col.showName></span> </span> </ui-select-choices> </ui-select> </td> </tr> </table> </td> </tr> <tr id=broken-down-row> <td class=section-name> <i style=color:#000 class="fa fa-level-up fa-rotate-270 back" ng-cloak ng-click=selectDataSummaryBack() ng-show=isViewRawData></i> <span>Broken down by </span> <a href=javascript:void(0) ng-show="dataSummary.aggs.length > 0 || dataSummary.pivot.length > 0" style=margin-right:5px;color:#aaa;float:right ng-click=removeAllGroupBy()> <i class="fa fa-times" uib-tooltip="Remove all items" tooltip-append-to-body=true tooltip-placement=right tooltip-popup-delay=250 tooltip-class=main-page-tooltip></i> </a> </td> <td style=position:relative> <table style=width:100%;table-layout:fixed> <tr> <td> <ui-select id=group-by-select multiple=multiple ng-model=dataSummary.aggs on-select="groupBySummarySelect($item, $model, $select)" on-remove="groupBySelectOnRemove($item, $select)" sortable=true not-remove-selected=true without-choices context-menu-options=groupByContextMenuOptions on-showing-choices=setMaxHeightOnElement() close-on-select=false focus-on=FocusOnGroupBy> <ui-select-match placeholder=Drill-into> <span ng-click="showSortSettingsDropdown($event, $item)"> <span ng-bind-html=$item.displayName></span> <div class=sort-description> <span>sorted&nbsp; <span ng-bind=$item.id.settings.sort.direction></span>, </span> <span>limit <span ng-bind="$item.id.settings.limit || dataSummary.limit.aggData"></span> </span> <span class=sort-settings-dropdown-button> <i class="fa fa-caret-down"></i> </span> </div> </span> </ui-select-match> <ui-select-choices first-item-active=false position=down ng-hide=!$select.search.length repeat="col in filterGroupBy() | filter: matchFn($select.search, true)"> <span> <i class="fa fa-fw"></i> <span ng-bind-html=col.displayName></span> <span style=color:#333 ng-if="$select.search.length >= 2 && col.operation">({{col.colName}})</span> </span> </ui-select-choices> </ui-select> </td> <td class=section-name style=font-size:14px;width:40px> <a href=javascript:void(0) ng-show="dataSummary.pivot.length > 0" style=margin-right:5px;color:#aaa;float:right ng-click=removeAllGroupPivotBy()> <i class="fa fa-times" uib-tooltip="Remove all items" tooltip-append-to-body=true tooltip-placement=right tooltip-popup-delay=250 tooltip-class=main-page-tooltip></i> </a> </td> <td style=position:relative> <ui-select id=pivot-by multiple=multiple ng-model=dataSummary.pivot sortable=true on-select="groupPivotBySummarySelect($item, $model)" on-remove=groupPivotBySelectOnRemove($item) not-remove-selected=true close-on-select=false without-choices context-menu-options=pivotByContextMenuOptions on-showing-choices=setMaxHeightOnElement() focus-on=FocusOnPivotBy> <ui-select-match placeholder="Pivot on"> <span ng-click="showSortSettingsDropdown($event, $item)"> <span ng-bind-html=$item.displayName></span> <div class=sort-description> <span>sorted&nbsp; <span ng-bind=$item.id.settings.sort.direction></span>, </span> <span>limit <span ng-bind="$item.id.settings.limit || dataSummary.limit.pivotData"></span> </span> <span class=sort-settings-dropdown-button> <i class="fa fa-caret-down"></i> </span> </div> </span> </ui-select-match> <ui-select-choices first-item-active=false position=down ng-hide=!$select.search.length repeat="col in filterGroupBy() | filter: matchFn($select.search, true)" ui-disable-choice="col.operation==''"> <span> <i class="fa fa-fw"></i> <span ng-bind-html=col.displayName></span> <span style=color:#333 ng-if="$select.search.length >= 2 && col.operation">({{col.colName}})</span> </span> </ui-select-choices> </ui-select> </td> </tr> </table> </td> </tr> <tr class=show-me-for-tr ng-if="isShowFilterSection || isVisibleForRow()" uib-tooltip="Use the filter panel on the left to build filters" tooltip-append-to-body=true tooltip-placement=top tooltip-trigger=outsideClick ng-click=toggleFilterTooltip($event) tooltip-is-open=isShowFilterTooltip tooltip-class=filterRowTooltipClass> <td class=section-name> <span>For </span> <a href=javascript:void(0) style=margin-right:5px;color:#aaa;float:right ng-click=resetAllFilters() ng-show=isResetAllShow()> <i class="fa fa-times" uib-tooltip="Remove all items" tooltip-append-to-body=true tooltip-placement=right tooltip-popup-delay=250 tooltip-class=main-page-tooltip></i> </a> </td> <td> <ng-include src="'static/templates/include/filter-tags.html'"></ng-include> <input style=position:absolute;left:-99999px ng-blur=onHiddenFilterInputBlur()> </td> </tr> </tbody> </table> </div> <div class=bnt-query-wrapper-expanded> <button ng-show=!autoRefresh ng-disabled=!refreshAvailable class="btn btn-filters btn-filters-blue" href=javascript:void(0) style="padding:0 9px;margin-right:10px;height:28px" ng-click=doHandleRefresh()> Run Query </button> <button ng-show=!autoRefresh ng-disabled=!refreshAvailable class="btn btn-filters" href=javascript:void(0) style="padding:0 9px;margin-right:10px;height:28px" ng-click=doCancelRefresh()> Cancel </button> </div> </div> </td> <td ng-show="!isCurrentView('chart')" id=collapsed-tags style="height:40px;border-bottom:1px solid #d4d4d4" ng-click=$event.stopPropagation();> <table style=width:100%;height:100%> <tr> <td style=padding:10px;width:15px ng-click=selectDataSummaryBack() ng-show=isViewRawData> <i class="fa fa-level-up fa-rotate-270 back" ng-cloak></i> </td> <td ng-style="{'padding-left': !isViewRawData ? '30px' : ''}"> <div collapsed-tags style=height:100%;position:relative></div> </td> <td ng-show=!autoRefresh style=width:170px> <div class=btn-query-wrapper-collapsed> <button ng-disabled=!refreshAvailable class="btn btn-filters btn-filters-blue" href=javascript:void(0) style="padding:0 9px;margin-right:10px;height:28px" ng-click=doHandleRefresh()> Run Query </button> <button ng-disabled=!refreshAvailable class="btn btn-filters" href=javascript:void(0) style="padding:0 9px;margin-right:10px;height:28px" ng-click=doCancelRefresh()> Cancel </button> </div> </td> </tr> </table> </td> </tr> <tr> <td> <div style=overflow:hidden;position:relative;height:100%;width:100%> <div class="loader backdrop-only" ng-show=inRequest> <div class="loader-backdrop semi-transparent"></div> </div> <div class=main-viewport> <span class=chart-disabled-message ng-show=chartDisabled ng-bind=chartDisabled.message></span> <div id=ag-grid ng-show="viewMode == viewModes.TABLE" class=ag-custom></div> <div viz-list ng-show="viewMode == viewModes.LIST"></div> </div> </div> </td> </tr> </table> </div> <div viz-filters ng-if=!isViewOnly ctrl-name=visualizationCtrl filter-id=visualization-filters save-width=true></div> </div>
+<div id="search-results"
+     ng-if="isVizMode() && dataTabs.results"
+     class="widget resizable-wrapper">
+    <div class="results page-content-wrapper">
+        <table style="width: 100%; height: 100%;">
+            <tr class="collapsed-tags-row" click-out="setShowCollapsedTags(true)"
+                click-out-excluding-classes="['ui-select-choices', 'context-submenu', 'sort-section']">
+                <td id="non-collapsed-tags"
+                    ng-show="!isCurrentView('chart')"
+                    style="height: 82px; display: none;">
+                    <div class="show-me-bar-table">
+                        <div class="table-wrapper">
+                            <table class="query-table" style="min-height: 82px;">
+                                <tbody>
+                                <tr id="show-me-row">
+                                    <td class="section-name">
+                                        <span>Show me </span>
+                                        <a href="javascript:void(0)"
+                                           ng-show="dataSummary.shows.length > 0"
+                                           style="margin-right: 5px; color: #aaa; float: right"
+                                           ng-click="removeAllShowMe()">
+                                            <i class="fa fa-times"
+                                               uib-tooltip="Remove all items"
+                                               tooltip-append-to-body="true"
+                                               tooltip-placement="right"
+                                               tooltip-popup-delay="250"
+                                               tooltip-class="main-page-tooltip"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <table style="width: 100%; height: 100%; table-layout: fixed">
+                                            <tr>
+                                                <td>
+                                                    <ui-select id="shows-select"
+                                                               multiple
+                                                               ng-model="dataSummary.shows"
+                                                               on-remove="showMeOnRemove($item, $select)"
+                                                               on-select="showMeOnSelect($item, false, $select)"
+                                                               sortable="true"
+                                                               not-remove-selected="true"
+                                                               close-on-select="false"
+                                                               without-choices
+                                                               context-menu-options="showMeContextMenuOptions"
+                                                               focus-on="FocusOnShowMe">
+                                                        <ui-select-match>
+                                                            <span ng-bind-html="$item.showName"></span>
+                                                        </ui-select-match>
+                                                        <ui-select-choices first-item-active="false"
+                                                                           position="down"
+                                                                           repeat="col in showMeAutoCompleteList | filter: matchFn($select.search)"
+                                                                           ng-hide="!$select.search.length">
+
+                                                                        <span>
+                                                                            <i class="fa fa-fw"
+                                                                               ng-class="{'fa-check': showMeColChecked(col)}"></i>
+                                                                            <span ng-bind-html="col.showName"></span>
+                                                                        </span>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </td>
+                                                <!--todo removed link show button for filter section-->
+                                                <!--<td style="width: 120px; position: relative">-->
+                                                <!--<div class="side-links">-->
+                                                <!--<a ng-click="showFilterSection()"-->
+                                                <!--ng-show="!(isShowFilterSection || isVisibleForRow())">Filter</a>-->
+                                                <!--</div>-->
+                                                <!--</td>-->
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr id="broken-down-row">
+                                    <td class="section-name">
+                                        <i style="color: black;"
+                                           class="fa fa-level-up fa-rotate-270 back"
+                                           ng-cloak
+                                           ng-click="selectDataSummaryBack()"
+                                           ng-show="isViewRawData"></i>
+                                        <span>Broken down by </span>
+                                        <a href="javascript:void(0)"
+                                           ng-show="dataSummary.aggs.length > 0 || dataSummary.pivot.length > 0"
+                                           style="margin-right: 5px; color: #aaa; float: right"
+                                           ng-click="removeAllGroupBy()">
+                                            <i class="fa fa-times"
+                                               uib-tooltip="Remove all items"
+                                               tooltip-append-to-body="true"
+                                               tooltip-placement="right"
+                                               tooltip-popup-delay="250"
+                                               tooltip-class="main-page-tooltip"></i>
+                                        </a>
+                                    </td>
+                                    <td style="position: relative">
+                                        <table style="width: 100%; table-layout: fixed">
+                                            <tr>
+                                                <td>
+                                                    <ui-select id="group-by-select"
+                                                               multiple
+                                                               ng-model="dataSummary.aggs"
+                                                               on-select="groupBySummarySelect($item, $model, $select)"
+                                                               on-remove="groupBySelectOnRemove($item, $select)"
+                                                               sortable="true"
+                                                               not-remove-selected="true"
+                                                               without-choices
+                                                               context-menu-options="groupByContextMenuOptions"
+                                                               on-showing-choices="setMaxHeightOnElement()"
+                                                               close-on-select="false"
+                                                               focus-on="FocusOnGroupBy">
+                                                        <ui-select-match placeholder="Drill-into">
+                                                                        <span ng-click="showSortSettingsDropdown($event, $item)">
+                                                                            <span ng-bind-html="$item.displayName"></span>
+                                                                            <div class="sort-description">
+                                                                                <span>sorted&nbsp;
+                                                                                    <span ng-bind="$item.id.settings.sort.direction"></span>,
+                                                                                </span>
+                                                                                <span>limit
+                                                                                    <span ng-bind="$item.id.settings.limit || dataSummary.limit.aggData"></span>
+                                                                                </span>
+                                                                                <span class="sort-settings-dropdown-button">
+                                                                                    <i class="fa fa-caret-down"></i>
+                                                                                </span>
+                                                                            </div>
+                                                                        </span>
+                                                        </ui-select-match>
+                                                        <ui-select-choices first-item-active="false"
+                                                                           position="down"
+                                                                           ng-hide="!$select.search.length"
+                                                                           repeat="col in filterGroupBy() | filter: matchFn($select.search, true)">
+                                                                        <span>
+                                                                            <i class="fa fa-fw"></i>
+                                                                            <span ng-bind-html="col.displayName"></span>
+                                                                            <span style="color: #333;"
+                                                                                  ng-if="$select.search.length >= 2 && col.operation">({{col.colName}})</span>
+                                                                        </span>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </td>
+                                                <td class="section-name" style="font-size: 14px; width: 40px;">
+                                                    <a href="javascript:void(0)"
+                                                       ng-show="dataSummary.pivot.length > 0"
+                                                       style="margin-right: 5px; color: #aaa; float: right"
+                                                       ng-click="removeAllGroupPivotBy()">
+                                                        <i class="fa fa-times"
+                                                           uib-tooltip="Remove all items"
+                                                           tooltip-append-to-body="true"
+                                                           tooltip-placement="right"
+                                                           tooltip-popup-delay="250"
+                                                           tooltip-class="main-page-tooltip"></i>
+                                                    </a>
+                                                </td>
+                                                <td style="position: relative">
+                                                    <ui-select id="pivot-by"
+                                                               multiple
+                                                               ng-model="dataSummary.pivot"
+                                                               sortable="true"
+                                                               on-select="groupPivotBySummarySelect($item, $model)"
+                                                               on-remove="groupPivotBySelectOnRemove($item)"
+                                                               not-remove-selected="true"
+                                                               close-on-select="false"
+                                                               without-choices
+                                                               context-menu-options="pivotByContextMenuOptions"
+                                                               on-showing-choices="setMaxHeightOnElement()"
+                                                               focus-on="FocusOnPivotBy">
+                                                        <ui-select-match placeholder="Pivot on">
+                                                                        <span ng-click="showSortSettingsDropdown($event, $item)">
+                                                                            <span ng-bind-html="$item.displayName"></span>
+                                                                            <div class="sort-description">
+                                                                                <span>sorted&nbsp;
+                                                                                    <span ng-bind="$item.id.settings.sort.direction"></span>,
+                                                                                </span>
+                                                                                <span>limit
+                                                                                    <span ng-bind="$item.id.settings.limit || dataSummary.limit.pivotData"></span>
+                                                                                </span>
+                                                                                <span class="sort-settings-dropdown-button">
+                                                                                    <i class="fa fa-caret-down"></i>
+                                                                                </span>
+                                                                            </div>
+                                                                        </span>
+                                                        </ui-select-match>
+                                                        <ui-select-choices first-item-active="false"
+                                                                           position="down"
+                                                                           ng-hide="!$select.search.length"
+                                                                           repeat="col in filterGroupBy() | filter: matchFn($select.search, true)"
+                                                                           ui-disable-choice="col.operation==''">
+                                                                <span>
+                                                                    <i class="fa fa-fw"></i>
+                                                                    <span ng-bind-html="col.displayName"></span>
+                                                                    <span style="color: #333;"
+                                                                          ng-if="$select.search.length >= 2 && col.operation">({{col.colName}})</span>
+                                                                </span>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr class="show-me-for-tr" ng-if="isShowFilterSection || isVisibleForRow()"
+                                    uib-tooltip="Use the filter panel on the left to build filters"
+                                    tooltip-append-to-body="true"
+                                    tooltip-placement="top"
+                                    tooltip-trigger="outsideClick"
+                                    ng-click="toggleFilterTooltip($event)"
+                                    tooltip-is-open="isShowFilterTooltip"
+                                    tooltip-class="filterRowTooltipClass">
+                                    <td class="section-name">
+                                        <span>For </span>
+                                        <a href="javascript:void(0)"
+                                           style="margin-right: 5px; color: #aaa; float: right"
+                                           ng-click="resetAllFilters()"
+                                           ng-show="isResetAllShow()">
+                                            <i class="fa fa-times"
+                                               uib-tooltip="Remove all items"
+                                               tooltip-append-to-body="true"
+                                               tooltip-placement="right"
+                                               tooltip-popup-delay="250"
+                                               tooltip-class="main-page-tooltip"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <ng-include src="'static/templates/include/filter-tags.html'"></ng-include>
+                                        <input style="position: absolute; left: -99999px;" type="text" ng-blur="onHiddenFilterInputBlur()">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="bnt-query-wrapper-expanded">
+                            <button ng-show="!autoRefresh"
+                                    ng-disabled="!refreshAvailable"
+                                    class="btn btn-filters btn-filters-blue"
+                                    href="javascript:void(0)"
+                                    style="padding: 0px 9px; margin-right: 10px; height: 28px"
+                                    ng-click="doHandleRefresh()">
+                                Run Query
+                            </button>
+
+                            <button ng-show="!autoRefresh"
+                                    ng-disabled="!refreshAvailable"
+                                    class="btn btn-filters"
+                                    href="javascript:void(0)"
+                                    style="padding: 0px 9px; margin-right: 10px; height: 28px"
+                                    ng-click="doCancelRefresh()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </td>
+                <td ng-show="!isCurrentView('chart')"
+                    id="collapsed-tags" style="height:40px; border-bottom: 1px solid #d4d4d4;"
+                    ng-click="$event.stopPropagation();">
+                    <table style="width: 100%; height: 100%;">
+                        <tr>
+                            <td style="padding: 10px; width: 15px;"
+                                ng-click="selectDataSummaryBack()"
+                                ng-show="isViewRawData">
+                                <i class="fa fa-level-up fa-rotate-270 back"
+                                   ng-cloak></i>
+                            </td>
+                            <td ng-style="{'padding-left': !isViewRawData ? '30px' : ''}">
+                                <div collapsed-tags style="height: 100%; position: relative;"></div>
+                            </td>
+                            <td ng-show="!autoRefresh" style="width: 170px;">
+                                <div class="btn-query-wrapper-collapsed">
+                                    <button ng-disabled="!refreshAvailable"
+                                            class="btn btn-filters btn-filters-blue"
+                                            href="javascript:void(0)"
+                                            style="padding: 0px 9px; margin-right: 10px; height: 28px"
+                                            ng-click="doHandleRefresh()">
+                                        Run Query
+                                    </button>
+
+                                    <button ng-disabled="!refreshAvailable"
+                                            class="btn btn-filters"
+                                            href="javascript:void(0)"
+                                            style="padding: 0px 9px; margin-right: 10px; height: 28px"
+                                            ng-click="doCancelRefresh()">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="overflow: hidden; position: relative; height: 100%; width: 100%">
+                        <div class="loader backdrop-only" ng-show="inRequest">
+                            <div class="loader-backdrop semi-transparent"></div>
+                        </div>
+                        <div class="main-viewport">
+                            <span class="chart-disabled-message" ng-show="chartDisabled" ng-bind="chartDisabled.message"></span>
+                            <!--<div viz-chart></div>-->
+                            <div id="ag-grid"
+                                 ng-show="viewMode == viewModes.TABLE"
+                                 class="ag-custom"></div>
+                            <div viz-list
+                                 ng-show="viewMode == viewModes.LIST"></div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <div viz-filters
+         ng-if="!isViewOnly"
+         ctrl-name="visualizationCtrl"
+         filter-id="visualization-filters"
+         save-width="true"></div>
+</div>

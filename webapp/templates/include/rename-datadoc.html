@@ -1,1 +1,24 @@
-<form class=delete-modal name=$parent.renameDocForm novalidate> <div class=modal-body> <div style=padding-top:20px> <h4>Name before saving</h4> <div style="padding:15px 0">Give your untitled document a name before it's saved:</div> <div class=form-group> <input name=document-name class=form-control ng-model=renameDocModal.docName required style=width:100%> <div ng-show="renameDocForm['document-name'].$error.required && renameDocForm['document-name'].$touched" class=error>Document name should not be empty</div> </div> <div> <button type=submit ng-disabled=renameDocForm.$invalid class="btn btn-primary-goog" style=margin-left:0 ng-click=saveNameAndCommit()>Save</button> </div> </div> </div> </form>
+<form class="delete-modal" name="$parent.renameDocForm" novalidate>
+    <div class="modal-body">
+        <div style="padding-top: 20px">
+            <h4>Name before saving</h4>
+            <div style="padding: 15px 0">Give your untitled document a name before it's saved:</div>
+            <div class="form-group">
+                <input name="document-name"
+                       type="text"
+                       class="form-control"
+                       ng-model="renameDocModal.docName"
+                       required
+                       style="width: 100%">
+                <div ng-show="renameDocForm['document-name'].$error.required && renameDocForm['document-name'].$touched" class="error">Document name should not be empty</div>
+            </div>
+            <div>
+                <button type="submit"
+                        ng-disabled="renameDocForm.$invalid"
+                        class="btn btn-primary-goog"
+                        style="margin-left: 0;"
+                        ng-click="saveNameAndCommit()">Save</button>
+            </div>
+        </div>
+    </div>
+</form>

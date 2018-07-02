@@ -1,0 +1,92 @@
+.icon .img {
+  background-size: 25px;
+  background-repeat: no-repeat;
+}
+
+.icon .img, .upload-item-helper {
+  height: 20px;
+  width: 17px;
+  background-size: 17px;
+
+  &.index-icon {
+    background-image: url('/static/img/main-page/datadoc.png');
+
+    &.icon-small {
+      background-image: url('/static/img/main-page/small/datadoc.png');
+    }
+  }
+}
+
+.icon .img.excel, .drag-source-helper.index-icon {
+  background-image: url('/static/img/main-page/datadoc.png');
+
+  &.icon-small {
+    background-image: url('/static/img/main-page/small/datadoc.png');
+  }
+}
+
+.icon .img.excel, .drag-source-helper.excel {
+  background-image: url('/static/img/main-page/excel.png');
+
+  &.icon-small {
+    background-image: url('/static/img/main-page/small/excel.png');
+  }
+}
+
+.icon .img.db, .drag-source-helper.db {
+  background-image: url('/static/img/main-page/database.png');
+
+  &.icon-small {
+    background-image: url('/static/img/main-page/small/database.png');
+  }
+}
+
+.icon .img.query, .drag-source-helper.query {
+  background-image: url('/static/img/main-page/query.png');
+
+  &.icon-small {
+    background-image: url('/static/img/main-page/small/query.png');
+  }
+}
+
+.icon .img.folder, .drag-source-helper.folder {
+  background-position: 0 center;
+  background-image: url('/static/img/main-page/folder.png');
+
+  &.icon-small {
+    background-image: url('/static/img/main-page/small/folder.png');
+  }
+}
+
+.icon .img.unknown, .drag-source-helper.unknown {
+  background-image: url('/static/img/main-page/upload.png');
+}
+
+.icon .img.archive, .drag-source-helper.archive {
+  background-image: url('/static/img/main-page/archive.png');
+}
+
+.icon .img.invalid, .drag-source-helper.invalid {
+  background-image: url('/static/img/main-page/invalid.png');
+
+  &.icon-small {
+    background-image: url('/static/img/main-page/small/invalid.png');
+  }
+}
+
+.icon .img.csv, .drag-source-helper.csv,
+.icon .img.xml, .drag-source-helper.xml,
+.icon .img.pdf, .drag-source-helper.pdf,
+.icon .img.text, .drag-source-helper.text,
+.icon .img.json, .drag-source-helper.json,
+.icon .img.file, .drag-source-helper.file,
+.icon .img.code, .drag-source-helper.code,
+.icon .img.image, .drag-source-helper.image,
+.icon .img.video, .drag-source-helper.video
+{
+  background-image: url('/static/img/main-page/other-file.png');
+
+  &.icon-small {
+    background-image: url('/static/img/main-page/small/other-file.png');
+  }
+}

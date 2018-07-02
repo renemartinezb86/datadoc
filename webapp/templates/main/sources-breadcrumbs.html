@@ -1,1 +1,33 @@
-<span ng-show="!(selectedSourceFolder != undefined && !isSearchMode())" ng-bind-html=col.selected.title></span> <span class=folders-path> <span ng-show="selectedSourceFolder != undefined && !isSearchMode()" style=display:flex> <a class="item item-link" ng-click="$event.stopPropagation(); selectSourceFolder(undefined)"> <input type=hidden class=uid> <span>My Data</span></a> <span ng-repeat="parent in selectedSourceFolder.parentsPath" on-finish-render=processRenderedSourceBreadcrumbs() class=parent-item uib-tooltip={{parent.name}} tooltip-append-to-body=true tooltip-placement=top tooltip-popup-delay=1000 tooltip-class=main-page-tooltip> <span class=item><i class="fa fa-angle-right"></i></span> <a class="item item-link" ng-click="$event.stopPropagation(); selectSourceFolder(parent)"> <input type=hidden class=uid value={{parent.id}}> <span>{{parent.name}}</span> </a> </span> <span class=current-folder uib-tooltip={{selectedSourceFolder.name}} tooltip-append-to-body=true tooltip-placement=top tooltip-popup-delay=1000 tooltip-class=main-page-tooltip> <span class=item><i class="fa fa-angle-right"></i></span> <span class="item item-link">{{selectedSourceFolder.name}}</span> </span> </span> </span>
+<span ng-show="!(selectedSourceFolder != undefined && !isSearchMode())"
+      ng-bind-html="col.selected.title"></span>
+<span class="folders-path">
+    <span ng-show="selectedSourceFolder != undefined && !isSearchMode()" style="display: flex">
+        <a class="item item-link"
+            ng-click="$event.stopPropagation(); selectSourceFolder(undefined)">
+            <input type="hidden" class="uid" value=""/>
+            <span>My Data</span></a>
+        <span ng-repeat="parent in selectedSourceFolder.parentsPath"
+              on-finish-render="processRenderedSourceBreadcrumbs()" class="parent-item"
+              uib-tooltip="{{parent.name}}"
+              tooltip-append-to-body="true"
+              tooltip-placement="top"
+              tooltip-popup-delay="1000"
+              tooltip-class="main-page-tooltip">
+            <span class="item"><i class="fa fa-angle-right"></i></span>
+            <a class="item item-link"
+               ng-click="$event.stopPropagation(); selectSourceFolder(parent)">
+                <input type="hidden" class="uid" value="{{parent.id}}"/>
+                <span>{{parent.name}}</span>
+            </a>
+        </span>
+        <span class="current-folder"
+              uib-tooltip="{{selectedSourceFolder.name}}"
+              tooltip-append-to-body="true"
+              tooltip-placement="top"
+              tooltip-popup-delay="1000"
+              tooltip-class="main-page-tooltip">
+            <span class="item"><i class="fa fa-angle-right"></i></span>
+            <span class="item item-link">{{selectedSourceFolder.name}}</span>
+        </span>
+    </span>
+</span>

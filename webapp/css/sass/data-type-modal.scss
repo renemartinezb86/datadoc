@@ -1,0 +1,95 @@
+.data-type-modal {
+  table-layout: fixed;
+  .dropdown-option {
+    font-size: 13px;
+    margin-top: 35px;
+
+    thead > tr > th,
+    tbody > tr > td {
+      padding: 6px 15px;
+    }
+
+    thead > tr, th {
+      background-color: #f4f4f4;
+      border-bottom-width: 1px;
+    }
+
+    tbody > tr > td.example-value {
+      color: #666;
+      font-style: italic;
+      max-width: 100px;
+      word-wrap: break-word;
+    }
+
+    .header {
+      color: black !important;
+      cursor: default !important;
+    }
+    .modal-text-input {
+      border: solid 1px transparent;
+      outline: none;
+      border-radius: 3px;
+      -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+      -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+      transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+
+      &:hover {
+        border: 1px solid #e5e5e5;
+      }
+
+      &:focus {
+        border: 1px solid #4d90fe;
+      }
+    }
+    .text {
+      width: 180px;
+      color: #000;
+    }
+    .select {
+      margin-left: 10px;
+      white-space: nowrap;
+      position: relative;
+      cursor: pointer;
+
+      .dropdown-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .icon {
+          opacity: 0.3;
+          height: 24px;
+          width: 24px;
+          display: inline-block;
+
+          &.number {
+            background: url('/static/img/visualization/types/number.png');
+          }
+          &.string {
+            background: url('/static/img/visualization/types/string.png');
+          }
+          &.boolean {
+            background: url('/static/img/visualization/types/boolean.png');
+          }
+          &.time {
+            background: url('/static/img/visualization/types/time.png');
+          }
+          &.date {
+            background: url('/static/img/visualization/types/date.png');
+          }
+        }
+      }
+    }
+  }
+  .column-list {
+    padding-top: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .re-save-notification {
+    width: 240px;
+    font-size: 13px;
+    line-height: 15px;
+  }
+}

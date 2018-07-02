@@ -1,0 +1,66 @@
+.datadoc-info-modal {
+  .info {
+
+    .datadoc, .sheet {
+      padding: 15px 0;
+      width: 100%;
+
+      .title {
+        color: #999;
+        font-weight: 500;
+        font-size: 15px;
+        padding: 5px 0 10px 0;
+        float: left;
+      }
+
+      .not-saved {
+        font-size: 15px;
+        font-style: italic;
+        color: #999;
+      }
+
+      .three-dots-loader {
+        position: static;
+        float: left;
+        margin: 10px;
+        margin-left: 30px;
+      }
+
+      .dropdown {
+        margin: 10px 0;
+
+        .dropdown-menu {
+          max-height: 160px;
+          overflow-y: auto;
+          position: absolute;
+        }
+      }
+
+      table {
+        width: 100%;
+        font-size: 14px;
+
+        tr {
+          td:first-child {
+            font-weight: bold;
+            width: 130px;
+          }
+          td:last-child {
+          }
+          td {
+            padding: 3px;
+          }
+        }
+      }
+    }
+
+    .sheet {
+      border-top: 1px solid #ddd;
+      min-height: 245px;
+
+      .storage-type {
+        color: #ddd;
+      }
+    }
+  }
+}

@@ -1,0 +1,154 @@
+.sidebar-flexible {
+  display: flex !important;
+  flex-direction: column;
+  overflow: hidden;
+
+  .resize-handle-h {
+    width: 8px;
+  }
+}
+
+.ingest-table-title-header {
+  cursor: default;
+  height: 61px;
+  border-bottom: solid 1px #d9d9d9;
+  position: relative;
+  background-color: #f5f5f5;
+  clear: right;
+  line-height: 60px;
+
+  .title {
+    float: left;
+    font-size: 16px;
+    padding-left: 20px;
+    color: #717171;
+  }
+
+  .close-tables {
+    float: right;
+    margin-top: 21px;
+    margin-right: 20px;
+    color: #939393;
+    line-height: normal;
+  }
+}
+
+.ingest-table-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollable-accordion {
+  overflow-y: auto;
+  margin-bottom: 0;
+}
+
+.table-list {
+  padding: 0;
+  list-style: none;
+  overflow-y: visible;
+  margin: 0;
+
+  .table-list__arrow {
+    color: #6188D8;
+  }
+  .table-list__header {
+    font-size: 1em;
+    padding-left: 5px;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  li {
+    font-size: 13px;
+    color: #000;
+    padding: 6px 0 6px 27px;
+    cursor: pointer;
+
+    &.no-tables, &.no-saved-views {
+      user-select: text;
+      cursor: default;
+
+      &:hover {
+        background-color: unset;
+      }
+    }
+
+    &:hover {
+      background-color: #DEF6FF;
+    }
+
+    &.active {
+      background-color: #DEF6FF;
+    }
+  }
+}
+
+.ingest-table-header {
+  display: inline-block;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eaeaea;
+
+  .table-search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+    position: relative;
+
+    .table-search-input {
+      font-size: 13px;
+      width: 100%;
+      height: 26px;
+      box-sizing: content-box;
+      position: relative;
+      text-indent: 10px;
+      outline: 0;
+      border: 1px solid #e5e5e5;
+
+      -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+      -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+      transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+
+      &:focus {
+        border: 1px solid #4d90fe;
+      }
+    }
+
+    .icon {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      right: 24px;
+      padding: 8px;
+      font-size: 13px;
+    }
+
+  }
+
+  .refresh-icon {
+    margin-left: 10px;
+    font-size: 12px;
+    color: #a5a5a5;
+
+    &:hover {
+      color: #3cc7ff;
+    }
+  }
+
+  .refreshing-spin {
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+
+  @keyframes spin {
+    from {
+      transform:rotate(0deg);
+    }
+    to {
+      transform:rotate(360deg);
+    }
+  }
+}

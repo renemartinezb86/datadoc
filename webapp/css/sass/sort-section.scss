@@ -1,0 +1,202 @@
+.sort-section {
+  z-index: 1000;
+  left: 0;
+  top: 90%;
+  min-width: 150px;
+  font-size: 13px;
+
+  .sort-section-container {
+    border-top: 1px solid #efefef;
+    padding: 8px 8px 0px;
+    padding-bottom: 12px;
+    height: auto;
+  }
+
+  .sort-section-label {
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+  }
+
+  .sort-section-drop-target {
+    height: auto;
+    margin-bottom: -22px;
+    margin-top: -24px;
+    min-height: 15px;
+    padding-bottom: 24px;
+    padding-top: 24px;
+  }
+
+  .sort-section-pill {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    background: #fdfdfd;
+    border: 1px solid #d7d7d7;
+    cursor: default;
+    line-height: 16px;
+    margin: 8px 0px;
+    min-width: 150px;
+    color: black;
+
+    -webkit-box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+  }
+
+  .sort-section-select-divider {
+    color: #555;
+    margin: 0 3px;
+  }
+
+  .sort-section-pill-sort-by {
+    vertical-align: top;
+  }
+
+  .sort-section-multi-select {
+    display: block;
+    position: relative;
+    background: #efefef;
+    border: 1px solid #d7d7d7;
+    padding: 3px;
+    margin: 3px 0 0 0;
+  }
+
+  .sort-section-pill-section {
+    background: #fdfdfd;
+    padding: 7px 6px 7px 6px;
+    display: block;
+    margin: 0 4px;
+  }
+
+  .sort-section-pill-section-top-border {
+    border-top: 1px solid #efefef;
+  }
+
+  .sort-section-pill-main-table {
+    padding: 2px 6px;
+    background: #efefef;
+    border-spacing: 0;
+    width: 100%;
+  }
+
+  .sort-section-pill-main-table-text {
+    max-width: 185px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 7px 9px;
+  }
+
+  .sort-section-pill-title {
+    color: black;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .sort-section-pill-main-table-fill {
+    white-space: nowrap;
+    padding-right: 10px;
+    width: 100%;
+  }
+
+  .sort-section-pill-draghandle {
+    display: none;
+  }
+
+  .sort-section-pill-nodrag {
+    cursor: pointer;
+  }
+
+  .sort-section-pill-close {
+    color: #8d8d8d;
+    cursor: pointer;
+    margin-left: 3px;
+    font-size: 14px;
+    width: 12px;
+  }
+
+  .sort-section-select-caption {
+    .caption {
+      color: #555;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &.droppable {
+      &:after {
+        content: ' ▾';
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .dropdown-menu {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    -webkit-transition: opacity 0.218s;
+    -moz-transition: opacity 0.218s;
+    -o-transition: opacity 0.218s;
+    transition: opacity 0.218s;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.2);
+    cursor: default;
+    font-size: 13px;
+    margin: 0;
+    outline: none;
+    padding: 6px 0;
+    position: absolute;
+    max-width: 500px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 200px;
+
+    .dropdown-menuitem {
+      position: relative;
+      color: #333;
+      cursor: pointer;
+      list-style: none;
+      margin: 0;
+      padding: 6px 30px 6px 30px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
+      &:hover:not(.disabled) {
+        background-color: #eee;
+        border-color: #eee;
+        border-style: dotted;
+        border-width: 1px 0;
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+
+      &.disabled {
+        cursor: default;
+        color: #ccc!important;
+      }
+    }
+  }
+
+
+  .limit-input-wrapper {
+    margin-top: -1px;
+    margin-left: 5px;
+    width: 100%
+  }
+
+  .limit-input-wrapper input {
+    border: 0;
+    font-size: 14px;
+    outline: none;
+    width: 100%
+  }
+}

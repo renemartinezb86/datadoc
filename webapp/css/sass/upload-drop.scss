@@ -1,0 +1,51 @@
+#upload-drop-wrapper {
+  position: absolute;
+  top: 25px;
+  left: 35px;
+  right: 35px;
+  bottom: 25px;
+}
+
+#upload-drop {
+  height: 100%;
+  cursor: pointer;
+  border-radius: 15px;
+  border-collapse: collapse;
+  padding: 20px 20px 50px 20px;
+  border: 1px dashed #dadada;
+
+  table {
+    height: 100%;
+    table-layout: fixed;
+    vertical-align: middle;
+    text-align: center;
+    width: 100%;
+
+    td {
+      vertical-align: middle;
+    }
+  }
+
+  &.drop-active {
+    border-style: solid;
+  }
+
+  .title {
+    font-weight: bold;
+    color: #666;
+  }
+
+  .add-icon {
+    color: #d8d8d8;
+    font-size: 50px;
+  }
+
+  &:hover .add-icon {
+    color: #a8a8a8;
+  }
+
+  .help-block {
+    font-size: 13px;
+    margin: 0;
+  }
+}

@@ -1,1 +1,69 @@
-<div id=sidebar-wrapper-filters class="sidebar-wrapper sidebar-flexible no-select" resizable="{id:filterId, min: 215, default: 300, max: 600, save: savePaneWidth, hideOnInit: true, minResizeCallback: toggleRightFilters}"> <div class="resize-handle-h resize-handle-filter"></div> <div class=ingest-table-title-header> <div class=title>Tables & Saved Views</div> <div class=close-tables ng-click=toggleRightFilters()> <i class="fa fa-lg fa-angle-double-left"></i> </div> </div> <div class=ingest-table-wrapper> <div class=ingest-table-header> <div class=table-search> <input class=table-search-input ng-model=searchTest.name placeholder=Search> <span class=icon><i class="fa fa-search"></i></span> <span class=refresh-icon> <i class="fa fa-refresh" ng-click=forceRefreshDatabaseTables(ingestDataSummary.parentDatabase) ng-class="{ 'refreshing-spin': databaseTablesSettings.refresh}" uib-tooltip="Refresh tables" tooltip-placement=right tooltip-popup-delay=250 tooltip-append-to-body=true tooltip-class=main-page-tooltip> </i> </span> </div> </div> <uib-accordion close-others=false class=scrollable-accordion> <ul uib-accordion-group class="table-list dropdown-options" is-open=savedViewsSettings.opened> <uib-accordion-heading> <i class="pull-left bold fa table-list__arrow" ng-class="{'fa-caret-down': savedViewsSettings.opened, 'fa-caret-right': !savedViewsSettings.opened}"></i> <span class=table-list__header>Saved Views</span> </uib-accordion-heading> <li class="no-overflow no-saved-views" ng-if="ingestDataSummary.savedViews.length === 0">No saved views for this source.</li> <li class=no-overflow ng-click=selectDatabaseView(view) ng-class="{active : view.selected}" ng-repeat="view in ingestDataSummary.savedViews | searchFilterWithCallback:searchTest:toggleSavedViews"> <span>{{view.name}}</span> </li> </ul> <ul uib-accordion-group class="table-list dropdown-options" is-open=databaseTablesSettings.opened is-disabled=databaseTablesSettings.disabled> <uib-accordion-heading> <i class="pull-left bold fa table-list__arrow" ng-class="{'fa-caret-down': databaseTablesSettings.opened, 'fa-caret-right': !databaseTablesSettings.opened}"></i> <span class=table-list__header>Tables</span> </uib-accordion-heading> <li class="no-overflow no-tables" ng-if="!databaseTablesSettings.refresh && ingestDataSummary.databaseTables.length === 0">No tables for this source.</li> <li class=no-overflow ng-click=selectTable(table) ng-class="{active : ingestDataSummary.table === table.tableId}" ng-attr-id="{{ingestDataSummary.table == table.tableId ? 'selected' : ''}}" ng-repeat="table in ingestDataSummary.databaseTables | searchFilterWithCallback:searchTest:toggleDatabaseTables"> <span>{{table.name}}</span> </li> </ul> </uib-accordion> </div> </div>
+<div id="sidebar-wrapper-filters"
+     class="sidebar-wrapper sidebar-flexible no-select"
+     resizable="{id:filterId, min: 215, default: 300, max: 600, save: savePaneWidth, hideOnInit: true, minResizeCallback: toggleRightFilters}">
+    <div class="resize-handle-h resize-handle-filter"></div>
+    <div class="ingest-table-title-header">
+        <div class="title">Tables & Saved Views</div>
+        <div class="close-tables"
+             ng-click="toggleRightFilters()">
+            <i class="fa fa-lg fa-angle-double-left"></i>
+        </div>
+    </div>
+    <div class="ingest-table-wrapper">
+        <div class="ingest-table-header">
+            <div class="table-search">
+                <input type="text" class="table-search-input" ng-model="searchTest.name" placeholder="Search"/>
+                <span class="icon"><i class="fa fa-search"></i></span>
+                <span class="refresh-icon">
+                    <i class="fa fa-refresh"
+                       ng-click="forceRefreshDatabaseTables(ingestDataSummary.parentDatabase)"
+                       ng-class="{ 'refreshing-spin': databaseTablesSettings.refresh}"
+                       uib-tooltip="Refresh tables"
+                       tooltip-placement="right"
+                       tooltip-popup-delay="250"
+                       tooltip-append-to-body="true"
+                       tooltip-class="main-page-tooltip">
+                </i>
+                </span>
+            </div>
+        </div>
+
+        <uib-accordion close-others="false" class="scrollable-accordion">
+            <ul uib-accordion-group class="table-list dropdown-options" is-open="savedViewsSettings.opened">
+                <uib-accordion-heading >
+                    <i class="pull-left bold fa table-list__arrow"
+                       ng-class="{'fa-caret-down': savedViewsSettings.opened, 'fa-caret-right': !savedViewsSettings.opened}"></i>
+                    <span class="table-list__header">Saved Views</span>
+                </uib-accordion-heading>
+
+                <li class="no-overflow no-saved-views"
+                     ng-if="ingestDataSummary.savedViews.length === 0">No saved views for this source.</li>
+
+                <li class="no-overflow"
+                    ng-click="selectDatabaseView(view)"
+                    ng-class="{active : view.selected}"
+                    ng-repeat="view in ingestDataSummary.savedViews | searchFilterWithCallback:searchTest:toggleSavedViews">
+                    <span>{{view.name}}</span>
+                </li>
+            </ul>
+            <ul uib-accordion-group class="table-list dropdown-options" is-open="databaseTablesSettings.opened" is-disabled="databaseTablesSettings.disabled">
+                <uib-accordion-heading >
+                    <i class="pull-left bold fa table-list__arrow"
+                       ng-class="{'fa-caret-down': databaseTablesSettings.opened, 'fa-caret-right': !databaseTablesSettings.opened}"></i>
+                    <span class="table-list__header">Tables</span>
+                </uib-accordion-heading>
+
+                <li class="no-overflow no-tables"
+                    ng-if="!databaseTablesSettings.refresh && ingestDataSummary.databaseTables.length === 0">No tables for this source.</li>
+
+                <li class="no-overflow"
+                    ng-click="selectTable(table)"
+                    ng-class="{active : ingestDataSummary.table === table.tableId}"
+                    ng-attr-id="{{ingestDataSummary.table == table.tableId ? 'selected' : ''}}"
+                    ng-repeat="table in ingestDataSummary.databaseTables | searchFilterWithCallback:searchTest:toggleDatabaseTables">
+                    <span>{{table.name}}</span>
+                </li>
+            </ul>
+        </uib-accordion>
+    </div>
+</div>

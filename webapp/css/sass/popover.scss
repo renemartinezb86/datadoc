@@ -1,0 +1,59 @@
+.main-page-popover {
+  border-radius: 0;
+  padding: 0;
+
+  .linked-datadocs-popover {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+}
+
+.sticky-note {
+  border-radius: 0;
+  padding: 0;
+  background-color: #FFF49C;
+  border: 1px solid rgba(0,0,0,.1);
+  box-shadow: 0 5px 10px rgba(0,0,0,.15);
+  z-index: 1039;
+
+  &.bottom {
+    >.arrow {
+      border-bottom-color: rgba(0,0,0,0.1);
+      &:after {
+        border-bottom-color: #FFF49C;
+      }
+    }
+  }
+
+  .popover-content {
+    padding: 20px 40px 20px 20px;
+    font-size: 13px;
+    line-height: 19px;
+    color: black;
+
+    > button.close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 19px;
+      color: black;
+      text-shadow: none;
+      opacity: 0.2;
+      &:focus, &:hover{
+        opacity: 0.5;
+      }
+    }
+  }
+}
+
+.popover.bottom-left {
+  .arrow {
+    left: 20px !important;
+  }
+}
+
+.fields-sticky-note {
+  position: absolute;
+  top: 20px;
+  left: 40px;
+}

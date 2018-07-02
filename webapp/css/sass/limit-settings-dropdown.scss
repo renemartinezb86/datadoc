@@ -1,0 +1,118 @@
+.limit-settings-dropdown {
+  min-width: 170px;
+  font-size: 13px;
+  cursor: default;
+  line-height: 16px;
+  color: #000;
+
+  .limit-settings-pill {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    background: #fff;
+    border-radius: 0;
+    border: 1px solid rgba(0,0,0,.15);
+    cursor: default;
+    line-height: 16px;
+    min-width: 150px;
+    color: black;
+
+    -webkit-box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+  }
+
+  .limit-settings-pill-wrapper {
+    padding: 7px 6px 7px 6px;
+    margin: 0 4px;
+
+    &.top-border {
+      border-top: 1px solid #efefef;
+    }
+  }
+
+
+  .limit-settings-pill-section {
+    display: table;
+    background: #fdfdfd;
+
+    .limit-settings-pill-caption {
+      display: table-cell;
+      width: 1%;
+      padding-right: 5px;
+      font-size: 14px;
+      white-space: nowrap;
+      vertical-align: top;
+    }
+
+    .limit-settings-pill-select {
+      display: table-cell;
+      width: 99%;
+      cursor: pointer;
+    }
+
+  }
+
+  .dropdown-menu {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    -webkit-transition: opacity 0.218s;
+    -moz-transition: opacity 0.218s;
+    -o-transition: opacity 0.218s;
+    transition: opacity 0.218s;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.2);
+    cursor: default;
+    font-size: 13px;
+    margin: 0;
+    outline: none;
+    padding: 6px 0;
+    position: absolute;
+    max-height: 500px;
+    overflow-y: auto;
+
+    &.opened {
+      display: block;
+    }
+
+    .dropdown-menuitem {
+      position: relative;
+      color: #333;
+      cursor: pointer;
+      list-style: none;
+      padding: 6px 8px 6px 30px;
+      margin: 0 5px 0 0;
+      white-space: nowrap;
+
+      &:hover:not(.disabled) {
+        background-color: #eee;
+        border-color: #eee;
+        border-style: dotted;
+        border-width: 1px 0;
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+
+      &.disabled {
+        cursor: default;
+        color: #ccc!important;
+      }
+    }
+  }
+
+  .limit-input-wrapper {
+    margin-top: -1px;
+    width: 100%
+  }
+
+  .limit-input-wrapper input {
+    border: 0;
+    font-size: 14px;
+    outline: none;
+    width: 100%
+  }
+
+}

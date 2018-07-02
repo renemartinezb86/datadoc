@@ -1,1 +1,31 @@
-<form> <div class=modal-header> <button type=button class=close ng-click=closeReplaceErrorsModal()>&times;</button> <h4 class=modal-title>Replace Errors in Column "{{replaceErrorsModalSettings.column.rename || replaceErrorsModalSettings.column.name}}"</h4> </div> <div class=modal-body> <span>Enter a valid {{replaceErrorsModalSettings.typeNameText}} input to be used as a replacement value for any errors. By default, NULL will be used if nothing is entered here.</span> <input class=form-control ng-model=replaceErrorsModalSettings.replaceErrors autofocus placeholder="Enter a replacement value"> </div> <div class=modal-footer> <button type=submit ng-if=replaceErrorsModalSettings.column.replaceErrors class="btn btn-default-cstm pull-left" style=width:100px ng-click=deleteReplaceErrors()>Delete</button> <button type=submit class="btn btn-primary-cstm pull-right" style=width:100px;margin-left:10px ng-click=updateReplaceErrors()>Save</button> <button class="btn btn-default-cstm pull-right" style=width:100px ng-click=closeReplaceErrorsModal()>Cancel</button> </div> </form>
+<form>
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="closeReplaceErrorsModal()">&times;</button>
+        <h4 class="modal-title">Replace Errors in Column "{{replaceErrorsModalSettings.column.rename || replaceErrorsModalSettings.column.name}}"</h4>
+    </div>
+    <div class="modal-body">
+        <span class="">Enter a valid {{replaceErrorsModalSettings.typeNameText}} input to be used as a replacement value for any errors. By default, NULL will be used if nothing is entered here.</span>
+        <input class="form-control"
+               ng-model="replaceErrorsModalSettings.replaceErrors"
+               autofocus
+               placeholder="Enter a replacement value"/>
+    </div>
+    <div class="modal-footer">
+
+        <button type="submit"
+                ng-if="replaceErrorsModalSettings.column.replaceErrors"
+                class="btn btn-default-cstm pull-left"
+                style="width: 100px;"
+                ng-click="deleteReplaceErrors()">Delete</button>
+
+        <button type="submit"
+                class="btn btn-primary-cstm pull-right"
+                style="width: 100px; margin-left: 10px"
+                ng-click="updateReplaceErrors()">Save</button>
+
+        <button class="btn btn-default-cstm pull-right"
+                style="width: 100px;"
+                ng-click="closeReplaceErrorsModal()">Cancel</button>
+
+    </div>
+</form>

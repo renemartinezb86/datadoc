@@ -1,1 +1,12 @@
-<div class=object-select> <input class="form-control selected status-bar-input" ng-disabled={{isDisabled}} ng-focus=object.edit() ng-blur=object.update() ng-keydown=object.keyEvent($event) placeholder={{object.placeholder}} ng-model=selectedValue pu-elastic-input autocorrect=off autocapitalize=none> </div>
+<div class="object-select">
+    <input type="text"
+           class="form-control selected status-bar-input"
+           ng-disabled="{{isDisabled}}"
+           ng-focus="object.edit()"
+           ng-blur="object.update()"
+           ng-keydown="object.keyEvent($event)"
+           placeholder="{{object.placeholder}}"
+           ng-model="selectedValue"
+           pu-elastic-input
+           autocorrect="off" autocapitalize="none"/>
+</div>

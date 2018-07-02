@@ -1,1 +1,14 @@
- <div class=range-date-picker-wrap> <date-picker-reports class="range-date-picker is-active"> <div class=day> <header class=controls> <span ng-click="getMonth(calLabel, -1)" class="scroller prev"><i class="fa fa-chevron-left"></i></span> <span class=current-label>{{calLabel|date:'MMM yyyy'}}</span> <span ng-click="getMonth(calLabel, 1)" class="scroller next"><i class="fa fa-chevron-right"></i></span> </header> <table class=calendar> </table> </div> </date-picker-reports> </div>
+<!-- week -->
+<div class="range-date-picker-wrap">
+	<date-picker-reports class="range-date-picker is-active">
+		<div class="day">
+			<header class="controls">
+				<span ng-click="getMonth(calLabel, -1)" class="scroller prev"><i class="fa fa-chevron-left"></i></span>
+				<span class="current-label">{{calLabel|date:'MMM yyyy'}}</span>
+				<span ng-click="getMonth(calLabel, 1)" class="scroller next"><i class="fa fa-chevron-right"></i></span>
+			</header>
+			<table class="calendar">
+			</table>
+		</div>
+	</date-picker-reports>
+</div>

@@ -1,0 +1,191 @@
+.format-toolbar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  top: 7px;
+  height: auto;
+
+  box-shadow: inset 0 1px 0 0 #fff;
+  background-color: #f5f5f5;
+  background-image: -webkit-linear-gradient(top,#f5f5f5,#eee);
+  background-image: -moz-linear-gradient(top,#f5f5f5,#eee);
+  background-image: -ms-linear-gradient(top,#f5f5f5,#eee);
+  background-image: -o-linear-gradient(top,#f5f5f5,#eee);
+  background-image: linear-gradient(top,#f5f5f5,#eee);
+
+
+  section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    user-select: none;
+  }
+
+  .toolbar-item {
+    display: flex;
+    align-items: center;
+    background: #f5f5f5;
+    border-radius: 2px;
+    border: 1px solid #d9d9d9;
+    outline: none;
+    padding: 0 10px;
+    height: 30px;
+    min-width: 25px;
+    color: #333;
+    cursor: pointer;
+    list-style: none;
+
+    &.selected {
+      background-image: url(//ssl.gstatic.com/ui/v1/menu/checkmark.png);
+      background-repeat: no-repeat;
+      background-position: left center;
+    }
+
+    &:hover {
+      background-color: #eee;
+    }
+
+    .format-toolbar-submenu-title {
+      padding-right: 6px;
+    }
+
+    .toolbar-item-label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 10px;
+      padding: 0;
+      margin: 0;
+      bottom: 1px;
+      background: white;
+      color: gray;
+    }
+  }
+}
+
+.data-format {
+
+  .backdrop {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background-color: rgba(255,255,255,0.4);
+  }
+  .format-button {
+    min-width: 35px;
+  }
+  .btn-filters {
+    .btn-icon {
+
+      margin: 1px -6px;
+      margin-bottom:0;
+      width: 20px;
+      height: 21px;
+
+      &.less-dp {
+        background: center url('/static/img/visualization/less-dp.svg');
+        opacity: .65;
+      }
+      &.more-dp {
+        background: center url('/static/img/visualization/more-dp.svg');
+        opacity: .65;
+      }
+    }
+
+    &.btn-toggle{
+      height: 30px;
+      width: 15px;
+      padding: 0;
+      border-left: 1px solid rgba(0,0,0,.05);
+      .caret {
+        border-right: 3px solid transparent;
+        border-left: 3px solid transparent;
+      }
+    }
+  }
+}
+
+.format-toolbar-submenu {
+  position: absolute;
+  min-width: 330px;
+  padding: 6px 0;
+  margin: 0;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: opacity 0.218s;
+  border-radius: 0;
+  border: 1px solid rgba(0,0,0,.2);
+  outline: none;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 1;
+  cursor: default;
+  overflow-y: auto;
+  max-height: calc(100vh - 180px);
+
+  .format-toolbar-submenu-item {
+    position: relative;
+    padding: 6px 10px 6px 30px;
+    margin: 0;
+    height: 27px;
+    white-space: normal;
+    color: #333;
+    cursor: pointer;
+    list-style: none;
+
+    &.selected {
+      background-image: url(//ssl.gstatic.com/ui/v1/menu/checkmark.png);
+      background-repeat: no-repeat;
+      background-position: left center;
+    }
+
+    &.divider {
+      margin: 5px 0;
+      height: 0;
+      padding: 0;
+      border-top: 1px solid #e2e2e2;
+      cursor: default;
+    }
+
+    &:hover {
+      background-color: #e5e5e5 !important;
+    }
+
+    .format-toolbar-submenu-title {
+      padding-right: 6px;
+
+      .secondary {
+        font-style: italic;
+        color: #999;
+      }
+    }
+
+    .format-toolbar-submenu-descr {
+      position: relative;
+      float: right;
+      padding: 0px 0px 0px 24px;
+      text-align: right;
+      color: #777;
+    }
+
+    &.format-toolbar-comment {
+      padding-left: 30px;
+      line-height: 15px;
+      padding-top: 2px;
+      cursor: default;
+
+      &:hover {
+        background-color: white !important;
+      }
+    }
+  }
+}
+
+
+.format-btn {
+  font-weight: normal;
+}

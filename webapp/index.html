@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
+  <head lang="en">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-
     <title>Datadocs</title>
 
     <link rel="shortcut icon" href="static/img/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="static/css/build.css?v=1527865581"/>
+    <link rel="stylesheet" type="text/css" href="static/build/css/build.css?v=%timestamp%"/>
     <script src="static/js/lib/polyfill.min.js"></script>
-    <script data-main="static/js/main.js?v=1527865581" src="static/js/lib/requirejs/require.js"></script>
-</head>
-<body class="application">
+    <script data-main="static/js/main.js?v=%timestamp%" src="static/js/lib/requirejs/require.js"></script>
+    <link rel="stylesheet" href
+            ="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+
+
+  <body class="application">
     <div ui-view></div>
     <div id="main-loader" page-loader></div>
-</body>
+  </body>
 </html>

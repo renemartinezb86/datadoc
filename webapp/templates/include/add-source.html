@@ -1,1 +1,169 @@
-<form class="delete-modal add-source-modal" name=$parent.sourceForm novalidate> <div class=modal-header> <button type=button class=close ng-click=closeSourceModal()>&times;</button> <h4 class=modal-title> <span ng-show=externalDsTypeToReplace>{{'Replace Source "' + externalDsTypeToReplace.name + '"...'}}</span> <span ng-show="isEditDs && !externalDsTypeToReplace" class=text-capitalize>{{externalFileParams.name + ' ('+$parent.externalDsType+')'}}</span> <span ng-show="!isEditDs && !externalDsTypeToReplace">Add New Source</span> </h4> </div> <div class=modal-body ng-if=!externalDsSaved style=overflow-y:visible;max-height:none> <dl ng-show=!$parent.selectedUploads.length class=dl-horizontal style=margin-bottom:0> <dt>Source Type</dt> <dd> <div uib-dropdown append-to-body class=dropdown> <div uib-dropdown-toggle class=form-control style=cursor:pointer>{{$parent.externalDsType || 'Select Source Type'}}</div> <ul class=dropdown-menu uib-dropdown-menu> <li class=dropdown-menu-item ng-click="externalDsTypeSelected('File')"><a>File</a></li> <li class=divider ng-click=$event.stopPropagation();></li> <li ng-if="t !== 'File'" ng-click=externalDsTypeSelected(t) class=dropdown-menu-item ng-repeat="t in availableDsTypes | orderBy:t"> <a ng-bind=t></a> </li> </ul> </div> </dd> </dl> <hr ng-show="externalDsType && !$parent.selectedUploads.length" style="margin:40px 0"> <dl class=dl-horizontal ng-show=isDbExternalDsTypeSelected()> <dt ng-if=isEditDs style=margin-top:0>Connection Name</dt> <dd ng-if=isEditDs> <div class=form-group> <input name=connection-name class=form-control ng-blur=onExternalConnectionNameBlur() ng-model=externalFileParams.name> </div> </dd> <dt>Host</dt> <dd> <div class=form-group> <input name=host class=form-control required ng-model=externalDsParams.host> <div ng-show="sourceForm.host.$error.required && sourceForm.host.$touched" class=error>This field is required</div> </div> </dd> <dt>Port</dt> <dd> <div class=form-group> <input name=port class=form-control required ng-model=externalDsParams.port> <div ng-show="sourceForm.port.$error.required && sourceForm.port.$touched" class=error>This field is required</div> </div> </dd> <dt>Username</dt> <dd> <div class=form-group> <input name=user class=form-control required ng-model=externalDsParams.user> <div ng-show="sourceForm.user.$error.required && sourceForm.user.$touched" class=error>This field is required</div> </div> </dd> <dt>Password</dt> <dd> <div class=form-group> <input name=password type=password class=form-control required ng-model=externalDsParams.password> <div ng-show="sourceForm.password.$error.required && sourceForm.password.$touched" class=error>This field is required</div> </div> </dd> <dt>Database</dt> <dd> <div class=form-group> <input name=dbName class=form-control required ng-model=externalDsParams.dbName> <div ng-show="sourceForm.dbName.$error.required && sourceForm.dbName.$touched" class=error>This field is required</div> </div> </dd> </dl> <dl class=dl-horizontal ng-show="externalDsType == 'File'"> <dt></dt> <dd><input id=add-source-modal-file-picker type=file nv-file-select uploader=uploader accept={{availableFileFormats}} multiple=multiple> </dd> </dl> <dl ng-if=externalDsError.errors.globalMessage class=dl-horizontal> <dt> </dt> <dd> <div class=error ng-bind=externalDsError.errors.globalMessage></div> </dd> </dl> <dl ng-if=isEditDs class=dl-horizontal> <dt> </dt> <dd> <div class=connection-info> <div class=test-connection-status> <div class=loading-spinner ng-if=isExternalDsConnecting> <svg class=spinner width=12px height=12px viewBox="0 0 66 66" xmlns=http://www.w3.org/2000/svg> <circle class=path fill=none stroke-width=7 stroke-linecap=round cx=33 cy=33 r=30></circle> </svg> </div> <i ng-if="!isExternalDsConnecting && !externalDsValidConnection" class="fa fa-times" style=color:tomato></i> <i ng-if="!isExternalDsConnecting && externalDsValidConnection" class="fa fa-check-circle" style=color:#41ad49></i> </div> <span class=last-tested> Connection last tested <span style=margin-left:3px ng-bind=lastTestedConnectionString></span> </span> <a ng-click=testConnection()>Test Connection</a> <p class=disconnected-source ng-if="!externalDsValidConnection && disconnectedStringAvailable()"> Disconnected {{getDisconnectedString()}}. </p> </div> </dd> </dl> </div> <div ng-if=externalDsSaved class=modal-body> <span><i class="fa fa-check-circle" style=color:#41ad49;margin-right:10px></i>Your connection settings have been successfully saved.</span> </div> <div class=modal-footer> <button type=button ng-if=!externalDsSaved class="btn btn-default-flat-goog pull-right" style=margin-left:10px ng-click=closeSourceModal() autofocus>Cancel</button> <div class=pull-right ng-click="isExternalDsSaving ? stopRemoteLinkUpsert() : saveDataSource()"> <button type=submit ng-disabled=sourceForm.$invalid ng-if="isDbExternalDsTypeSelected() && !isEditDs && !externalDsSaved" class="btn btn-primary-goog btn-primary" ladda=isExternalDsSaving data-style=expand-left> {{ isExternalDsSaving ? 'Stop' : 'Connect'}} </button> <button type=submit ng-disabled=sourceForm.$invalid ng-if="isEditDs && externalDsParamsEdited && !externalDsSaved" class="btn btn-primary-goog btn-primary" data-style=expand-left ladda=isExternalDsSaving> {{ isExternalDsSaving ? 'Stop' : 'Update'}} </button> </div> </div> </form>
+<form class="delete-modal add-source-modal" name="$parent.sourceForm" novalidate>
+<div class="modal-header">
+    <button type="button" class="close" ng-click="closeSourceModal()">&times;</button>
+    <h4 class="modal-title">
+        <span ng-show="externalDsTypeToReplace">{{'Replace Source "' + externalDsTypeToReplace.name + '"...'}}</span>
+        <span ng-show="isEditDs && !externalDsTypeToReplace" class="text-capitalize">{{externalFileParams.name + ' ('+$parent.externalDsType+')'}}</span>
+        <span ng-show="!isEditDs && !externalDsTypeToReplace">Add New Source</span>
+    </h4>
+</div>
+<div class="modal-body" ng-if="!externalDsSaved" style="overflow-y: visible; max-height: none">
+    <dl ng-show="!$parent.selectedUploads.length"
+        class="dl-horizontal"
+        style="margin-bottom: 0">
+        <dt>Source Type</dt>
+        <dd>
+            <div uib-dropdown append-to-body class="dropdown">
+                <div uib-dropdown-toggle class="form-control" style="cursor: pointer;">{{$parent.externalDsType || 'Select Source Type'}}</div>
+                <ul class="dropdown-menu" uib-dropdown-menu>
+                    <li class="dropdown-menu-item" ng-click="externalDsTypeSelected('File')"><a>File</a></li>
+                    <li class="divider" ng-click="$event.stopPropagation();"></li>
+                    <li ng-if="t !== 'File'" ng-click="externalDsTypeSelected(t)" class="dropdown-menu-item" ng-repeat="t in availableDsTypes | orderBy:t">
+                        <a ng-bind="t"></a>
+                    </li>
+                </ul>
+            </div>
+        </dd>
+    </dl>
+    <hr ng-show="externalDsType && !$parent.selectedUploads.length" style="margin: 40px 0;">
+    <dl class="dl-horizontal"
+        ng-show="isDbExternalDsTypeSelected()">
+        <dt ng-if="isEditDs" style="margin-top: 0">Connection Name</dt>
+        <dd ng-if="isEditDs">
+            <div class="form-group">
+                <input name="connection-name"
+                       class="form-control"
+                       ng-blur="onExternalConnectionNameBlur()"
+                       ng-model="externalFileParams.name">
+            </div>
+        </dd>
+        <dt>Host</dt>
+        <dd>
+            <div class="form-group">
+                <input name="host"
+                       class="form-control"
+                       required
+                       ng-model="externalDsParams.host">
+                <div ng-show="sourceForm.host.$error.required && sourceForm.host.$touched" class="error">This field is required</div>
+            </div>
+        </dd>
+        <dt>Port</dt>
+        <dd>
+            <div class="form-group">
+                <input name="port"
+                       class="form-control"
+                       required
+                       ng-model="externalDsParams.port">
+                <div ng-show="sourceForm.port.$error.required && sourceForm.port.$touched" class="error">This field is required</div>
+            </div>
+        </dd>
+        <dt>Username</dt>
+        <dd>
+            <div class="form-group">
+                <input name="user"
+                       class="form-control"
+                       required
+                       ng-model="externalDsParams.user">
+                <div ng-show="sourceForm.user.$error.required && sourceForm.user.$touched" class="error">This field is required</div>
+            </div>
+        </dd>
+        <dt>Password</dt>
+        <dd>
+            <div class="form-group">
+                <input name="password"
+                       type="password"
+                       class="form-control"
+                       required
+                       ng-model="externalDsParams.password">
+                <div ng-show="sourceForm.password.$error.required && sourceForm.password.$touched" class="error">This field is required</div>
+            </div>
+        </dd>
+        <dt>Database</dt>
+        <dd>
+            <div class="form-group">
+                <input name="dbName"
+                       class="form-control"
+                       required
+                       ng-model="externalDsParams.dbName">
+                <div ng-show="sourceForm.dbName.$error.required && sourceForm.dbName.$touched" class="error">This field is required</div>
+            </div>
+        </dd>
+    </dl>
+    <dl class="dl-horizontal"
+        ng-show="externalDsType == 'File'">
+        <dt></dt>
+        <dd><input id="add-source-modal-file-picker" type="file"
+                   nv-file-select
+                   uploader="uploader"
+                   accept="{{availableFileFormats}}"
+                   multiple>
+        </dd>
+    </dl>
+    <dl ng-if="externalDsError.errors.globalMessage" class="dl-horizontal">
+        <dt>
+        </dt>
+        <dd>
+            <div class="error" ng-bind="externalDsError.errors.globalMessage"></div>
+        </dd>
+    </dl>
+    <dl ng-if="isEditDs" class="dl-horizontal">
+        <dt>
+        </dt>
+        <dd>
+            <div class="connection-info">
+                <div class="test-connection-status">
+                    <div class="loading-spinner" ng-if="isExternalDsConnecting">
+                        <svg class="spinner" width="12px" height="12px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="path" fill="none" stroke-width="7" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                        </svg>
+                    </div>
+                    <i ng-if="!isExternalDsConnecting && !externalDsValidConnection" class="fa fa-times" style="color: tomato;"></i>
+                    <i ng-if="!isExternalDsConnecting && externalDsValidConnection" class="fa fa-check-circle" style="color: #41AD49;"></i>
+                </div>
+
+                <span class="last-tested">
+                    Connection last tested
+                    <span style="margin-left: 3px;" ng-bind="lastTestedConnectionString"></span>
+                </span>
+                <a ng-click="testConnection()">Test Connection</a>
+                <p class="disconnected-source" ng-if="!externalDsValidConnection && disconnectedStringAvailable()">
+                    Disconnected {{getDisconnectedString()}}.
+                </p>
+            </div>
+
+        </dd>
+    </dl>
+
+</div>
+<div ng-if="externalDsSaved" class="modal-body">
+    <span><i class="fa fa-check-circle" style="color: #41AD49; margin-right: 10px;"></i>Your connection settings have been successfully saved.</span>
+</div>
+<div class="modal-footer">
+    <button type="button"
+            ng-if="!externalDsSaved"
+            class="btn btn-default-flat-goog pull-right"
+            style="margin-left: 10px"
+            ng-click="closeSourceModal()" autofocus>Cancel</button>
+
+    <div class="pull-right" ng-click="isExternalDsSaving ? stopRemoteLinkUpsert() : saveDataSource()">
+        <button type="submit"
+                ng-disabled="sourceForm.$invalid"
+                ng-if="isDbExternalDsTypeSelected() && !isEditDs && !externalDsSaved"
+                class="btn btn-primary-goog btn-primary"
+                ladda="isExternalDsSaving"
+                data-style="expand-left">
+            {{ isExternalDsSaving ? 'Stop' : 'Connect'}}
+        </button>
+
+        <button type="submit"
+                ng-disabled="sourceForm.$invalid"
+                ng-if="isEditDs && externalDsParamsEdited && !externalDsSaved"
+                class="btn btn-primary-goog btn-primary"
+                data-style="expand-left"
+                ladda="isExternalDsSaving">
+            {{ isExternalDsSaving ? 'Stop' : 'Update'}}
+        </button>
+    </div>
+
+</div>
+</form>

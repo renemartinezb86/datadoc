@@ -1,1 +1,20 @@
-<a class="search-item row"> <div class="col-md-9 col-sm-9 col-xs-9 ingest-search-item-left"> <div class=main> <div class=icon> <div class="img icon-small {{match.model.icon}}"></div> </div> <div class="name no-overflow" ng-bind-html="match.model.parentName && match.model.isTable ? match.model.parentName + '.' + match.model.name : match.model.name | uibTypeaheadHighlight:query"> </div> <span class=ingesting-progress>{{match.model.ingestingProgress >= 0 ? "(" + match.model.ingestingProgress + "%)": ''}}</span> <div class=loading-spinner ng-show="$parent.options.currentSelected === match.model.id"> <svg class=spinner width=20px height=20px viewBox="0 0 66 66" xmlns=http://www.w3.org/2000/svg> <circle class=path fill=none stroke-width=7 stroke-linecap=round cx=33 cy=33 r=30></circle> </svg> </div> </div> </div> <div class="col-md-3 col-sm-3 col-xs-3 ingest-search-item-right"> <div class=date>{{match.model.updated | date:short}}</div> </div> </a>
+<a class="search-item row">
+    <div class="col-md-9 col-sm-9 col-xs-9 ingest-search-item-left">
+        <div class="main">
+            <div class="icon">
+                <div class="img icon-small {{match.model.icon}}"></div>
+            </div>
+            <div class="name no-overflow" ng-bind-html="match.model.parentName && match.model.isTable ? match.model.parentName + '.' + match.model.name : match.model.name | uibTypeaheadHighlight:query">
+            </div>
+            <span class="ingesting-progress">{{match.model.ingestingProgress >= 0 ? "(" + match.model.ingestingProgress + "%)": ''}}</span>
+            <div class="loading-spinner" ng-show='$parent.options.currentSelected === match.model.id'>
+                <svg class="spinner" width="20px" height="20px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="path" fill="none" stroke-width="7" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3 ingest-search-item-right">
+        <div class="date">{{match.model.updated | date:short}}</div>
+    </div>
+</a>

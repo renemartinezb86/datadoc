@@ -1,0 +1,685 @@
+@import 'mobile-view';
+@import 'animation';
+@import 'shapes';
+
+.viz-status-bar {
+
+  .options-buttons {
+    display: flex;
+    align-items: center;
+    margin: 0;
+
+    @include mobile-view {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .toolbar-button {
+
+    &.toggle-page-mode {
+      height: 30px;
+      width: 40px;
+    }
+
+    // for perspective effect
+    &.active,
+    &:active {
+      .img {
+        top: 1px;
+      }
+    }
+
+    .img {
+      position: relative;
+      height: 20px;
+      width: 18px;
+      top: 0;
+      left: 10px;
+      background-size: 20px;
+      background-repeat: no-repeat;
+
+      &.sources {
+        background-image: url('/static/img/main-page/sources.png');
+      }
+    }
+  }
+
+  .toolbar-button2 {
+    margin-top: 7px;
+    margin-right: 10px;
+  }
+
+  .toolbar-button2 .btn {
+    width: 40px;
+    height: 30px;
+    padding: 0;
+    outline: none !important;
+    font-size: 13px;
+  }
+
+  .toolbar-button2 .btn.active {
+    background-image: -webkit-linear-gradient(top, #eee, #e0e0e0);
+    background-image: linear-gradient(top, #eee, #e0e0e0);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#e0e0e0));
+    background-image: -webkit-linear-gradient(top, #eee, #e0e0e0);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    color: #539ab7;
+  }
+
+  .dropdown-settings {
+    min-width: 200px;
+
+    li.menu-item-table {
+      padding: 3px 20px !important;
+    }
+  }
+}
+
+.data-format .btn-group .btn-filters {
+  padding: 3px 12px;
+}
+
+.data-format .btn-group {
+  display: flex;
+}
+
+.number-results, .display, .data-format {
+  user-select: none;
+  position: relative;
+  border-right: 1px solid #e4e4e4;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.tool-bar-dropdown {
+  min-width: 200px;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+
+  &.drill-into-columns-dropdown {
+    max-height: calc(100vh - 220px);
+    overflow: auto;
+  }
+
+  &.inner-ul {
+    border: none;
+  }
+
+  .divider {
+    margin: 0;
+  }
+
+  &.flexible-dropdown {
+    li:not(.divider) {
+      display: flex;
+      align-items: center;
+
+      &.group-by-label {
+        font-weight: bold;
+        background-color: #f5f5f5;
+        user-select: none;
+      }
+
+      a {
+        margin: 0 0 0 3px;
+      }
+
+      a.selected-view {
+        font-weight: 700;
+      }
+
+      i.remove-view {
+        margin-left: 10px;
+        visibility: hidden;
+        color: #b5b5b5;
+
+        &:hover {
+          color: #d83232;
+        }
+      }
+
+      &:before {
+        content: none;
+      }
+
+      &:hover {
+        i.remove-view {
+          visibility: visible;
+        }
+      }
+    }
+  }
+
+  &.flexible-space-dropdown {
+    @extend .flexible-dropdown;
+
+    li {
+      justify-content: space-between;
+
+      &:before {
+        content: none;
+      }
+    }
+  }
+
+  &.tool-bar-settings {
+    li:not(.divider) {
+      padding: 3px 20px;
+
+      a {
+        margin: 2px 0 0 3px;
+      }
+    }
+
+    .tool-bar-dropdown {
+      li:first-child > span:first-child {
+        height: 16px;
+      }
+    }
+  }
+  .muted {
+    opacity: 0.5;
+  }
+
+  li:not(.divider) {
+    padding: 6px 13px;
+    height: auto;
+
+    &:hover {
+      background-color: #eee;
+      color: #262626;
+    }
+
+    &.limit-records {
+      padding: 10px 13px;
+
+      &:hover {
+        background-color: transparent;
+        cursor: default;
+      }
+    }
+
+    &.filter-settings-header,
+    &.filter-settings-header:hover {
+      padding: 3px 13px;
+      background-color: #f5f5f5;
+      border-top: 1px solid #ececec;
+      border-bottom: 1px solid #ececec;
+      font-weight: bold;
+      cursor: default;
+    }
+
+    a {
+      display: inline-block;
+      color: #333;
+      width: auto;
+      padding: 3px;
+
+      &:hover {
+        background: inherit;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.settings {
+  position: relative;
+
+  .settings-more-btn {
+    background-color: #f3f3f3;
+    padding: 5px 10px;
+    border: 1px solid #eaeaea;
+    border-radius: 2px;
+    font-size: 13px;
+    margin: 0 10px;
+
+    &:active {
+      color: currentColor;
+    }
+
+    .caret {
+      @media only screen and (max-width: 1024px) {
+        display: none;
+      }
+    }
+
+    &.opened {
+      background: #E0E0E0 none;
+      outline: 0;
+      -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+      box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    }
+  }
+
+  .settings-mobile-dropdown {
+    display: flex;
+    border-radius: 0;
+  }
+
+  .settings-wrapper {
+    padding: 0 10px;
+  }
+
+  .toolbar-label-down {
+    @media only screen and (max-width: 1024px) {
+      display: none;
+    }
+  }
+}
+
+.toolbar-label-down {
+  user-select: none;
+  font-size: 9px;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  bottom: -13px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  color: #666;
+}
+
+.display .btn-group {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-disp {
+  padding: 8px 12px;
+}
+
+.btn.active, .btn:active {
+  color: #549CBA;
+}
+
+#status-bar > div {
+  width: 100%;
+  height: 56px;
+  min-width: 705px;
+
+  &.db-source-bar {
+    min-width: 665px;
+  }
+}
+
+.status-bar-wrapper {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+
+  @include mobile-view {
+    position: relative;
+  }
+
+  .viz-mobile-back-arrow {
+    display: none;
+    background: url(/static/img/arrow-left.svg);
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+
+  @include mobile-view {
+  //@media screen and (max-width: 920px) {
+    .toggle-page-mode {
+      display: none !important;
+    }
+    .viz-mobile-back-arrow {
+      display: block;
+    }
+    .tool-bar-action-panel {
+      display: none !important;
+    }
+    .tool-bar-info-panel {
+      max-width: 100% !important;
+      .toggle-page-mode-button + div {
+        width: 100%;
+      }
+    }
+  }
+
+  .status-bar-progress {
+    flex-grow: 100;
+    margin-left: 25px;
+  }
+
+  .status-bar-search-wrapper {
+    display: none;
+    height: 100%;
+    position: absolute;
+    left: calc(100% - 32px);
+    transition: left .5s ease-out;
+    justify-content: space-between;
+    align-items: center;
+
+    @include mobile-view {
+      display: flex;
+    }
+
+    &.mobile-search-active {
+      left: 0;
+      width: 100%;
+    }
+
+    .mobile-search-close {
+      width: 18px;
+      height: 18px;
+      background: url(/static/img/visualization/mobile-close.svg) no-repeat center center;
+      opacity: .7;
+    }
+
+    .mobile-search-input {
+      padding: 0;
+      margin: 0 15px 0 10px;
+      border: none;
+      flex-grow: 1;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .mobile-search-icon {
+      width: 32px;
+      height: 32px;
+      background: url("/static/img/visualization/search-icon.svg") no-repeat center;
+
+      -moz-transform: scaleX(-1);
+      -o-transform: scaleX(-1);
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+    }
+  }
+
+  .settings {
+    .refresh-schedule {
+
+      .refresh-dropdown {
+        position: absolute;
+        top: 30px;
+        right: 0;
+        z-index: 100;
+      }
+
+      .refresh-schedule-popover {
+        background: #fff;
+        width: 400px;
+        border: 1px solid rgba(0, 0, 0, .2);
+        padding: 10px;
+
+        hr {
+          margin: 10px 0 5px 0;
+        }
+
+        .controll-wrap {
+          padding: 0 10px;
+
+          span {
+            font-weight: bold;
+          }
+
+          .btn {
+            float: none;
+            margin: 8px 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+.other-formats-button {
+  width: 60px;
+}
+
+.tool-bar-info-panel {
+  display: flex;
+  align-items: center;
+  flex: 2 1;
+  min-width: 250px;
+
+  .toggle-page-mode-button {
+    width: 40px;
+
+    @include mobile-view {
+      width: 24px;
+      height: 24px;
+    }
+
+    & + div {
+      max-width: calc(100% - 58px);
+
+      .input-wrapper {
+        display: flex;
+        align-items: center;
+
+        object-select {
+          max-width: calc(100% - 18px);
+        }
+      }
+    }
+  }
+}
+
+.limit-dropdown-wrapper {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  z-index: 100;
+}
+
+.tool-bar-action-panel {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  white-space: nowrap;
+  flex: 1 1;
+}
+
+.tool-bar-settings-wrapper {
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: 2px;
+  display: flex;
+}
+
+.settings-button > button {
+  border: 0;
+  border-radius: 0;
+  border-right: 1px solid rgba(0, 0, 0, .1);
+  padding: 2px 8px;
+
+  i.btn-icon {
+    position: relative;
+    top: 1px;
+  }
+
+  .disconnected-source-sign {
+    display: inline-block;
+    vertical-align: middle;
+    background-color: red;
+    @include circle(10px);
+    animation: pulse 3s infinite;
+  }
+
+  .source-icon {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+    background: url(/static/img/main-page/sources.png) 0 0/19px no-repeat;
+  }
+}
+
+.settings-button {
+  .export-list {
+  }
+  div.separator {
+    height: 1px;
+    margin-top: 7px;
+    border-top: solid #e5e5e5 thin;
+    width: 100%;
+  }
+
+  &.source-settings-dropdown {
+    .source-button-label {
+      display: inline-block;
+      min-width: 38px;
+    }
+  }
+
+  & .settings-panel-value, & .source-panel-value {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 1050;
+    background-color: white;
+    padding: 0;
+    border: 1px solid rgba(0, 0, 0, .15);
+    min-width: 360px;
+    max-height: calc(100vh - 160px);
+    overflow: auto;
+    user-select: none;
+    margin: 0;
+
+    .separator {
+      margin: 0;
+    }
+
+    .settings-list {
+      padding: 0;
+
+      &.page-settings {
+
+        .settings-list-item {
+          justify-content: space-between;
+        }
+      }
+
+      .settings-list-item {
+        display: flex;
+        padding: 9px 16px;
+
+        .settings-label {
+          font-weight: bold;
+        }
+
+        .settings-value {
+          padding-left: 10px;
+        }
+
+        .settings-list-action-dropdown {
+          cursor: pointer;
+        }
+
+        .last-refresh-time {
+          color: #979797;
+          font-style: italic;
+        }
+      }
+    }
+
+    &.source-panel-value {
+      user-select: text;
+      min-width: 402px;
+
+      .settings-list-item {
+
+        &:first-child {
+          .settings-value {
+            white-space: pre-wrap;
+          }
+        }
+
+        .settings-label {
+          width: 30%;
+        }
+
+        .settings-value {
+          padding: 0;
+          width: 70%;
+
+          & > div:first-child {
+            white-space: pre-wrap;
+          }
+        }
+      }
+
+      .settings-list-action {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 11px 16px 20px 16px;
+        min-height: 36px;
+
+        .refresh-section, .commit-progress-wrapper {
+          display: flex;
+          align-items: center;
+        }
+
+        .refresh-section {
+          position: relative;
+          margin-right: 10px;
+
+          .refresh-now-btn {
+            margin-right: 10px;
+          }
+          //todo review this
+          .cancel-commit {
+            position: absolute;
+            font-size: 11px;
+            color: #333;
+            top: 28px;
+            left: 54px;
+            transform: translateX(-50%);
+          }
+          //todo review this
+          .last-failed-updated-data {
+            position: absolute;
+            font-size: 9px;
+            color: #CC0000;
+            top: 28px;
+            left: 58px;
+            transform: translateX(-50%);
+          }
+
+        }
+      }
+
+      @supports (display: grid) {
+        .settings-list-item {
+          display: grid;
+          grid-template-columns: 1fr 2.5fr;
+
+          .settings-label, .settings-value {
+            width: auto;
+          }
+        }
+      }
+    }
+  }
+}
+
+.settings-button .limit-export-note {
+  font-weight: bold;
+  padding-left: 4px;
+}
+
+.settings-button li.export-info {
+  &:hover {
+    background-color: white;
+  }
+}
+
+.settings-button:last-child button {
+  border: 0;
+}

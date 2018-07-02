@@ -1,1 +1,23 @@
-<form class=delete-modal> <div class=modal-header> <button type=button class=close ng-click=closeDateFormatModal()>&times;</button> <h4 class=modal-title>Date Pattern</h4> </div> <div class=modal-body style="padding:10px 20px"> <input class=form-control ng-model=dateFormatModalSettings.pattern maxlength=30 autofocus placeholder="Enter date pattern or leave empty for UNIX timestamp"> </div> <div class=modal-footer> <button class="btn btn-default-flat-goog pull-right" style=width:100px ng-click=closeDateFormatModal()>Cancel</button> <button type=submit class="btn btn-primary-goog pull-right" style=width:100px;margin-left:10px ng-click=updateDateFormat()>Save</button> </div> </form>
+<form class="delete-modal">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="closeDateFormatModal()">&times;</button>
+        <h4 class="modal-title">Date Pattern</h4>
+    </div>
+    <div class="modal-body" style="padding: 10px 20px">
+        <input class="form-control"
+               ng-model="dateFormatModalSettings.pattern"
+               maxlength="30"
+               autofocus
+               placeholder="Enter date pattern or leave empty for UNIX timestamp"/>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default-flat-goog pull-right"
+                style="width: 100px;"
+                ng-click="closeDateFormatModal()">Cancel</button>
+
+        <button type="submit"
+                class="btn btn-primary-goog pull-right"
+                style="width: 100px; margin-left: 10px"
+                ng-click="updateDateFormat()">Save</button>
+    </div>
+</form>

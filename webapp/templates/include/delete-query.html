@@ -1,1 +1,23 @@
-<form class=delete-modal> <div class=modal-header> <button type=button class=close ng-click=closeConfirmationModal()>&times;</button> <h4 class=modal-title>Delete {{selectedQuery.name}}?</h4> </div> <div class=modal-body> <div style="padding:20px 0"> <div> Are you sure you want to delete <b>{{selectedQuery.name}}</b>? </div> </div> </div>  <div class=modal-footer> <button class="btn btn-default-flat-goog pull-right" style=margin-left:10px ng-click=closeConfirmationModal()>Cancel</button> <button type=submit class="btn btn-primary-goog pull-right" ng-click="deleteQueryFromFavorites(selectedQuery); closeConfirmationModal()" autofocus>Delete</button> </div> </form>
+<form class="delete-modal">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="closeConfirmationModal()">&times;</button>
+        <h4 class="modal-title">Delete {{selectedQuery.name}}?</h4>
+    </div>
+    <div class="modal-body">
+        <div style="padding: 20px 0">
+            <div>
+                Are you sure you want to delete <b>{{selectedQuery.name}}</b>?
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default-flat-goog pull-right"
+                style="margin-left: 10px"
+                ng-click="closeConfirmationModal()">Cancel</button>
+
+        <button type="submit"
+                class="btn btn-primary-goog pull-right"
+                ng-click="deleteQueryFromFavorites(selectedQuery); closeConfirmationModal()" autofocus>Delete</button>
+    </div>
+</form>

@@ -1,1 +1,55 @@
-<div class=modal-header> <button type=button class=close ng-click=cancel()>×</button> <h3 class=modal-title>Viewing data for <span ng-bind-html=titleInfo.col></span> = {{titleInfo.val}}</h3> <div ng-if=popupData.dataSummary.aggs.length class="btn-group pull-right" style=margin-top:-30px;margin-right:30px uib-dropdown> <button type=button class=btn uib-dropdown-toggle> <span class="fa fa-download"></span> </button> <ul uib-dropdown-menu class="dropdown-menu sidebar-ul dropdown-options dropdown-settings" role=menu> <li class=filter-settings-header> Download data as: </li> <li class=menu-item-table ng-click="prepareExport('CSV', 'CSV')"> <a style=padding-left:15px>CSV</a> </li> <li class=menu-item-table ng-click="prepareExport('Excel', 'XLS')"> <a style=padding-left:15px>Excel</a> </li> </ul> </div> </div> <div class=modal-body id=search-results> <div class=clearfix> <div class="pull-right dropdown switch-to-table dropdown-settings inline-block" uib-dropdown style=top:-5px> <button class=btn-filters href=javascript:void(0) uib-dropdown-toggle> <i class="fa fa-cog"></i> <i class="fa fa-caret-down"></i> </button> <ul uib-dropdown-menu class="dropdown-menu sidebar-ul dropdown-options dropdown-settings" role=menu> <li class=filter-settings-header> Download data as: </li> <li class=menu-item-table ng-click="prepareExport('CSV', 'CSV')"> <a style=padding-left:15px>CSV</a> </li> <li class=menu-item-table ng-click="prepareExport('Excel', 'XLS')"> <a style=padding-left:15px>Excel</a> </li> </ul> </div> <div class=pull-right>{{gridOptions.data.length}} rows returned ({{popupData.totalSize || 1}} in total)</div> </div> <br> <div ui-grid=gridOptions ui-grid-infinite-scroll ui-grid-auto-resize ui-grid-resize-columns></div> </div> <div class=modal-footer style=position:absolute;bottom:0;width:100%> <button class="btn btn-default-cstm" type=button ng-click=ok()>Close</button> </div>
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">×</button>
+    <h3 class="modal-title">Viewing data for <span ng-bind-html="titleInfo.col"></span> = {{titleInfo.val}}</h3>
+    <div ng-if="popupData.dataSummary.aggs.length" class="btn-group pull-right" style="margin-top: -30px;
+    margin-right: 30px;" uib-dropdown>
+        <button type="button" class="btn" uib-dropdown-toggle>
+            <span class="fa fa-download"></span>
+        </button>
+        <ul uib-dropdown-menu
+            class="dropdown-menu sidebar-ul dropdown-options dropdown-settings" role="menu">
+            <li class="filter-settings-header">
+                Download data as:
+            </li>
+            <li class="menu-item-table" ng-click="prepareExport('CSV', 'CSV')">
+                <a style="padding-left: 15px;">CSV</a>
+            </li>
+            <li class="menu-item-table" ng-click="prepareExport('Excel', 'XLS')">
+                <a style="padding-left: 15px;">Excel</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="modal-body" id="search-results">
+    <div class="clearfix">
+        <div class="pull-right dropdown switch-to-table dropdown-settings inline-block" uib-dropdown
+             style="top: -5px">
+            <button class="btn-filters" href="javascript:void(0)"
+                    uib-dropdown-toggle>
+                <i class="fa fa-cog"></i>
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <ul uib-dropdown-menu
+                class="dropdown-menu sidebar-ul dropdown-options dropdown-settings" role="menu">
+                <li class="filter-settings-header">
+                    Download data as:
+                </li>
+                <li class="menu-item-table" ng-click="prepareExport('CSV', 'CSV')">
+                    <a style="padding-left: 15px;">CSV</a>
+                </li>
+                <li class="menu-item-table" ng-click="prepareExport('Excel', 'XLS')">
+                    <a style="padding-left: 15px;">Excel</a>
+                </li>
+            </ul>
+        </div>
+        <div class="pull-right">{{gridOptions.data.length}} rows returned ({{popupData.totalSize || 1}} in total)</div>
+    </div>
+    <br>
+    <div ui-grid="gridOptions"
+         ui-grid-infinite-scroll
+         ui-grid-auto-resize
+         ui-grid-resize-columns></div>
+</div>
+<div class="modal-footer" style="position: absolute; bottom: 0; width: 100%;">
+    <button class="btn btn-default-cstm" type="button" ng-click="ok()">Close</button>
+</div>

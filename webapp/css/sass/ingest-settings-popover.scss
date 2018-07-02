@@ -1,0 +1,209 @@
+
+.popover {
+  max-width: 430px;
+  white-space: nowrap;
+  border-radius: 0;
+
+  &.ingest-settings-popover {
+    left: 155px !important;
+  }
+
+  &.bottom {
+    margin-top: 18px;
+  }
+
+  .popover-content {
+    padding: 9px 12px;
+  }
+}
+
+.settings-popover-content {
+  width: 402px;
+}
+
+.ingest-source-item {
+  color: #000;
+  font-size: 13px;
+  line-height: 46px;
+  border-bottom: 1px solid #efefef;
+  padding: 0 24px 0 16px;
+
+  .source-timezone-dropdown {
+    max-height: calc(100vh - 345px);
+    overflow: auto;
+
+    li:not(.divider) {
+      height: auto;
+      padding: 0 13px;
+
+      .timezone-info {
+        padding-left: 26px;
+      }
+    }
+
+    .timezone-checkmark {
+      position: absolute;
+      background: url(/static/img/checkmark.png) no-repeat;
+      width: 21px;
+      height: 21px;
+    }
+  }
+
+  .caret {
+    color: #666;
+  }
+
+  .ingest-source-item-select {
+    float: right;
+    cursor: pointer;
+  }
+
+  .highlighted-var {
+    font-weight: bold;
+  }
+
+  &.use-headers-settings {
+    min-width: 160px;
+  }
+
+  &.showing-fields-settings {
+    min-width: 125px;
+
+    .dropdown-menu {
+      max-width: 360px;
+    }
+  }
+
+  &.start-section-title {
+    padding-top: 2px;
+    //margin: 0 5px 0 20px;
+    margin: 0;
+    font-size: 12px;
+    line-height: 15px;
+    color: #ddd;
+    cursor: pointer;
+    white-space: nowrap;
+
+    & .refresh-data-string {
+      padding-left: 2px;
+    }
+
+    .file-settings-description {
+      @media only screen and (max-width: 934px) {
+        display: none;
+      }
+    }
+
+    b {
+      color: white;
+      font-size: 13px;
+    }
+  }
+
+  &.start-section-title,
+  &:last-child {
+    border-bottom: none;
+  }
+
+}
+
+.file-settings-options {
+  .file-settings-option:not(:last-child):after {
+    //content: ',';
+  }
+}
+
+.ingest-other-settings-dropdown-wrapper {
+  margin: 0 -24px 0 -16px;
+}
+
+.limit-settings-dropdown {
+  //width: 320px;
+
+  .limit-settings-pill-wrapper {
+    position: relative;
+    padding: 10px 16px;
+    margin: 0;
+
+    .info-button {
+      position: absolute;
+      top: 14px;
+      right: 2px;
+      margin: 0;
+    }
+
+    .limit-settings-pill-section {
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      .limit-settings-pill-caption {
+        flex-grow: 1;
+        font-weight: bold;
+        font-size: 13px;
+      }
+
+      .limit-settings-select {
+        display: flex;
+        width: 165px;
+        justify-content: flex-end;
+        padding-right: 10px;
+        outline: none;
+      }
+
+      .limit-item-value {
+        display: block;
+        line-height: 2.15;
+        height: 27px;
+        color: #333;
+        white-space: nowrap;
+        overflow: hidden;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+
+        .caret {
+          color: #666;
+          margin-left: 4px;
+        }
+      }
+
+      .dropdown-menu {
+        width: 200px;
+
+        .dropdown-menuitem.selected {
+          font-weight: bold;
+          background: url(/static/img/checkmark.png) 2% 49% no-repeat;
+
+          &:hover {
+            background-color: #eee;
+            border-color: #eee;
+          }
+        }
+      }
+
+      .limit-input-wrapper {
+        width: 62px;
+
+        input {
+          min-width: 62px;
+          border: 1px solid #ededed;
+          border-radius: 2px;
+          padding: 5px 10px;
+
+          &[type="number"] {
+            padding-right: 0;
+
+            // removing arrow buttons for number inputs
+            -moz-appearance: textfield;
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,1 +1,59 @@
-<section class=login-panel> <div class="register-content-wrapper col-lg-offset-4 col-lg-4 col-md-offset-4 col-md-4"> <div class=content> <div class="panel panel-default"> <div class=panel-heading> <h3 class=panel-title>Register</h3> </div> <div class=panel-body> <br> <section class=margin10> <div class=input-group> <span class=input-group-addon id=fullname-addon><i class="fa fa-user"></i></span> <input ng-model=user.fullName placeholder="Full name" class=form-control aria-describedby=login-addon required autocorrect=off autocapitalize=none> </div> </section> <br> <section class=margin10> <div class=input-group> <span class=input-group-addon id=login-addon><i class="fa fa-user"></i></span> <input ng-model=user.email placeholder=Email class=form-control aria-describedby=login-addon required autocorrect=off autocapitalize=none> </div> </section> <br> <section class=margin10> <div class=input-group> <span class=input-group-addon id=password-addon><i class="fa fa-lock"></i></span> <input type=password ng-model=user.password placeholder=Password class=form-control aria-describedby=password-addon autocorrect=off autocapitalize=none> </div> </section> <br> <section class=margin10> <div class=input-group> <span class=input-group-addon id=confirm-password-addon><i class="fa fa-lock"></i></span> <input type=password ng-model=user.passwordConfirm placeholder="Confirm password" class=form-control aria-describedby=confirm-password-addon autocorrect=off autocapitalize=none> </div> </section> <br> <section class=margin10> <div class=input-group> <span class=input-group-addon><i class="fa fa-file-image-o"></i></span> <input type=file id=user-image-choose nv-file-select uploader=uploader aria-describedby=image-addon style=display:none> <label for=user-image-choose class="form-control image-choosing" ng-class="{'placeholder': !user.image}"> {{user.image ? user.image.file.name : 'Choose your profile image'}} </label> </div> </section> </div> <div class="panel-footer clearfix"> <a ui-sref=auth.login class=pull-left style=margin:6px>Sign in</a> <span class=pull-right> <button class="btn btn-primary-cstm" ng-click=submit() ladda=isUploading>Register</button> </span> </div> </div> </div> </div> </section> 
+
+
+
+
+<section class="login-panel">
+    <div class="register-content-wrapper col-lg-offset-4 col-lg-4 col-md-offset-4 col-md-4">
+        <div class="content">
+            <div style="margin-bottom: 170px; text-align: center;">
+                Already have an account? <a href="/#/login">Log in</a>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Create an Account</h3>
+                </div>
+                <div class="panel-body">
+                    <div ng-if="code==1">
+                        <div class="alert alert-cst alert-danger">Please register your phone number with google.</div>
+                    </div>
+                    <div ng-if="code==2">
+                        <div class="alert alert-cst alert-danger">User already available</div>
+                    </div>
+                    <div ng-if="code==3">
+                        <div class="alert alert-cst alert-danger">There are some problem while authenticating with Google. Please contact administrator.</div>
+                    </div>
+                    <div class="panel-content-wrapper">
+                        <section>
+                            <input type="text" ng-model="user.fullName" placeholder="Name" class="form-control" aria-describedby="login-addon" required autocorrect="off" autocapitalize="none">
+                        </section>
+                        <section>
+
+                            <input type="text" ng-model="user.email"  placeholder="Email" class="form-control" aria-describedby="login-addon" required autocorrect="off" autocapitalize="none">
+
+                        </section>
+                        <section>
+                            <input type="password" ng-model="user.password" placeholder="Password" class="form-control" aria-describedby="password-addon" required autocorrect="off" autocapitalize="none">
+                        </section>
+                        <section class="margin10">
+                            <div class="input-group">
+                                <div id="mobile">
+                                    <input type="tel" class="form-control" id="tel" name="tel" ng-model="user.mobile" ng-intl-tel-input data-default-country="gb">
+                                </div>
+                            </div>
+                            <p class="phone-verification-text">Your phone will be used to verify your account.</p>
+                        </section>
+                        <section class="sign-in-button-wrapper">
+                            <button type="submit" g-login class="btn btn-primary-cstm sign-in"  ng-click="submit()" ladda="isUploading">Create an Account</button>
+                        </section>
+                        <p style="font-size: 12px;">By creating an account, you are agreeing to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy.</a></p>
+                    </div>
+                    <hr>
+                    <section class="text-center">
+                        <p class="login-with-text">Or sign up with</p>
+                        <button ng-click="registerWithGoogle()" ladda="isUploading"type="button" class="btn sign-in btn-login-google" ><img src="https://png.icons8.com/color/50/000000/google-logo.png" class="logo-google"> Google</button>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

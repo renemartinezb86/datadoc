@@ -1,1 +1,55 @@
-<div class=limit-settings-dropdown> <div class=limit-settings-pill-wrapper ng-repeat="item in ingestOtherSettingsDropdown.items" ng-class="{'top-border': $index > 0}"> <div class=limit-settings-pill-section> <span class=limit-settings-pill-caption compile=item.title></span> <div class=limit-settings-select tabindex=0 uib-dropdown is-open=item.isOpen> <div ng-if=item.isEditable class=limit-input-wrapper ng-click="ingestOtherSettingsDropdown.toggleChoicesDropdown($event, item)"> <input type={{item.type}} min=0 ng-focus=onIngestOtherSettingsFocusInput($event) ng-model=item.value ng-blur=onIngestOtherSettingsBlur(item) ng-keydown="onKeyDownIngestOtherSettingsInput($event, item)" ng-change=onIngestOtherSettingsModelChanged(item) pu-elastic-input> </div> <span ng-if=!item.isEditable class=limit-item-value ng-click="ingestOtherSettingsDropdown.toggleChoicesDropdown($event, item)" uib-tooltip={{item.value}} tooltip-enable="item.value.length > 20" tooltip-append-to-body=true tooltip-placement=top tooltip-popup-delay=250 tooltip-class=main-page-tooltip> {{item.value}} <span class=caret></span> </span> <ul ng-show="ingestOtherSettingsDropdown.choices[item.key] && ingestOtherSettingsDropdown.choices[item.key].helperDropdown" class=dropdown-menu uib-dropdown-menu> <li ng-repeat="choice in ingestOtherSettingsDropdown.choices[item.key].helperDropdown" ng-click="onIngestOtherSettingsChoiceSelect($event, choice, item)" ng-class="{'selected': choice == item.value}" class=dropdown-menuitem> <span class="dropdown-menuitem-content no-overflow" ng-bind=choice></span> </li> </ul> </div> </div> <a ng-show="ingestOtherSettingsDropdown.choices[item.key] && ingestOtherSettingsDropdown.choices[item.key].infoText" class=info-button uib-tooltip={{ingestOtherSettingsDropdown.choices[item.key].infoText}} tooltip-append-to-body=true tooltip-placement=top tooltip-popup-delay=250 tooltip-class=main-page-tooltip></a> </div> </div>
+<div class="limit-settings-dropdown">
+    <div class="limit-settings-pill-wrapper"
+         ng-repeat="item in ingestOtherSettingsDropdown.items"
+         ng-class="{'top-border': $index > 0}">
+        <div class="limit-settings-pill-section">
+            <span class="limit-settings-pill-caption" compile="item.title"></span>
+            <div class="limit-settings-select" tabindex="0" uib-dropdown is-open="item.isOpen">
+                <div ng-if="item.isEditable"
+                     class="limit-input-wrapper"
+                     ng-click="ingestOtherSettingsDropdown.toggleChoicesDropdown($event, item)">
+
+
+                    <input type="{{item.type}}"
+                           min="0"
+                           ng-focus="onIngestOtherSettingsFocusInput($event)"
+                           ng-model="item.value"
+                           ng-blur="onIngestOtherSettingsBlur(item)"
+                           ng-keydown="onKeyDownIngestOtherSettingsInput($event, item)"
+                           ng-change="onIngestOtherSettingsModelChanged(item)"
+                           pu-elastic-input>
+                </div>
+
+                <span ng-if="!item.isEditable"
+                      class="limit-item-value"
+                      ng-click="ingestOtherSettingsDropdown.toggleChoicesDropdown($event, item)"
+                      uib-tooltip="{{item.value}}"
+                      tooltip-enable="item.value.length > 20"
+                      tooltip-append-to-body="true"
+                      tooltip-placement="top"
+                      tooltip-popup-delay="250"
+                      tooltip-class="main-page-tooltip">
+                    {{item.value}}
+                    <span class="caret"></span>
+                </span>
+
+                <ul ng-show="ingestOtherSettingsDropdown.choices[item.key] && ingestOtherSettingsDropdown.choices[item.key].helperDropdown"
+                    class="dropdown-menu" uib-dropdown-menu>
+                    <li ng-repeat="choice in ingestOtherSettingsDropdown.choices[item.key].helperDropdown"
+                        ng-click="onIngestOtherSettingsChoiceSelect($event, choice, item)"
+                        ng-class="{'selected': choice == item.value}"
+                        class="dropdown-menuitem">
+                        <span class="dropdown-menuitem-content no-overflow" ng-bind="choice"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <a ng-show="ingestOtherSettingsDropdown.choices[item.key] && ingestOtherSettingsDropdown.choices[item.key].infoText"
+           class="info-button"
+           uib-tooltip="{{ingestOtherSettingsDropdown.choices[item.key].infoText}}"
+           tooltip-append-to-body="true"
+           tooltip-placement="top"
+           tooltip-popup-delay="250"
+           tooltip-class="main-page-tooltip"></a>
+    </div>
+</div>

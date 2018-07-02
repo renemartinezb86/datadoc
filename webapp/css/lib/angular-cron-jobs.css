@@ -1,0 +1,131 @@
+.cron-wrap {
+    display: inline;
+    line-height:35px;
+}
+
+.cron-wrap .refresh-settings-label {
+    margin-right: 5px;
+}
+
+.cron-select-wrap {
+    display: inline-block;
+}
+
+.cron-select-wrap .caret-wrapper {
+    outline: none;
+}
+
+.cron-select-wrap .timezone-dropdown {
+    max-height: calc(100vh - 235px);
+    overflow: auto;
+    min-width: 150px;
+}
+
+.cron-select-wrap .cron-main-dropdown {
+    display: block;
+}
+
+.cron-select-wrap .timezone-input {
+    max-width: 36px;
+    height: 24px;
+    text-align: center;
+}
+
+.cron-select-wrap .day-input {
+    max-width: 80px;
+    height: 24px;
+    text-align: center;
+}
+
+.cron-select-wrap .time-helper-dropdown {
+    max-height: 240px;
+}
+
+.cron-select-wrap .timezone-dropdown > li {
+    padding: 2px 12px !important;
+}
+
+.cron-select-wrap .timezone-dropdown .timezone-checkmark {
+    position: absolute;
+    background: url(/static/img/checkmark.png) no-repeat;
+    width: 21px;
+    height: 21px;
+}
+
+.cron-select-wrap .timezone-dropdown .timezone-info {
+    padding-left: 26px;
+}
+
+.cron-wrap > .select-options{
+    padding:0 10px;
+}
+
+.cron-select-wrap .cron-select {
+    margin: 0;
+    background: transparent none;
+    border: none;
+    -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+    -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    outline: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.cron-select > .dropdown-toggle, .cron-select-wrap > .dropdown-toggle {
+    cursor: pointer;
+}
+
+.cron-select-wrap select[multiple] {
+    height: 140px;
+}
+
+.select-options {
+    display: inline-block;
+}
+
+.input-time::-webkit-clear-button {
+    display: none;
+}
+
+.input-time, .minute-value {
+    border: 1px solid #a9a9a9;
+    padding: 0;
+    outline: 0;
+    height: 24px;
+    max-width: 60px;
+    text-align: center;
+}
+
+.minute-value {
+    max-width: 25px;
+}
+
+.refresh-status {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.schedule-status{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.schedule-status > .status-text {
+    font-weight: bold;
+}
+
+.cron-select-wrap > .schedule-select, .cron-select > .schedule-select{
+    line-height: 18px;
+    border: 1px solid #a9a9a9;
+    padding: 3px 3px 4px 3px;
+}
+
+.cron-wrap > hr {
+    color:#e8e8e8;
+    margin: 0 0 8px 0;
+}

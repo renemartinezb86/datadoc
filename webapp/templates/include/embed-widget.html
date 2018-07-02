@@ -1,1 +1,122 @@
-<div id=embed-page> <div class=embed-wrapper> <table class=contents-table> <tr><td style=height:60px> <div class=data-header> <div class="header-title inline-block"> <span class=embed-title-wrapper> <i class="fa fa-level-up fa-rotate-270 back" ng-cloak ng-show=isViewRawData ng-click=selectDataSummaryBack()></i> <span id=embed-title ng-bind=embedSettings.title>Loading...</span> </span> <div class="inline-block embed-button-wrapper" ng-cloak> <div ng-if=embedSettings.export class=pull-left is-open=exportPopup.isopen uib-dropdown> <button type=button class="btn embed-button" ladda=isExportRunning data-spinner-color=#333 uib-dropdown-toggle> <i class="fa fa-download"></i> Export </button> <ul class="dropdown-menu pull-right hover" uib-dropdown-menu> <li ng-repeat="op in exportDropdown"> <a href=# ng-click="exportData($event, op.type)">{{op.name}}</a> </li> </ul> </div> </div> <div ng-show=isVisibleForRow() class="show-me-bar-table pull-right" ng-cloak> <ng-include src="'static/templates/include/filter-tags.html'"></ng-include> </div> <div class="total-size pull-right-text" style=top:-2px;right:20px ng-cloak ng-show=!isRawData()> {{resultsOffset|number}} result{{resultsOffset != 1 ? 's' : ''}} </div> <div class="total-size pull-right-text" style=top:-2px;right:20px ng-cloak ng-show=isRawData()> {{resultsOffset|number}} (of {{totalSize|number}}) result{{resultsOffset != 1 ? 's' : ''}} </div> </div> <div class="header-title inline-block header-title-description" ng-cloak ng-show=embedSettings.description ng-bind=embedSettings.description> </div> </div> </td></tr> <tr><td style=height:0> <div id=search-results style=height:100%;width:100%;position:relative class=resizable-wrapper> <div class=page-content-wrapper style=position:relative;height:100%;width:100%> <table style=width:100%;height:100%> <tr ng-show="viewMode == viewModes.TABLE && embedSettings.search"> <td style=height:32px> <div class=embed-search-input-for-table-view ng-class="{active: dataSummary.search}" ng-if=embedSettings.search ng-cloak> <i class="fa fa-search"></i> <input ng-model=dataSummary.search ng-change=searching() ng-model-options="{debounce: 500}" placeholder=Search> </div> </td> </tr> <tr ng-show="viewMode == viewModes.LIST && embedSettings.search"> <td class=embed-search-input-wrapper> <div class=embed-search-input ng-class="{active: dataSummary.search}" ng-if=embedSettings.search ng-cloak> <i class="fa fa-search"></i> <input ng-model=dataSummary.search ng-change=searching() ng-model-options="{debounce: 500}" placeholder=Search> </div> </td> </tr> <tr><td> <div style=overflow-y:hidden;position:relative;height:100%;width:100%> <div class=main-viewport> <div class="loader backdrop-only" ng-show=inRequest> <div class=loader-backdrop></div> </div> <div id=ag-grid-embed ng-show="viewMode == viewModes.TABLE" class=ag-custom></div> <div viz-list style=width:100%;height:100% ng-show="viewMode == viewModes.LIST"></div> </div> </div> </td></tr> </table> </div> <div viz-filters ctrl-name=embedCtrl filter-id=visualization-filters></div> </div> </td></tr> </table> <div id=tabs-bar> <div id=toggle-widgets> <button type=button ng-click=toggleRightFilters() ng-class="{'active': isShowFilters}"> <i class="fa fa-filter"></i> Filters </button> </div> </div> </div> </div>
+<div id="embed-page">
+    <div class="embed-wrapper">
+        <table class="contents-table">
+            <tr><td style="height: 60px;">
+                <div class="data-header">
+                    <div class="header-title inline-block">
+                        <span class="embed-title-wrapper">
+                            <i class="fa fa-level-up fa-rotate-270 back"
+                               ng-cloak
+                               ng-show="isViewRawData"
+                               ng-click="selectDataSummaryBack()"></i>
+                            <span id="embed-title" ng-bind="embedSettings.title">Loading...</span>
+                        </span>
+                        <div class="inline-block embed-button-wrapper"
+                             ng-cloak>
+                            <div ng-if="embedSettings.export"
+                                 class="pull-left"
+                                 is-open="exportPopup.isopen"
+                                 uib-dropdown>
+                                <button type="button"
+                                        class="btn embed-button"
+                                        ladda="isExportRunning"
+                                        data-spinner-color="#333"
+                                        uib-dropdown-toggle>
+                                    <i class="fa fa-download"></i> Export
+                                </button>
+                                <ul class="dropdown-menu pull-right hover"
+                                    uib-dropdown-menu>
+                                    <li ng-repeat="op in exportDropdown">
+                                        <a href="#" ng-click="exportData($event, op.type)">{{op.name}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div ng-show="isVisibleForRow()" class="show-me-bar-table pull-right" ng-cloak>
+                            <ng-include src="'static/templates/include/filter-tags.html'"></ng-include>
+                        </div>
+                        <div class="total-size pull-right-text" style="top: -2px; right: 20px;" ng-cloak ng-show="!isRawData()">
+                            {{resultsOffset|number}} result{{resultsOffset != 1 ? 's' : ''}}
+                        </div>
+                        <div class="total-size pull-right-text" style="top: -2px; right: 20px;" ng-cloak ng-show="isRawData()">
+                            {{resultsOffset|number}} (of {{totalSize|number}}) result{{resultsOffset != 1 ? 's' : ''}}
+                        </div>
+                    </div>
+                    <div class="header-title inline-block header-title-description" ng-cloak
+                         ng-show="embedSettings.description"
+                         ng-bind="embedSettings.description">
+                    </div>
+                </div>
+            </td></tr>
+            <tr><td style="height: 0">
+                <div id="search-results"
+                     style="height: 100%; width: 100%; position: relative;"
+                     class="resizable-wrapper">
+                    <div class="page-content-wrapper" style="position: relative; height: 100%; width: 100%;">
+                        <table style="width: 100%; height: 100%">
+
+                            <tr ng-show="viewMode == viewModes.TABLE && embedSettings.search">
+                                <td style="height: 32px">
+                                    <div class="embed-search-input-for-table-view"
+                                         ng-class="{active: dataSummary.search}"
+                                         ng-if="embedSettings.search"
+                                         ng-cloak>
+                                        <i class="fa fa-search"></i>
+                                        <input type="text"
+                                               ng-model="dataSummary.search"
+                                               ng-change="searching()"
+                                               ng-model-options="{debounce: 500}"
+                                               placeholder="Search">
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr ng-show="viewMode == viewModes.LIST && embedSettings.search">
+                                <td class="embed-search-input-wrapper">
+                                    <div class="embed-search-input"
+                                         ng-class="{active: dataSummary.search}"
+                                         ng-if="embedSettings.search"
+                                         ng-cloak>
+                                        <i class="fa fa-search"></i>
+                                        <input type="text"
+                                               ng-model="dataSummary.search"
+                                               ng-change="searching()"
+                                               ng-model-options="{debounce: 500}"
+                                               placeholder="Search">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr><td>
+                                <div style="overflow-y: hidden; position: relative; height: 100%; width: 100%">
+                                    <div class="main-viewport">
+                                        <div class="loader backdrop-only" ng-show="inRequest">
+                                            <div class="loader-backdrop"></div>
+                                        </div>
+                                        <div id="ag-grid-embed"
+                                             ng-show="viewMode == viewModes.TABLE"
+                                             class="ag-custom"></div>
+                                        <div viz-list
+                                             style="width: 100%; height: 100%"
+                                             ng-show="viewMode == viewModes.LIST"></div>
+                                    </div>
+                                </div>
+                            </td></tr>
+                        </table>
+                    </div>
+                    <div viz-filters
+                         ctrl-name="embedCtrl"
+                         filter-id="visualization-filters"></div>
+
+                </div>
+            </td></tr>
+        </table>
+        <div id="tabs-bar">
+            <div id="toggle-widgets">
+                <button type="button" ng-click="toggleRightFilters()"
+                        ng-class="{'active': isShowFilters}">
+                    <i class="fa fa-filter"></i> Filters
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

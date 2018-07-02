@@ -1,1 +1,34 @@
-<form> <div class=modal-header> <button type=button class=close ng-click=closeDsAnnotationModal()>&times;</button> <h4 class=modal-title>Annotation</h4> </div> <div class=modal-body> <textarea class=form-control ng-model=annotation rows=3 maxlength=1000 autofocus placeholder="Enter an annotation for your source"></textarea> </div> <div class=modal-footer> <button type=submit ng-if=oldAnnotation class="btn btn-default-cstm pull-left" style=width:100px ladda=isUpdateRunning ng-click=deleteDsAnnotation()>Delete</button> <button type=submit class="btn btn-primary-cstm pull-right" style=width:100px;margin-left:10px ladda=isUpdateRunning ng-click=updateDsAnnotation()>Save</button> <button class="btn btn-default-cstm pull-right" style=width:100px ng-click=closeDsAnnotationModal()>Cancel</button> </div> </form>
+<form>
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="closeDsAnnotationModal()">&times;</button>
+        <h4 class="modal-title">Annotation</h4>
+    </div>
+    <div class="modal-body">
+        <textarea class="form-control"
+                  ng-model="annotation"
+                  rows="3"
+                  maxlength="1000"
+                  autofocus
+                  placeholder="Enter an annotation for your source"></textarea>
+    </div>
+    <div class="modal-footer">
+
+        <button type="submit"
+                ng-if="oldAnnotation"
+                class="btn btn-default-cstm pull-left"
+                style="width: 100px;"
+                ladda="isUpdateRunning"
+                ng-click="deleteDsAnnotation()">Delete</button>
+
+        <button type="submit"
+                class="btn btn-primary-cstm pull-right"
+                style="width: 100px; margin-left: 10px"
+                ladda="isUpdateRunning"
+                ng-click="updateDsAnnotation()">Save</button>
+
+        <button class="btn btn-default-cstm pull-right"
+                style="width: 100px;"
+                ng-click="closeDsAnnotationModal()">Cancel</button>
+
+    </div>
+</form>

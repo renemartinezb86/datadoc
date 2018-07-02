@@ -1,1 +1,392 @@
-<div ng-if=isVizMode() id=status-bar class=viz-bar-wrapper> <div> <div class=status-bar-wrapper> <div class=tool-bar-info-panel> <div class=toggle-page-mode-button ng-if="!isViewOnly && isMobileView()"> <div class="chart-change-buttons options-buttons"> <i class=viz-mobile-back-arrow aria-hidden=true ng-click=handleMobileBack()></i> </div> </div> <div> <div class=input-wrapper> <object-select selected-value=selectedTable.name is-disabled=isViewOnly on-update=updateTable> </object-select> <a ng-click=showDatadocInfoModal() class=info-button uib-tooltip="Click to view info for this datadoc" tooltip-placement=top tooltip-append-to-body=true tooltip-popup-delay=250 tooltip-class=main-page-tooltip></a> </div> </div> </div> <div class=tool-bar-action-panel responsive-settings> <div class=number-results> <div class="rows-returned pull-right"> <div class="total-size pull-right-text"> Showing <span ng-if=!isRawData()> {{dataSummary.limit.aggData == resultsOffset ? ('Top ' + resultsOffset) : resultsOffset}} result{{resultsOffset != 1 ? 's' : ''}} {{dataSummary.aggs.length > 1 ? '(top level)' : ''}} </span> <span ng-if=isRawData()> {{resultsOffset | number}} result{{resultsOffset != 1 ? 's' : ''}} {{totalSize == resultsOffset ? '': '(out of ' + (totalSize | number) + ')'}} </span> in {{loadQueryTime}}s </div> </div> </div> <div class=data-format> <div class=backdrop ng-show=!isFormatToolbarActive()></div> <div class=btn-group role=group aria-label=...> <div class=btn-group uib-dropdown ng-repeat="formatButton in formatToolbarButtons"> <button class="btn btn-filters format-button" ng-disabled=isViewOnly ng-click=formatButton.action($event) uib-tooltip-html=formatButton.tooltipMessage tooltip-trigger="'mouseenter focus'" tooltip-append-to-body=true tooltip-popup-delay=250 tooltip-class=main-page-tooltip> <span ng-bind-html=formatButton.label()></span> </button> <button type=button ng-show=formatButton.dropdownList class="btn btn-filters btn-toggle" ng-disabled=isViewOnly uib-dropdown-toggle> <span class=caret></span> <span class=sr-only>Split</span> </button> <ul class=format-toolbar-submenu uib-dropdown-menu> <li ng-repeat="option in formatButton.dropdownList" ng-click=option.action($event) class=format-toolbar-submenu-item ng-class="{'selected': option.selected(), 'divider': option.separator}"> <div class=format-toolbar-submenu-content> <span class=format-toolbar-submenu-title ng-bind-html=option.label></span> <span class=format-toolbar-submenu-descr ng-bind=option.descr></span> </div> </li> </ul> </div> <div class=btn-group uib-dropdown is-open=columnTypeDropdownStatus.isOpen> <button class="btn btn-filters format-button other-formats-button" uib-tooltip-html="'Other formats'" tooltip-append-to-body=true tooltip-popup-delay=250 tooltip-class=main-page-tooltip tooltip-trigger="'mouseenter outsideClick'" uib-dropdown-toggle ng-click=refreshOtherFormatOptions()> <span>123 <i class="fa fa-caret-down"></i></span> </button> <ul class="format-toolbar-submenu other-formats-submenu" uib-dropdown-menu> <li ng-repeat="option in otherFormatOptions" ng-click=option.action($event) class=format-toolbar-submenu-item ng-class="{'disabled': option.disabled, 'selected': option.selected, 'divider': option.separator}"> <div class=format-toolbar-submenu-content> <span class=format-toolbar-submenu-title ng-bind-html=option.label></span> <span class=format-toolbar-submenu-descr ng-bind=option.descr></span> </div> </li> <li class=divider></li> <li class="format-toolbar-submenu-item format-toolbar-comment"> <span>Need another format? <a ng-click="togglePageMode(true, 0, true)">Click to Edit Source.</a> </span> </li> </ul> </div> <div class=toolbar-label-down>Data Format</div> </div> </div> <div class=settings> <div class="settings-more-btn btn" ng-class="{opened: showSettingsDropdown}" ng-if=showSettingsDropdownToggle ng-click=toggleSettingsDropdown()> More <i class=caret></i> </div> <div class=settings-wrapper> <div class=tool-bar-settings-wrapper> <div class="settings-button dropdown-options inline-block pull-right" uib-dropdown> <button class="btn btn-filters" ng-disabled=isViewOnly uib-dropdown-toggle> <i class="fa fa-eye btn-icon"></i> Views </button> <ul uib-dropdown-menu class="dropdown-menu tool-bar-dropdown flexible-space-dropdown pull-right" role=menu> <li ng-click=saveCurrentState() ng-class="{'disabled': !isDefaultState()}"> <a>Save current view</a> </li> <li class=divider></li> <li ng-if=!isDefaultState() ng-click=cleanState()> <a style=font-weight:500>None</a> </li> <li ng-repeat="availableBookmarkState in allBookmarkStates" ng-click="changeBookmarkState(availableBookmarkState, true)"> <span> <a ng-class="{'selected-view': availableBookmarkState.uuid === selectedViewStateId}"> <i ng-if="availableBookmarkState.uuid === selectedViewStateId" class="fa fa-check muted"></i> {{ availableBookmarkState.name }} </a> </span> <i ng-click="removeState($event, availableBookmarkState)" class="fa fa-times remove-view"></i> </li> </ul> </div> <div class="settings-button dropdown-options inline-block pull-right" uib-dropdown auto-close=outsideClick is-open=exportDropdownSettings.opened> <button class="btn btn-filters" uib-dropdown-toggle> <i class="fa fa-download btn-icon"></i> Export </button> <ul uib-dropdown-menu class="dropdown-menu tool-bar-dropdown pull-right" role=menu> <li ng-click="prepareExport('CSV')"> <a>Export as CSV</a> </li> <li ng-click="prepareExport('XLS')"> <a>Export as Excel</a> </li> <li ng-show="tabsSection.options.tabs.length > 1" ng-click="prepareExport('XLS_WORKBOOK')"> <a>Export as Excel (full workbook)</a> </li> <li ng-show="totalSize > 4000000" class=export-info> <a class=muted>Note: exports limited to 2M rows</a> </li> </ul> </div> <div class="settings-button dropdown-options inline-block pull-right ingest-settings-dropdown"> <button class="btn btn-filters" ng-disabled=isViewOnly ng-click=toggleIngestSettingsDropdown()> <i class="fa fa-cog btn-icon"></i> Settings </button> <div ng-show=ingestSettingsDropdown.open class=settings-panel-value role=menu click-out=hideIngestSettingsDropdown() click-out-excluding-classes="['ingest-settings-dropdown', 'dropdown-menu']"> <div class=page-settings-wrapper> <div class="settings-list page-settings"> <div class=settings-list-item> <span class=settings-label> <span>Drill into fields:</span> <a class=info-button uib-tooltip="What fields will display when you click into an aggregation to see the data behind that aggregated value" tooltip-placement=top tooltip-append-to-body=true tooltip-popup-delay=250 tooltip-class="main-page-tooltip text-left"></a> </span> <div class=settings-list-action-dropdown uib-dropdown dropdown-append-to-body=true> <span class="ingest-source-item-select dropdown-toggle" uib-dropdown-toggle> All ({{selectedGroupByCount()}}) <span class=caret></span> </span> <ul class="dropdown-menu dropdown-menu-right drill-into-columns-dropdown tool-bar-dropdown tool-bar-settings pull-right" uib-dropdown-menu role=menu> <li class=filter-settings-header> Drill-into Columns: </li> <ul class="sidebar-ul inner-ul tool-bar-dropdown flexible-dropdown" role=menu sv-root=rawShowMeList sv-part=rawShowMeList sv-on-sort="endSortFieldsRaw($item, $indexTo);" ng-click=$event.stopPropagation();> <li role=menuitem ng-click=toggleSelectAllFieldRaw();> <span> <input type=checkbox ng-checked=isAllFieldsRawSelected() class=regular-checkbox> <label></label> </span> <a><b>Select All</b></a> </li> <li role=menuitem ng-repeat="rawShow in rawShowMeList" ng-click=toggleRawShow(rawShow); sv-element> <span sv-handle class=handle> <i class="fa fa-grip fa-rotate-90"></i> </span> <span> <input type=checkbox ng-model=rawShow.id.selected class=regular-checkbox> <label></label> </span> <a> <span ng-bind-html=rawShow.name></span> </a> <span class=sort ng-click="$event.stopPropagation(); switchShowRawSort(rawShow);"> <i ng-class=getSortClass(rawShow.id.sort.direction)></i> </span> </li> </ul> </ul> </div> </div> <div class=separator></div> <div class=settings-list-item> <span class=settings-label> <span>Auto-query:</span> <a class=info-button uib-tooltip="Changes will automatically be applied to the page without having to click submit." tooltip-placement=top tooltip-append-to-body=true tooltip-popup-delay=250 tooltip-class="main-page-tooltip text-left"></a> </span> <div class="settings-list-action-dropdown dropdown-menu-right" uib-dropdown dropdown-append-to-body=true> <span uib-dropdown-toggle> <span>{{autoRefresh ? 'On' : 'Off'}}</span> <span class=caret></span> </span> <ul class="dropdown-menu checkable dropdown-menu-right tool-bar-dropdown" uib-dropdown-menu> <li ng-click=switchAutoRefresh(true) class=dropdown-menuitem ng-class="{'selected': autoRefresh}"> <span>On</span> </li> <li ng-if-end ng-click=switchAutoRefresh(false) class=dropdown-menuitem ng-class="{'selected': !autoRefresh}"> <span>Off</span> </li> </ul> </div> </div> <div class=settings-list-item> <span class=settings-label> <span>Convert times to {{getUserTimezoneAbbreviation()}}</span> </span> <div class="settings-list-action-dropdown dropdown-menu-right" uib-dropdown dropdown-append-to-body=true> <span uib-dropdown-toggle> <span>{{isConvertToUserTimezone() ? "On" : "Off"}}</span> <span class=caret></span> </span> <ul class="dropdown-menu checkable dropdown-menu-right tool-bar-dropdown" uib-dropdown-menu> <li ng-click=switchConvertTimes(true) class=dropdown-menuitem ng-class="{'selected': isConvertToUserTimezone()}"> <span>On</span> </li> <li ng-if-end ng-click=switchConvertTimes(false) class=dropdown-menuitem ng-class="{'selected': !isConvertToUserTimezone()}"> <span>Off</span> </li> </ul> </div> </div> <div class=settings-list-item> <span class=settings-label> <span>Adjust Field Headings:</span> </span> <div class="settings-list-action-dropdown dropdown-menu-right" uib-dropdown dropdown-append-to-body=true> <span uib-dropdown-toggle> <span>{{getCurrentHeaderAdjustmentValue()}}</span> <span class=caret></span> </span> <ul class="dropdown-menu checkable dropdown-menu-right tool-bar-dropdown" uib-dropdown-menu> <li ng-repeat="(key, value) in columnHeaderAvailableFormats" ng-click=setCurrentHeaderAdjustmentValue(key) class=dropdown-menuitem ng-class="{'selected': isCurrentHeaderAdjustment(key)}"> <span>{{value}}</span> </li> </ul> </div> </div> </div> </div> </div> </div> <div class="settings-button dropdown-options inline-block pull-right source-settings-dropdown"> <button class="btn btn-filters" ng-disabled=isViewOnly ng-click=toggleSourceSettingsDropdown() uib-tooltip="{{isCommitRunning() ? 'Your source is currently being refreshed.' : ''}}" tooltip-placement=top tooltip-popup-delay=250 tooltip-class="main-page-tooltip text-left" tooltip-append-to-body=true ng-disabled=isSourceDeleted()> <div class=source-icon></div> <span ng-show=isCommitRunning() class=source-button-label>{{commitProgress.getValue() ? commitProgress.getValue() : 0}}%</span> <span ng-hide=isCommitRunning() class=source-button-label>Source</span> <span class=disconnected-source-sign ng-if="sourceValidationInfo.removed || !sourceValidationInfo.valid"></span> </button> <div class=source-panel-value ng-show=sourceSettingsDropdown.open role=menu click-out=hideSourceSettingsDropdown() click-out-excluding-classes="['source-settings-dropdown']"> <div class=data-settings-wrapper> <div class=settings-list> <div class=settings-list-item> <span class=settings-label>Data source: </span> <span class=settings-value>{{sourceInfoMessage}}</span> </div> <div class=settings-list-item> <span class=settings-label>Last ingested: </span> <div class=settings-value> <div>{{getLastIngestedTime()}} ({{getTimeSinceLastCommit()}})</div> <div class=last-refresh-time>{{getLastCommitDuration(true)}}</div> </div> </div> <div class=settings-list-action> <div class=refresh-section> <button class="btn btn-filters btn-filters-blue refresh-now-btn" ng-click=refreshNow() ng-show=isRefreshableSource() ladda=isRefreshingNow ladda-numerical-progress="commitProgress.getValue() ? commitProgress.getValue() : 0">Refresh Now</button> <span class=last-failed-updated-data ng-if="isRefreshableSource() && !isCommitRunning() && (sourceValidationInfo.removed || !sourceValidationInfo.valid)">{{lastUpdateTabMessage()}}</span> <a class=cancel-commit ng-if=isCommitRunning() ng-click=cancelCommit()>Cancel</a> <a class=goto-source-link ng-click="togglePageMode(true, 0, false)">Go to source</a> <span class="padding-left-small disabled" ng-if=sourceRemoved> (Removed)</span> </div> </div> </div> </div> </div> </div> </div> </div> <div class=toolbar-label-down>Settings</div> </div> </div> <div class=status-bar-search-wrapper ng-class="{'mobile-search-active': mobileSearch.active}" mobile-search> <div class=mobile-search-icon></div> </div> </div> </div> </div>
+<div ng-if="isVizMode()" id="status-bar" class="viz-bar-wrapper">
+    <div>
+        <div class="status-bar-wrapper">
+            <div class="tool-bar-info-panel">
+                <div class="toggle-page-mode-button" ng-if="!isViewOnly && isMobileView()">
+                    <div class="chart-change-buttons options-buttons">
+                        <i class="viz-mobile-back-arrow" aria-hidden="true" ng-click="handleMobileBack()"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="input-wrapper">
+                        <object-select selected-value="selectedTable.name"
+                                       is-disabled="isViewOnly"
+                                       on-update="updateTable">
+                        </object-select>
+                        <a ng-click="showDatadocInfoModal()"
+                           class="info-button"
+                           uib-tooltip="Click to view info for this datadoc"
+                           tooltip-placement="top"
+                           tooltip-append-to-body="true"
+                           tooltip-popup-delay="250"
+                           tooltip-class="main-page-tooltip"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="tool-bar-action-panel" responsive-settings>
+                <div class="number-results">
+                    <div class="rows-returned pull-right">
+                        <div class="total-size pull-right-text">
+                            Showing
+                            <span ng-if="!isRawData()">
+                                {{dataSummary.limit.aggData == resultsOffset ? ('Top ' + resultsOffset) : resultsOffset}}
+                                result{{resultsOffset != 1 ? 's' : ''}}
+                                {{dataSummary.aggs.length > 1 ? '(top level)' : ''}}
+                            </span>
+                            <span ng-if="isRawData()">
+                                {{resultsOffset | number}}
+                                result{{resultsOffset != 1 ? 's' : ''}}
+                                {{totalSize == resultsOffset ? '': '(out of ' + (totalSize | number) + ')'}}
+                            </span>
+                            in {{loadQueryTime}}s
+                        </div>
+                    </div>
+                </div>
+                <div class="data-format">
+                    <div class="backdrop" ng-show="!isFormatToolbarActive()"></div>
+                    <div class="btn-group" role="group" aria-label="...">
+                        <div class="btn-group"
+                             uib-dropdown
+                             ng-repeat="formatButton in formatToolbarButtons">
+                            <button class="btn btn-filters format-button"
+                                    ng-disabled="isViewOnly"
+                                    ng-click="formatButton.action($event)"
+                                    uib-tooltip-html="formatButton.tooltipMessage"
+                                    tooltip-trigger="'mouseenter focus'"
+                                    tooltip-append-to-body="true"
+                                    tooltip-popup-delay="250"
+                                    tooltip-class="main-page-tooltip">
+                                <span ng-bind-html="formatButton.label()"></span>
+                            </button>
+                            <button type="button"
+                                    ng-show="formatButton.dropdownList"
+                                    class="btn btn-filters btn-toggle"
+                                    ng-disabled="isViewOnly"
+                                    uib-dropdown-toggle>
+                                <span class="caret"></span>
+                                <span class="sr-only">Split</span>
+                            </button>
+                            <ul class="format-toolbar-submenu"
+                                uib-dropdown-menu>
+                                <li ng-repeat="option in formatButton.dropdownList"
+                                    ng-click="option.action($event)"
+                                    class="format-toolbar-submenu-item"
+                                    ng-class="{'selected': option.selected(), 'divider': option.separator}">
+                                    <div class="format-toolbar-submenu-content">
+                                        <span class="format-toolbar-submenu-title" ng-bind-html="option.label"></span>
+                                        <span class="format-toolbar-submenu-descr" ng-bind="option.descr"></span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="btn-group" uib-dropdown is-open="columnTypeDropdownStatus.isOpen">
+                            <button class="btn btn-filters format-button other-formats-button"
+                                    uib-tooltip-html="'Other formats'"
+                                    tooltip-append-to-body="true"
+                                    tooltip-popup-delay="250"
+                                    tooltip-class="main-page-tooltip"
+                                    tooltip-trigger="'mouseenter outsideClick'"
+                                    uib-dropdown-toggle
+                                    ng-click="refreshOtherFormatOptions()">
+                                <span>123 <i class="fa fa-caret-down"></i></span>
+                            </button>
+                            <ul class="format-toolbar-submenu other-formats-submenu"
+                                uib-dropdown-menu>
+                                <li ng-repeat="option in otherFormatOptions"
+                                    ng-click="option.action($event)"
+                                    class="format-toolbar-submenu-item"
+                                    ng-class="{'disabled': option.disabled, 'selected': option.selected, 'divider': option.separator}">
+                                    <div class="format-toolbar-submenu-content">
+                                        <span class="format-toolbar-submenu-title" ng-bind-html="option.label"></span>
+                                        <span class="format-toolbar-submenu-descr" ng-bind="option.descr"></span>
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li class="format-toolbar-submenu-item format-toolbar-comment">
+                                    <span>Need another format? <a ng-click="togglePageMode(true, 0, true)">Click to Edit Source.</a> </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="toolbar-label-down">Data Format</div>
+                    </div>
+                </div>
+                <div class="settings">
+                    <div class="settings-more-btn btn"
+                         ng-class="{opened: showSettingsDropdown}"
+                         ng-if="showSettingsDropdownToggle"
+                         ng-click="toggleSettingsDropdown()">
+                        More <i class="caret"></i>
+                    </div>
+
+                    <div class="settings-wrapper">
+                        <div class="tool-bar-settings-wrapper">
+                            <div class="settings-button dropdown-options inline-block pull-right" uib-dropdown>
+                                <button class="btn btn-filters" ng-disabled="isViewOnly" uib-dropdown-toggle>
+                                    <i class="fa fa-eye btn-icon"></i> Views
+                                </button>
+                                <ul uib-dropdown-menu
+                                    class="dropdown-menu tool-bar-dropdown flexible-space-dropdown pull-right"
+                                    role="menu">
+                                    <li ng-click="saveCurrentState()" ng-class="{'disabled': !isDefaultState()}">
+                                        <a>Save current view</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li ng-if="!isDefaultState()" ng-click="cleanState()">
+                                        <a style="font-weight: 500">None</a>
+                                    </li>
+                                    <li ng-repeat="availableBookmarkState in allBookmarkStates"
+                                        ng-click="changeBookmarkState(availableBookmarkState, true)">
+                                        <span>
+                                        <a ng-class="{'selected-view': availableBookmarkState.uuid === selectedViewStateId}">
+                                            <i ng-if="availableBookmarkState.uuid === selectedViewStateId"
+                                               class="fa fa-check muted"></i>
+                                            {{ availableBookmarkState.name }}
+                                        </a>
+                                        </span>
+                                        <i ng-click="removeState($event, availableBookmarkState)"
+                                           class="fa fa-times remove-view"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="settings-button dropdown-options inline-block pull-right" uib-dropdown
+                                 auto-close="outsideClick" is-open="exportDropdownSettings.opened">
+                                <button class="btn btn-filters" uib-dropdown-toggle>
+                                    <i class="fa fa-download btn-icon"></i>
+                                    Export
+                                </button>
+                                <ul uib-dropdown-menu class="dropdown-menu tool-bar-dropdown pull-right" role="menu">
+                                    <li ng-click="prepareExport('CSV')">
+                                        <a>Export as CSV</a>
+                                    </li>
+                                    <li ng-click="prepareExport('XLS')">
+                                        <a>Export as Excel</a>
+                                    </li>
+                                    <li ng-show="tabsSection.options.tabs.length > 1"
+                                        ng-click="prepareExport('XLS_WORKBOOK')">
+                                        <a>Export as Excel (full workbook)</a>
+                                    </li>
+                                    <li ng-show="totalSize > 4000000" class="export-info">
+                                        <a class="muted">Note: exports limited to 2M rows</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                            <div class="settings-button dropdown-options inline-block pull-right ingest-settings-dropdown">
+                                <button class="btn btn-filters" ng-disabled="isViewOnly"
+                                        ng-click="toggleIngestSettingsDropdown()">
+                                    <i class="fa fa-cog btn-icon"></i> Settings
+                                </button>
+                                <div ng-show="ingestSettingsDropdown.open" class="settings-panel-value" role="menu"
+                                     click-out="hideIngestSettingsDropdown()"
+                                     click-out-excluding-classes="['ingest-settings-dropdown', 'dropdown-menu']">
+                                    <div class="page-settings-wrapper">
+                                        <div class="settings-list page-settings">
+                                            <div class="settings-list-item">
+                                                <span class="settings-label">
+                                                    <span>Drill into fields:</span>
+                                                    <a class="info-button"
+                                                       uib-tooltip="What fields will display when you click into an aggregation to see the data behind that aggregated value"
+                                                       tooltip-placement="top"
+                                                       tooltip-append-to-body="true"
+                                                       tooltip-popup-delay="250"
+                                                       tooltip-class="main-page-tooltip text-left"></a>
+                                                </span>
+
+                                                <div class="settings-list-action-dropdown" uib-dropdown
+                                                     dropdown-append-to-body="true">
+                                                <span class="ingest-source-item-select dropdown-toggle"
+                                                      uib-dropdown-toggle>
+                                                    All ({{selectedGroupByCount()}})
+                                                    <span class="caret"></span>
+                                                </span>
+                                                    <ul class="dropdown-menu dropdown-menu-right drill-into-columns-dropdown tool-bar-dropdown tool-bar-settings pull-right"
+                                                        uib-dropdown-menu
+                                                        role="menu">
+                                                        <li class="filter-settings-header">
+                                                            Drill-into Columns:
+                                                        </li>
+                                                        <ul class="sidebar-ul inner-ul tool-bar-dropdown flexible-dropdown"
+                                                            role="menu"
+                                                            sv-root="rawShowMeList"
+                                                            sv-part="rawShowMeList"
+                                                            sv-on-sort="endSortFieldsRaw($item, $indexTo);"
+                                                            ng-click="$event.stopPropagation();">
+                                                            <li role="menuitem" ng-click="toggleSelectAllFieldRaw();">
+                                                            <span>
+                                                                <input type="checkbox"
+                                                                       ng-checked="isAllFieldsRawSelected()"
+                                                                       class="regular-checkbox">
+                                                                <label></label>
+                                                            </span>
+                                                                <a><b>Select All</b></a>
+                                                            </li>
+                                                            <li role="menuitem" ng-repeat="rawShow in rawShowMeList"
+                                                                ng-click="toggleRawShow(rawShow);"
+                                                                sv-element>
+                                                            <span sv-handle class="handle">
+                                                <i class="fa fa-grip fa-rotate-90"></i>
+                                                            </span>
+                                                                <span>
+                                                <input type="checkbox" ng-model="rawShow.id.selected"
+                                                       class="regular-checkbox">
+                                                                <label></label>
+                                                            </span>
+                                                                <a>
+                                                                    <span ng-bind-html="rawShow.name"></span>
+                                                                </a>
+                                                                <span class="sort"
+                                                                      ng-click="$event.stopPropagation(); switchShowRawSort(rawShow);">
+                                                                <i ng-class="getSortClass(rawShow.id.sort.direction)"></i>
+                                                            </span>
+                                                            </li>
+                                                        </ul>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="separator"></div>
+                                            <div class="settings-list-item">
+                                            <span class="settings-label">
+                                                <span>Auto-query:</span>
+                                                <a class="info-button"
+                                                   uib-tooltip="Changes will automatically be applied to the page without having to click submit."
+                                                   tooltip-placement="top"
+                                                   tooltip-append-to-body="true"
+                                                   tooltip-popup-delay="250"
+                                                   tooltip-class="main-page-tooltip text-left"></a>
+                                            </span>
+
+                                                <div class="settings-list-action-dropdown dropdown-menu-right"
+                                                     uib-dropdown
+                                                     dropdown-append-to-body="true">
+                                                <span uib-dropdown-toggle>
+                                                    <span>{{autoRefresh ? 'On' : 'Off'}}</span>
+                                                    <span class="caret"></span>
+                                                </span>
+                                                    <ul class="dropdown-menu checkable dropdown-menu-right tool-bar-dropdown"
+                                                        uib-dropdown-menu>
+                                                        <li ng-click="switchAutoRefresh(true)" class="dropdown-menuitem"
+                                                            ng-class="{'selected': autoRefresh}">
+                                                            <span>On</span>
+                                                        </li>
+                                                        <li ng-if-end ng-click="switchAutoRefresh(false)"
+                                                            class="dropdown-menuitem"
+                                                            ng-class="{'selected': !autoRefresh}">
+                                                            <span>Off</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="settings-list-item">
+                                                <span class="settings-label">
+                                                    <span>Convert times to {{getUserTimezoneAbbreviation()}}</span>
+                                                </span>
+
+                                                <div class="settings-list-action-dropdown dropdown-menu-right"
+                                                     uib-dropdown
+                                                     dropdown-append-to-body="true">
+                                                <span uib-dropdown-toggle>
+                                                    <span>{{isConvertToUserTimezone() ? "On" : "Off"}}</span>
+                                                    <span class="caret"></span>
+                                                </span>
+                                                    <ul class="dropdown-menu checkable dropdown-menu-right tool-bar-dropdown"
+                                                        uib-dropdown-menu>
+                                                        <li ng-click="switchConvertTimes(true)"
+                                                            class="dropdown-menuitem"
+                                                            ng-class="{'selected': isConvertToUserTimezone()}">
+                                                            <span>On</span>
+                                                        </li>
+                                                        <li ng-if-end ng-click="switchConvertTimes(false)"
+                                                            class="dropdown-menuitem"
+                                                            ng-class="{'selected': !isConvertToUserTimezone()}">
+                                                            <span>Off</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="settings-list-item">
+                                                <span class="settings-label">
+                                                    <span>Adjust Field Headings:</span>
+                                                </span>
+
+                                                <div class="settings-list-action-dropdown dropdown-menu-right"
+                                                     uib-dropdown
+                                                     dropdown-append-to-body="true">
+                                                <span uib-dropdown-toggle>
+                                                    <span>{{getCurrentHeaderAdjustmentValue()}}</span>
+                                                    <span class="caret"></span>
+                                                </span>
+                                                    <ul class="dropdown-menu checkable dropdown-menu-right tool-bar-dropdown"
+                                                        uib-dropdown-menu>
+                                                        <li ng-repeat="(key, value) in columnHeaderAvailableFormats"
+                                                            ng-click="setCurrentHeaderAdjustmentValue(key)"
+                                                            class="dropdown-menuitem"
+                                                            ng-class="{'selected': isCurrentHeaderAdjustment(key)}">
+                                                            <span>{{value}}</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="settings-button dropdown-options inline-block pull-right source-settings-dropdown">
+                                <button class="btn btn-filters" ng-disabled="isViewOnly"
+                                        ng-click="toggleSourceSettingsDropdown()"
+                                        uib-tooltip="{{isCommitRunning() ? 'Your source is currently being refreshed.' : ''}}"
+                                        tooltip-placement="top"
+                                        tooltip-popup-delay="250"
+                                        tooltip-class="main-page-tooltip text-left"
+                                        tooltip-append-to-body="true"
+                                        ng-disabled="isSourceDeleted()">
+                                    <div class="source-icon"></div>
+                                    <span ng-show="isCommitRunning()" class="source-button-label">{{commitProgress.getValue() ? commitProgress.getValue() : 0}}%</span>
+                                    <span ng-hide="isCommitRunning()" class="source-button-label">Source</span>
+                                    <span class="disconnected-source-sign" ng-if="sourceValidationInfo.removed || !sourceValidationInfo.valid"></span>
+                                </button>
+                                <div class="source-panel-value" ng-show="sourceSettingsDropdown.open" role="menu"
+                                     click-out="hideSourceSettingsDropdown()"
+                                     click-out-excluding-classes="['source-settings-dropdown']">
+                                    <div class="data-settings-wrapper">
+                                        <div class="settings-list">
+                                            <div class="settings-list-item">
+                                                <span class="settings-label">Data source: </span>
+                                                <span class="settings-value">{{sourceInfoMessage}}</span>
+                                            </div>
+                                            <div class="settings-list-item">
+                                                <span class="settings-label">Last ingested: </span>
+                                                <div class="settings-value">
+                                                    <div>{{getLastIngestedTime()}} ({{getTimeSinceLastCommit()}})</div>
+                                                    <div class="last-refresh-time">{{getLastCommitDuration(true)}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="settings-list-action">
+                                                <div class="refresh-section">
+                                                <button class="btn btn-filters btn-filters-blue refresh-now-btn"
+                                                        ng-click="refreshNow()"
+                                                        ng-show="isRefreshableSource()"
+                                                        ladda="isRefreshingNow"
+                                                        ladda-numerical-progress="commitProgress.getValue() ? commitProgress.getValue() : 0">Refresh Now</button>
+                                                    <span class="last-failed-updated-data" ng-if="isRefreshableSource() && !isCommitRunning() && (sourceValidationInfo.removed || !sourceValidationInfo.valid)" >{{lastUpdateTabMessage()}}</span>
+                                                    <a class="cancel-commit" ng-if="isCommitRunning()" ng-click="cancelCommit()">Cancel</a>
+                                                    <a class="goto-source-link" ng-click="togglePageMode(true, 0, false)">Go to source</a>
+                                                    <span class="padding-left-small disabled" ng-if="sourceRemoved"> (Removed)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="toolbar-label-down">Settings</div>
+                </div>
+            </div>
+            <div class="status-bar-search-wrapper" ng-class="{'mobile-search-active': mobileSearch.active}"
+                 mobile-search>
+                <div class="mobile-search-icon"></div>
+            </div>
+        </div>
+    </div>
+</div>

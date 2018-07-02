@@ -1,1 +1,45 @@
-<form> <div class=modal-header> <button type=button class=close ng-click=closeDsQueryModal()>&times;</button> <h4 class=modal-title>{{externalDsQuery.id ? 'Edit' : 'Create'}} Query</h4> </div> <div class=modal-body> <dl class=dl-horizontal style=margin-bottom:0> <dt>Name</dt> <dd> <div class=form-group> <input name=name class=form-control placeholder=Name ng-model=externalDsQuery.name autofocus> </div> </dd> <dt>Query</dt> <dd> <div class=form-group style=height:200px> <ui-codemirror ui-codemirror-opts=sqlEditorOptions ng-model=externalDsQuery.query></ui-codemirror> </div> </dd> </dl> </div> <div class=modal-footer> <button type=submit ng-if=externalDsQuery.id class="btn btn-default-cstm pull-left" style=width:100px ng-click=deleteDsQuery()>Delete</button> <button type=submit class="btn btn-primary-cstm pull-right" style=width:100px;margin-left:10px ladda=isSavingExternalDsQuery ng-click=saveDsQuery()>{{externalDsQuery.id ? 'Update' : 'Save'}}</button> <button class="btn btn-default-cstm pull-right" style=width:100px ng-click=closeDsQueryModal()>Close</button> </div> </form>
+<form>
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="closeDsQueryModal()">&times;</button>
+        <h4 class="modal-title">{{externalDsQuery.id ? 'Edit' : 'Create'}} Query</h4>
+    </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal"
+            style="margin-bottom: 0">
+            <dt>Name</dt>
+            <dd>
+                <div class="form-group">
+                    <input name="name"
+                           class="form-control"
+                           placeholder="Name"
+                           ng-model="externalDsQuery.name"
+                           autofocus>
+                </div>
+            </dd>
+
+            <dt>Query</dt>
+            <dd>
+                <div class="form-group" style="height: 200px;">
+                    <ui-codemirror ui-codemirror-opts="sqlEditorOptions" ng-model="externalDsQuery.query"></ui-codemirror>
+                </div>
+            </dd>
+        </dl>
+    </div>
+    <div class="modal-footer">
+        <button type="submit"
+                ng-if="externalDsQuery.id"
+                class="btn btn-default-cstm pull-left"
+                style="width: 100px;"
+                ng-click="deleteDsQuery()">Delete</button>
+
+        <button type="submit"
+                class="btn btn-primary-cstm pull-right"
+                style="width: 100px; margin-left: 10px"
+                ladda="isSavingExternalDsQuery"
+                ng-click="saveDsQuery()">{{externalDsQuery.id ? 'Update' : 'Save'}}</button>
+
+        <button class="btn btn-default-cstm pull-right"
+                style="width: 100px;"
+                ng-click="closeDsQueryModal()">Close</button>
+    </div>
+</form>

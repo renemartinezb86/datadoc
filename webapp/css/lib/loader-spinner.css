@@ -1,0 +1,126 @@
+.loader {
+    pointer-events: none;
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1029;
+}
+
+.loader.backdrop-only {
+    z-index: 998;
+}
+
+.loader .loader-backdrop {
+    pointer-events: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
+    opacity: 1;
+}
+.loader .loader-backdrop.semi-transparent {
+    opacity: 0.5;
+}
+
+.loader .loader-spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -45px;
+    margin-left: -45px;
+    text-align: center;
+}
+
+.loader .loader-spinner > .loader-spinner-wheel {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto;
+    border: 8px solid rgba(60,199,255,0.5);
+    border-radius: 50%;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    animation: loader-spin 1400ms infinite linear;
+    -o-animation: loader-spin 1400ms infinite linear;
+    -ms-animation: loader-spin 1400ms infinite linear;
+    -webkit-animation: loader-spin 1400ms infinite linear;
+    -moz-animation: loader-spin 1400ms infinite linear;
+}
+
+.loader.large .loader-spinner{
+    margin-top: -69px;
+    margin-left: -69px;
+}
+
+.loader.large .loader-spinner > .loader-spinner-wheel {
+    width: 138px;
+    height: 138px;
+}
+
+.loader.large .loader-cancel {
+    pointer-events: auto;
+    color: rgba(60,199,255,0.8);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 16px;
+    margin-left: -21px;
+    margin-top: -11px;
+}
+
+.loader.large .loader-inner-text {
+    pointer-events: auto;
+    color: rgba(60,60,60,0.8);
+    position: absolute;
+    font-size: 14px;
+    line-height: 19px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-wrapper {
+    position: relative;
+    width: 25px;
+    height: 25px;
+}
+
+.current {
+    top: 50%;
+    bottom: auto;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    font-size: 9px;
+    position: absolute;
+    color: dodgerblue;
+    line-height: 1;
+}
+
+
+@keyframes loader-spin {
+    100%{ transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@-o-keyframes loader-spin {
+    100%{ -o-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@-ms-keyframes loader-spin {
+    100%{ -ms-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@-webkit-keyframes loader-spin {
+    100%{ -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@-moz-keyframes loader-spin {
+    100%{ -moz-transform: rotate(360deg); transform: rotate(360deg); }
+}

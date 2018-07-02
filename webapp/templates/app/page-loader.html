@@ -1,1 +1,11 @@
-<div class="state-loader loader large" ng-show=stateChange> <div ng-show=showFullBackdrop class=loader-backdrop> </div> <div class=loader-spinner> <div class=loader-spinner-wheel></div> <div class="loader-inner-text no-select" ng-show=innerText ng-bind-html=innerText></div> <a class=loader-cancel ng-click=cancelRequest() ng-show=showCancelRequestButton>Cancel</a> </div> </div> 
+<div class="state-loader loader large" ng-show="stateChange">
+    <div ng-show="showFullBackdrop" class="loader-backdrop">
+    </div>
+    <div class="loader-spinner">
+        <div class="loader-spinner-wheel"></div>
+        <div class="loader-inner-text no-select" ng-show="innerText" ng-bind-html="innerText"></div>
+        <a class="loader-cancel"
+           ng-click="cancelRequest()"
+           ng-show="showCancelRequestButton">Cancel</a>
+    </div>
+</div>

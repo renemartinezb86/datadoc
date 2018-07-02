@@ -1,1 +1,209 @@
-<form name=embedForm> <div class=row> <div class=col-md-7> <div id=widget-container></div> <div page-loader id=embed-loader></div> </div> <div class=col-md-5 id=settings-pane> <div class="input-group embed-url"> <input class=form-control readonly=readonly value={{getUrlText()}}> <span class=input-group-btn> <button class="btn btn-primary" ng-model=selectedUrlMode uib-btn-radio=urlModes.URL> <span>URL</span> </button> <button class="btn btn-primary" ng-model=selectedUrlMode uib-btn-radio=urlModes.EMBED> <span>Embed</span> </button> </span> </div> <div class=preview-link ng-click=previewEmbed()> <i class="fa fa-external-link" aria-hidden=true></i> </div> <dl class=dl-horizontal style=margin-bottom:0> <dt>Title</dt> <dd> <div class=form-group> <input name=title class=form-control ng-change=setDirty() ng-model=embedFormModel.title> </div> </dd> <dt>Desc.</dt> <dd> <div class=form-group> <input name=description placeholder="Customize Description" class=form-control ng-change=setDirty() ng-model=embedFormModel.description>  </div> </dd> <table> <tr> <td> <dt>Width</dt> <dd> <div class=form-group> <input type=number class=form-control style=width:50px min=1 name=width ng-model=embedFormModel.width ng-change=setDirty() required> </div> </dd> </td> <td style=padding-left:10px> <dt>Height</dt> <dd> <div class=form-group> <input type=number class=form-control style=width:50px min=1 name=height ng-model=embedFormModel.height ng-change=setDirty() required> </div> </dd> </td> </tr> </table> </dl> <div class=embed-checkbox> <label><input type=checkbox ng-change=setDirty() ng-model=embedFormModel.export>Allow exporting of data</label> </div> <div class=embed-checkbox> <label><input type=checkbox ng-change="setDirty(); onAllowViewRawChanged()" ng-model=embedFormModel.clickIn>Allow viewing of raw data</label> </div> <hr style="border-top:1px solid #ddd"> <div class=embed-checkbox> <label><input type=checkbox ng-change=setDirty() ng-model=duplicateTab>Duplicate in new tab</label> <br> <span class=embed-caution-text>Caution: this embed will be tied to the current tab.</span> <br> <span class=embed-caution-text> <i>Any changes you make to the current tab will also be reflected in the embed. If you would like to 'freeze' this embed, we recommend selecting this option.</i> </span> </div>  </div> </div> <div class=save-buttons> <button class=btn ng-class="dirty ? 'btn-primary-embed' : 'btn-default-cstm'" ladda=isEmbedUpdating type=button ng-disabled=!dirty ng-click=updateEmbed(embedForm)>Save Changes</button> <div class=comment-text> <span ng-show=dirty>Some changes are not yet saved.</span> <span ng-show=!dirty>All changes saved.</span> </div> </div> </form>
+<form name="embedForm">
+    <div class="row">
+        <div class="col-md-7">
+            <div id="widget-container"></div>
+            <div page-loader id="embed-loader"></div>
+        </div>
+        <div class="col-md-5"
+             id="settings-pane">
+            <div class="input-group embed-url">
+                <input type="text"
+                       class="form-control"
+                       readonly
+                       value="{{getUrlText()}}">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary"
+                            ng-model="selectedUrlMode"
+                            uib-btn-radio="urlModes.URL">
+                        <span>URL</span>
+                    </button>
+                    <button class="btn btn-primary"
+                            ng-model="selectedUrlMode"
+                            uib-btn-radio="urlModes.EMBED">
+                        <span>Embed</span>
+                    </button>
+                 </span>
+            </div>
+            <div class="preview-link"
+                 ng-click="previewEmbed()">
+                <i class="fa fa-external-link" aria-hidden="true"></i>
+            </div>
+
+
+            <dl class="dl-horizontal"
+                style="margin-bottom: 0">
+                <dt>Title</dt>
+                <dd>
+                    <div class="form-group">
+                        <input name="title"
+                               type="text"
+                               class="form-control"
+                               ng-change="setDirty()"
+                               ng-model="embedFormModel.title">
+                    </div>
+                </dd>
+                <dt>Desc.</dt>
+                <dd>
+                    <div class="form-group">
+                        <input name="description"
+                               placeholder="Customize Description"
+                               class="form-control"
+                               ng-change="setDirty()"
+                               ng-model="embedFormModel.description">
+                        </input>
+                    </div>
+                </dd>
+                <table>
+                    <tr>
+                        <td>
+                            <dt>Width</dt>
+                            <dd>
+                                <div class="form-group">
+                                    <input type="number"
+                                           class="form-control"
+                                           style="width: 50px"
+                                           min="1"
+                                           name="width"
+                                           ng-model="embedFormModel.width"
+                                           ng-change="setDirty()"
+                                           required>
+                                </div>
+                            </dd>
+                        </td>
+                        <td style="padding-left: 10px;">
+                            <dt>Height</dt>
+                            <dd>
+                                <div class="form-group">
+                                    <input type="number"
+                                           class="form-control"
+                                           style="width: 50px"
+                                           min="1"
+                                           name="height"
+                                           ng-model="embedFormModel.height"
+                                           ng-change="setDirty()"
+                                           required>
+                                </div>
+                            </dd>
+                        </td>
+                    </tr>
+                </table>
+            </dl>
+            <div class="embed-checkbox">
+                <label><input type="checkbox"
+                              ng-change="setDirty()"
+                              ng-model="embedFormModel.export">Allow exporting of data</label>
+            </div>
+            <div class="embed-checkbox">
+                <label><input type="checkbox"
+                              ng-change="setDirty(); onAllowViewRawChanged()"
+                              ng-model="embedFormModel.clickIn">Allow viewing of raw data</label>
+            </div>
+            <!--<dl class="dl-horizontal"-->
+                <!--style="margin-bottom: 0; display: none">-->
+                <!--<dt></dt>-->
+                <!--<dd>-->
+                    <!--<div class="checkbox sidebar-filters">-->
+                        <!--<label>-->
+                            <!--<input type="checkbox" ng-model="embedFormModel.filters"> Show Filters-->
+                        <!--</label>-->
+                    <!--</div>-->
+                <!--</dd>-->
+            <!--</dl>-->
+            <!--<dl class="dl-horizontal"-->
+                <!--style="margin-bottom: 0"-->
+                <!--ng-if="pScope.chartType != pScope.chartTypes.TABLE && pScope.chartType != pScope.chartTypes.LIST">-->
+                <!--<dt></dt>-->
+                <!--<dd>-->
+                    <!--<div class="checkbox">-->
+                        <!--<label>-->
+                            <!--<input type="checkbox" ng-model="embedFormModel.measures"> Show Totals-->
+                        <!--</label>-->
+                    <!--</div>-->
+                <!--</dd>-->
+            <!--</dl>-->
+            <!--<dl class="dl-horizontal"-->
+                <!--ng-if="getDateFilterAvalilableValues().length">-->
+                <!--<dt></dt>-->
+                <!--<dd>-->
+                    <!--<div class="checkbox">-->
+                        <!--<label>-->
+                            <!--<input type="checkbox" ng-model="embedFormModel.dateFilter"> Allow date filter-->
+                        <!--</label>-->
+                    <!--</div>-->
+                <!--</dd>-->
+            <!--</dl>-->
+            <!--<dl class="dl-horizontal"-->
+                <!--style="margin-bottom: 0"-->
+                <!--ng-if="pScope.chartType != pScope.chartTypes.TABLE && pScope.chartType != pScope.chartTypes.LIST && pScope.chartType != pScope.chartTypes.MAP && pScope.chartType != pScope.chartTypes.SCATTER">-->
+                <!--<dt>Multiple Y-axes</dt>-->
+                <!--<dd>-->
+                    <!--<div class="checkbox">-->
+                        <!--<label>-->
+                            <!--<input type="checkbox" ng-model="embedFormModel.multiAxis">-->
+                        <!--</label>-->
+                    <!--</div>-->
+                <!--</dd>-->
+            <!--</dl>-->
+            <hr style="border-top: 1px solid #DDD">
+            <div class="embed-checkbox">
+                <label><input type="checkbox" ng-change="setDirty()" ng-model="duplicateTab">Duplicate in new tab</label>
+                <br>
+                <span class="embed-caution-text">Caution: this embed will be tied to the current tab.</span>
+                <br>
+                <span class="embed-caution-text">
+                    <i>Any changes you make to the current tab will also be reflected
+                        in the embed. If you would like to 'freeze' this embed, we recommend
+                        selecting this option.</i>
+                </span>
+            </div>
+            </dl>
+            <!--<dl class="dl-horizontal"
+                style="margin-bottom: 0">
+                <dt></dt>
+                <dd>
+                    <div class="form-group"
+                         style="position: relative">
+            <textarea class="form-control"
+                      style="resize: none; padding-right: 50px;"
+                      id="url-textarea-expand"
+                      readonly>{{getEmbedUrl()}}</textarea>
+                        <button class="btn btn-xs btn-primary"
+                                style="position: absolute; right: 5px; bottom: 5px;"
+                                clipboard
+                                text="url">Copy</button>
+                    </div>
+                </dd>
+            </dl>-->
+        </div>
+    </div>
+    <!--<div class="form-group" ng-if="chartType == chartTypes.SCATTER">-->
+    <!--<div class="col-sm-offset-2 col-sm-10">-->
+    <!--Show Default regression line as:-->
+    <!--<br>-->
+    <!--<span uib-dropdown>-->
+    <!--<a href id="simple-dropdown-regression" uib-dropdown-toggle>-->
+    <!--{{REGRESSION_TYPE_OPTIONS[dataForEmbed.regressionType] ? REGRESSION_TYPE_OPTIONS[dataForEmbed.regressionType].desc : 'None'}}-->
+    <!--</a>-->
+    <!--<ul class="dropdown-menu sidebar-ul" role="menu" uib-dropdown-menu>-->
+    <!--<li ng-click="onRegressionTypeSelected(null, true)" class="menu-item-table">-->
+    <!--<a class="drill-in-menu-item">None</a>-->
+    <!--</li>-->
+    <!--<li ng-repeat="regType in REGRESSION_TYPE_OPTIONS" ng-click="onRegressionTypeSelected(regType.value, true)" class="menu-item-table">-->
+    <!--<a class="drill-in-menu-item">{{regType.desc}}</a>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</span>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div class="save-buttons">
+        <button class="btn"
+                ng-class="dirty ? 'btn-primary-embed' : 'btn-default-cstm'"
+                ladda="isEmbedUpdating"
+                type="button" ng-disabled="!dirty"
+                ng-click="updateEmbed(embedForm)">Save Changes</button>
+        <div class="comment-text">
+            <span ng-show="dirty">Some changes are not yet saved.</span>
+            <span ng-show="!dirty">All changes saved.</span>
+        </div>
+    </div>
+</form>

@@ -1,1 +1,98 @@
-<div class="upload-item movable no-select" ng-class="{selected: isUploadSelected(u), folder: u.type == 'folder', 'highlight-selected' : uploadHighlightStatus(u) === 'selected', 'highlight-non-selected' : uploadHighlightStatus(u)==='non-selected'}"> <input type=hidden class=uid value={{u.id}}> <div class="col-md-6 col-sm-6 col-xs-6"> <div class=first-column> <div class="icon drag-handler"> <div class="img {{getUploadIcon(u)}}"></div> </div> <div class=name ng-switch on="uploadToRename == undefined || uploadToRename != u"> <div class=has-subitems ng-switch-when=true> <div class="no-overflow drag-handler" ng-switch on="u.type == 'folder'"> <div ng-switch-when=true class="no-overflow main"> <span uib-tooltip={{u.name}} tooltip-placement=bottom tooltip-append-to-body=true tooltip-popup-delay=250 tooltip-class=main-page-tooltip ng-bind-html=u.name></span> <span class=addon ng-show=isShowOriginalName(u)>({{getOriginalName(u)}})</span> <span ng-show=hasError(u) class=annotation-wrapper> <span class=annotation ng-bind=getErrorDescription(u)></span> </span> </div> <div ng-switch-when=false class="no-overflow main" style=position:relative> <span ng-show=!isDb(u) uib-tooltip={{u.name}} tooltip-placement=bottom tooltip-append-to-body=true tooltip-popup-delay=250 tooltip-class=main-page-tooltip ng-bind-html=u.name></span> <span ng-show=isDb(u) uib-tooltip={{u.name}} tooltip-placement=bottom tooltip-append-to-body=true tooltip-popup-delay=250 tooltip-class=main-page-tooltip>{{u.name+' '}} <span> {{'('+getFormatName(u)+')'}} </span> </span> <span ng-show=hasError(u) class=annotation-wrapper> <span class=annotation ng-bind=getErrorDescription(u)></span> </span> </div> </div> </div> <div ng-switch-when=false> <input class=new-file-name ng-click=$event.stopPropagation(); ng-dblclick=$event.stopPropagation(); placeholder=Undefined ng-model=u.newName> </div> </div> <span class=ingesting-progress>{{u.ingestingProgress >= 0 ? '(' + u.ingestingProgress + '%)' : ''}}</span> </div> </div> <div class="col-md-3 col-sm-3 col-xs-3"> <div class=second-column> {{isSearchSection() ? "" : getFormatName(u)}} </div> </div> <div class="col-md-3 col-sm-3 col-xs-3"> <span ng-show="getSourcesSelectedColumns(isSearchSection())[COLUMN_NUMBERS.THIRD] == 'Added on'"> <div class=third-column>{{u.created | date:'mediumDate'}}</div> </span> <span ng-show="getSourcesSelectedColumns(isSearchSection())[COLUMN_NUMBERS.THIRD] == 'Size'"> <div class="third-column multiline-column"> <span>{{getFileSizeString(u)}}</span><br> <span class=secondary-text>{{getDimensionsString(u)}}</span> </div> </span> <span ng-show="getSourcesSelectedColumns(isSearchSection())[COLUMN_NUMBERS.THIRD] == 'Added by'"> <div class=third-column>{{u.userName}}</div> </span> <span ng-show="getSourcesSelectedColumns(isSearchSection())[COLUMN_NUMBERS.THIRD] == 'Data last refreshed'"> <div class=third-column ng-show="u.committed && u.type != 'folder'">{{u.committed | date:'mediumDate'}}</div> <div class=third-column ng-show="!u.committed && u.type == 'doc'">Index not committed</div> <div class=third-column ng-show="!u.committed && u.type != 'doc'">—</div> </span> <span ng-show="getSourcesSelectedColumns(isSearchSection())[COLUMN_NUMBERS.THIRD] == 'Last viewed by me'"> <div class=third-column>{{(u.lastViewedByMe | date:'mediumDate') || '—'}}</div> </span> <span ng-show="getSourcesSelectedColumns(isSearchSection())[COLUMN_NUMBERS.THIRD] == 'Date'"> <div class=third-column>{{(u.lastViewedByMeOrAddedOn | date:'mediumDate') || '—'}}</div> </span> </div> </div>
+<div class="upload-item movable no-select"
+     ng-class="{selected: isUploadSelected(u), folder: u.type == 'folder', 'highlight-selected' : uploadHighlightStatus(u) === 'selected', 'highlight-non-selected' : uploadHighlightStatus(u)==='non-selected'}">
+    <input type="hidden" class="uid" value="{{u.id}}">
+    <div class="col-md-6 col-sm-6 col-xs-6">
+        <div class="first-column">
+            <div class="icon drag-handler">
+                <div class="img {{getUploadIcon(u)}}"></div>
+            </div>
+            <div class="name"
+                ng-switch on="uploadToRename == undefined || uploadToRename != u">
+                <div class="has-subitems"
+                     ng-switch-when="true">
+                    <div class="no-overflow drag-handler" ng-switch on="u.type == 'folder'">
+                        <div ng-switch-when="true"
+                           class="no-overflow main">
+                            <span uib-tooltip="{{u.name}}"
+                                  tooltip-placement="bottom"
+                                  tooltip-append-to-body="true"
+                                  tooltip-popup-delay="250"
+                                  tooltip-class="main-page-tooltip"
+                                  ng-bind-html="u.name"></span>
+                            <span class="addon"
+                                  ng-show="isShowOriginalName(u)">({{getOriginalName(u)}})</span>
+                            <span ng-show="hasError(u)" class="annotation-wrapper">
+                                <span class="annotation" ng-bind="getErrorDescription(u)"></span>
+                            </span>
+                        </div>
+                        <div ng-switch-when="false"
+                             class="no-overflow main"
+                             style="position: relative">
+                            <span ng-show="!isDb(u)"
+                                  uib-tooltip="{{u.name}}"
+                                  tooltip-placement="bottom"
+                                  tooltip-append-to-body="true"
+                                  tooltip-popup-delay="250"
+                                  tooltip-class="main-page-tooltip"
+                                  ng-bind-html="u.name"></span>
+                            <span ng-show="isDb(u)"
+                                  uib-tooltip="{{u.name}}"
+                                  tooltip-placement="bottom"
+                                  tooltip-append-to-body="true"
+                                  tooltip-popup-delay="250"
+                                  tooltip-class="main-page-tooltip">{{u.name+' '}}
+                                <span>
+                                    {{'('+getFormatName(u)+')'}}
+                                </span>
+                            </span>
+                            <span ng-show="hasError(u)" class="annotation-wrapper">
+                                <span class="annotation" ng-bind="getErrorDescription(u)"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div ng-switch-when="false">
+                    <input type="text"
+                           class="new-file-name"
+                           ng-click="$event.stopPropagation();"
+                           ng-dblclick="$event.stopPropagation();"
+                           placeholder="Undefined"
+                           ng-model="u.newName"/>
+                </div>
+            </div>
+            <span class="ingesting-progress">{{u.ingestingProgress >= 0 ? '(' + u.ingestingProgress + '%)' : ''}}</span>
+        </div>
+
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3">
+        <div class="second-column">
+            {{isSearchSection() ? "" : getFormatName(u)}}
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3">
+
+        <span ng-show="getSourcesSelectedColumns(isSearchSection())[COLUMN_NUMBERS.THIRD] == 'Added on'">
+            <div class="third-column">{{u.created | date:'mediumDate'}}</div>
+        </span>
+        <span ng-show="getSourcesSelectedColumns(isSearchSection())[COLUMN_NUMBERS.THIRD] == 'Size'">
+            <div class="third-column multiline-column">
+                <span>{{getFileSizeString(u)}}</span><br>
+                <span class="secondary-text">{{getDimensionsString(u)}}</span>
+            </div>
+        </span>
+        <span ng-show="getSourcesSelectedColumns(isSearchSection())[COLUMN_NUMBERS.THIRD] == 'Added by'">
+            <div class="third-column">{{u.userName}}</div>
+        </span>
+        <span ng-show="getSourcesSelectedColumns(isSearchSection())[COLUMN_NUMBERS.THIRD] == 'Data last refreshed'">
+            <div class="third-column" ng-show="u.committed && u.type != 'folder'">{{u.committed | date:'mediumDate'}}</div>
+            <div class="third-column" ng-show="!u.committed && u.type == 'doc'">Index not committed</div>
+            <div class="third-column" ng-show="!u.committed && u.type != 'doc'">—</div>
+        </span>
+        <span ng-show="getSourcesSelectedColumns(isSearchSection())[COLUMN_NUMBERS.THIRD] == 'Last viewed by me'">
+            <div class="third-column">{{(u.lastViewedByMe | date:'mediumDate') || '—'}}</div>
+        </span>
+        <span ng-show="getSourcesSelectedColumns(isSearchSection())[COLUMN_NUMBERS.THIRD] == 'Date'">
+            <div class="third-column">{{(u.lastViewedByMeOrAddedOn | date:'mediumDate') || '—'}}</div>
+        </span>
+    </div>
+</div>

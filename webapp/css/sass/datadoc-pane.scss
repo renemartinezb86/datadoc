@@ -1,0 +1,66 @@
+datadoc-pane {
+
+  .upload-item {
+    height: 52px;
+
+    border-right: 1px solid #e3e3e3;
+    border-left: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e3e3e3;
+
+    &.drop-active {
+      background-color: #eef6ff;
+      box-shadow: inset 0 0 0 2px #0480be;
+    }
+
+    &.selected {
+      background-color: #3E82F8 !important;
+
+      border-bottom: 1px solid transparent;
+
+      .first-column .icon {
+        background: #fff;
+      }
+
+      .name, .second-column, .third-column {
+        color: white;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    &.last {
+      border-bottom: none;
+    }
+
+    .name {
+      user-select: none;
+      > div {
+        user-select: none;
+      }
+    }
+  }
+
+  &.last {
+    border-bottom: none;
+
+    .upload-item {
+      border-bottom: none;
+    }
+  }
+
+  .first-column {
+    padding: 8px 5px;
+  }
+
+
+  .first-column {
+    .name {
+      margin-left: 10px;
+
+      .has-subitems {
+        display: flex;
+      }
+    }
+  }
+}

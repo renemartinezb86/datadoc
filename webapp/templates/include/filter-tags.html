@@ -1,1 +1,62 @@
-<div class="inline-block ui-select-with-tooltip-block ui-select-container ui-select-multiple ui-select-bootstrap"> <span class=ui-select-match> <span ng-show=dataSummary.search class="ui-select-match-item btn btn-default btn-xs" ng-click="$event.stopPropagation(); resetSearch()"> <span>search = {{dataSummary.search}}</span> <span class="close ui-select-match-close">&nbsp;×</span> </span> <span ng-repeat="filter in dataSummary.filters track by filter.field"> <span class="ui-select-match-item btn btn-default btn-xs" ng-click="resetFilterInRow(filter, $event)" ng-if="filter.col.type == 'LOCATION_LAT_LON' && isFilterActive(filter)"> {{filter.col.name}} = <span ng-repeat="agg in getSelectedFilters(filter.list) | orderBy:'selected'"> <span ng-class="{'filter-removed': !agg.show}" ng-if="agg.key != null">"{{agg.key}}"</span> <span ng-class="{'filter-removed': !agg.show}" ng-if="agg.key == null">"[Empty value]"</span> {{$last ? '' : (filter.and_or ? 'and' : 'or')}} </span> <span class="close ui-select-match-close">&nbsp;×</span> </span> <span class="ui-select-match-item btn btn-default btn-xs" ng-click="resetFilterInRow(filter, $event)" ng-if="!filter.listMode && filter.col.type == 'DECIMAL' && isFilterActive(filter)"> {{filter.col.name}} = {{filter.value1}} - {{filter.value2}} <span class="close ui-select-match-close">&nbsp;×</span> </span> <span class="ui-select-match-item btn btn-default btn-xs" ng-click="resetFilterInRow(filter, $event)" ng-if="!filter.listMode && filter.col.type == 'TIME' && isFilterActive(filter)"> {{filter.col.name}} = {{filter.value1 | date:"HH:mm:ss":'UTC'}} - {{filter.value2 | date:"HH:mm:ss":'UTC'}} <span class="close ui-select-match-close">&nbsp;×</span> </span> <span class="ui-select-match-item btn btn-default btn-xs" ng-click="resetFilterInRow(filter, $event)" ng-if="!filter.listMode && filter.col.type == 'DATE' && isFilterActive(filter)"> {{filter.col.name}} = {{filter.value1 | date:'mediumDate'}} - {{filter.value2 | date:'mediumDate'}} <span class="close ui-select-match-close">&nbsp;×</span> </span> <span class="ui-select-match-item btn btn-default btn-xs" ng-click="resetFilterInRow(filter, $event)" ng-if="filter.listMode && isFilterActive(filter)"> {{filter.col.name}} = <span ng-repeat="agg in getSelectedFilters(filter.list) | orderBy:'selected'"> <span ng-class="{'filter-removed': !agg.show}" ng-if="agg.key != null && filter.col.type == 'DATE'">"{{agg.key | date:'mediumDate':'UTC'}}"</span> <span ng-class="{'filter-removed': !agg.show}" ng-if="agg.key != null && filter.col.type == 'BOOLEAN' && agg.key == 0">No</span> <span ng-class="{'filter-removed': !agg.show}" ng-if="agg.key != null && filter.col.type == 'BOOLEAN' && agg.key == 1">Yes</span> <span ng-class="{'filter-removed': !agg.show}" ng-if="agg.key != null && filter.col.type != 'DATE' && filter.col.type != 'BOOLEAN'">"{{agg.key}}"</span> <span ng-class="{'filter-removed': !agg.show}" ng-if="agg.key == null">"[Empty value]"</span> {{$last ? '' : (filter.and_or ? 'and' : 'or')}} </span> <span class="close ui-select-match-close">&nbsp;×</span> </span> </span> </span> </div>
+<div class="inline-block ui-select-with-tooltip-block ui-select-container ui-select-multiple ui-select-bootstrap">
+    <span class="ui-select-match">
+        <span ng-show="dataSummary.search"
+              class="ui-select-match-item btn btn-default btn-xs"
+              ng-click="$event.stopPropagation(); resetSearch()">
+            <span>search = {{dataSummary.search}}</span>
+            <span class="close ui-select-match-close">&nbsp;×</span>
+        </span>
+        <span ng-repeat="filter in dataSummary.filters track by filter.field">
+            <span class="ui-select-match-item btn btn-default btn-xs"
+                  ng-click="resetFilterInRow(filter, $event)"
+                  ng-if="filter.col.type == 'LOCATION_LAT_LON' && isFilterActive(filter)">
+                {{filter.col.name}} =
+                <span ng-repeat="agg in getSelectedFilters(filter.list) | orderBy:'selected'">
+                    <span ng-class="{'filter-removed': !agg.show}"
+                          ng-if="agg.key != null">"{{agg.key}}"</span>
+                    <span ng-class="{'filter-removed': !agg.show}"
+                          ng-if="agg.key == null">"[Empty value]"</span>
+                    {{$last ? '' : (filter.and_or ? 'and' : 'or')}}
+                </span>
+                <span class="close ui-select-match-close">&nbsp;×</span>
+            </span>
+            <span class="ui-select-match-item btn btn-default btn-xs"
+                  ng-click="resetFilterInRow(filter, $event)"
+                  ng-if="!filter.listMode && filter.col.type == 'DECIMAL' && isFilterActive(filter)">
+                {{filter.col.name}} = {{filter.value1}} - {{filter.value2}}
+                <span class="close ui-select-match-close">&nbsp;×</span>
+            </span>
+            <span class="ui-select-match-item btn btn-default btn-xs"
+                  ng-click="resetFilterInRow(filter, $event)"
+                  ng-if="!filter.listMode && filter.col.type == 'TIME' && isFilterActive(filter)">
+                {{filter.col.name}} = {{filter.value1 | date:"HH:mm:ss":'UTC'}} - {{filter.value2 | date:"HH:mm:ss":'UTC'}}
+                <span class="close ui-select-match-close">&nbsp;×</span>
+            </span>
+            <span class="ui-select-match-item btn btn-default btn-xs"
+                  ng-click="resetFilterInRow(filter, $event)"
+                  ng-if="!filter.listMode && filter.col.type == 'DATE' && isFilterActive(filter)">
+                {{filter.col.name}} = {{filter.value1 | date:'mediumDate'}} - {{filter.value2 | date:'mediumDate'}}
+                <span class="close ui-select-match-close">&nbsp;×</span>
+            </span>
+            <span class="ui-select-match-item btn btn-default btn-xs"
+                  ng-click="resetFilterInRow(filter, $event)"
+                  ng-if="filter.listMode && isFilterActive(filter)">
+                {{filter.col.name}} =
+                <span ng-repeat="agg in getSelectedFilters(filter.list) | orderBy:'selected'">
+                    <span ng-class="{'filter-removed': !agg.show}"
+                          ng-if="agg.key != null && filter.col.type == 'DATE'">"{{agg.key | date:'mediumDate':'UTC'}}"</span>
+                    <span ng-class="{'filter-removed': !agg.show}"
+                          ng-if="agg.key != null && filter.col.type == 'BOOLEAN' && agg.key == 0">No</span>
+                    <span ng-class="{'filter-removed': !agg.show}"
+                          ng-if="agg.key != null && filter.col.type == 'BOOLEAN' && agg.key == 1">Yes</span>
+                    <span ng-class="{'filter-removed': !agg.show}"
+                          ng-if="agg.key != null && filter.col.type != 'DATE' && filter.col.type != 'BOOLEAN'">"{{agg.key}}"</span>
+                    <span ng-class="{'filter-removed': !agg.show}"
+                          ng-if="agg.key == null">"[Empty value]"</span>
+                    {{$last ? '' : (filter.and_or ? 'and' : 'or')}}
+                </span>
+                <span class="close ui-select-match-close">&nbsp;×</span>
+            </span>
+        </span>
+    </span>
+</div>

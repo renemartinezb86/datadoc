@@ -1,1 +1,106 @@
-<ui-codemirror ui-codemirror-opts=ingestDataSummary.queryEditorOptions ng-model=ingestDataSummary.query ng-change=queryChanged() ui-refresh=ingestDataSummary.query> </ui-codemirror> <div class=resize-handle-line></div> <div class=drag-section></div> <div class=query-toolbar> <button class="btn toolbar-button pull-left" ng-click=runQuery() ng-disabled="inRequest || !ingestDataSummary.queryMode || !ingestDataSummary.query">Preview Query </button> <div class="result-message pull-left"> <div class=flex-column-no-wrap> <span class=bold>{{getQuerySuccessMessage()}}</span> <span class=note ng-if=getQuerySuccessMessage()>{{getQueryNoteMessage()}}</span> </div> <div class=error-wrapper ng-if=getQueryErrorMessage()> <span class=error-type>Query error:</span> <span class=error-message>{{getQueryErrorMessage()}}</span> </div> </div> <div class="query-history dropdown-options" uib-dropdown> <div class="dropdown-menu pull-right" uib-dropdown-menu> <div class=dropdown-arrow> <div class=outer></div> <div class=inner></div> </div> <div> <ul class=sidebar-ul style=max-height:440px role=menu ng-click=""> <li role=menuitem ng-repeat="query in ingestDataSummary.queryHistory" ng-click=updateQueryFromHistory(query.query) class=menu-item-table uib-tooltip={{query.query}} tooltip-popup-delay=250 tooltip-class=main-page-tooltip> <a href=javascript:void(0)> <span class=query-status ng-class="query.success ? 'done' : 'fail'"></span> <span class=query>{{query.query}}</span> </a> </li> </ul> </div> </div> </div> <div class="query-favorites dropdown-options" click-out=favoriteQueryDropdown.toggle(false)> <div class="dropdown-menu pull-right" ng-show=favoriteQueryDropdown.opened> <div class=dropdown-arrow> <div class=outer></div> <div class=inner></div> </div> <div> <ul class=sidebar-ul style=max-height:440px;min-width:250px role=menu> <li ng-repeat="query in ingestDataSummary.queryFavorites" ng-click="updateQueryFromFavorites(query); favoriteQueryDropdown.toggle(false)" class=menu-item-table uib-tooltip={{query.descriptor.query}} tooltip-popup-delay=250 tooltip-class=main-page-tooltip tooltip-placement=top> <div> <div class=item-description> <span>{{query.name}}</span> <div uib-dropdown dropdown-append-to-body=true> <i uib-dropdown-toggle ng-click=$event.stopPropagation() class="fa fa-caret-down"> <ul class="dropdown-menu favorite-query-sub-dropdown" uib-dropdown-menu style=width:auto;min-width:0> <li ng-click=updateQueryFromFavorites(query) class=dropdown-menuitem> <a> <span class=dropdown-menuitem-content>Edit</span> </a> </li> <li ng-click="confirmQueryDelete($event, query)" class=dropdown-menuitem> <a> <span class=dropdown-menuitem-content>Delete</span> </a> </li> </ul> </i> </div> </div> <span class=query>{{query.descriptor.query}}</span> </div> </li> </ul> </div> </div> </div> </div> 
+<ui-codemirror
+        ui-codemirror-opts="ingestDataSummary.queryEditorOptions"
+        ng-model="ingestDataSummary.query"
+        ng-change="queryChanged()"
+        ui-refresh="ingestDataSummary.query">
+</ui-codemirror>
+<div class="resize-handle-line"></div>
+<div class="drag-section"></div>
+<div class="query-toolbar">
+    <button class="btn toolbar-button pull-left"
+            ng-click="runQuery()"
+            ng-disabled="inRequest || !ingestDataSummary.queryMode || !ingestDataSummary.query">Preview Query
+    </button>
+
+    <div class="result-message pull-left">
+        <div class="flex-column-no-wrap">
+            <span class="bold">{{getQuerySuccessMessage()}}</span>
+            <span class="note" ng-if="getQuerySuccessMessage()">{{getQueryNoteMessage()}}</span>
+        </div>
+        <div class="error-wrapper" ng-if="getQueryErrorMessage()">
+            <span class="error-type">Query error:</span>
+            <span class="error-message">{{getQueryErrorMessage()}}</span>
+        </div>
+    </div>
+
+    <div class="query-history dropdown-options" uib-dropdown>
+        <div class="dropdown-menu pull-right"
+             uib-dropdown-menu>
+            <div class="dropdown-arrow">
+                <div class="outer"></div>
+                <div class="inner"></div>
+            </div>
+            <div>
+                <ul class="sidebar-ul"
+                    style="max-height: 440px;"
+                    role="menu"
+                    ng-click="">
+                    <li role="menuitem" ng-repeat="query in ingestDataSummary.queryHistory"
+                        ng-click="updateQueryFromHistory(query.query)"
+                        class="menu-item-table"
+                        uib-tooltip="{{query.query}}"
+                        tooltip-popup-delay="250"
+                        tooltip-class="main-page-tooltip">
+                        <a href="javascript:void(0)">
+                            <span class="query-status" ng-class="query.success ? 'done' : 'fail'"></span>
+                            <span class="query">{{query.query}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="query-favorites dropdown-options" click-out="favoriteQueryDropdown.toggle(false)">
+
+        <div class="dropdown-menu pull-right" ng-show="favoriteQueryDropdown.opened">
+            <div class="dropdown-arrow">
+                <div class="outer"></div>
+                <div class="inner"></div>
+            </div>
+            <div>
+                <ul class="sidebar-ul"
+                    style="max-height: 440px; min-width: 250px"
+                    role="menu">
+                    <li ng-repeat="query in ingestDataSummary.queryFavorites"
+                        ng-click="updateQueryFromFavorites(query); favoriteQueryDropdown.toggle(false)"
+                        class="menu-item-table"
+                        uib-tooltip="{{query.descriptor.query}}"
+                        tooltip-popup-delay="250"
+                        tooltip-class="main-page-tooltip"
+                        tooltip-placement="top">
+                        <div>
+                            <div class="item-description">
+                                <span>{{query.name}}</span>
+                                <div uib-dropdown dropdown-append-to-body="true">
+                                <i uib-dropdown-toggle
+                                   ng-click="$event.stopPropagation()"
+                                   class="fa fa-caret-down">
+                                    <ul class="dropdown-menu favorite-query-sub-dropdown"
+                                        uib-dropdown-menu
+                                        style="width: auto; min-width: 0">
+                                        <li ng-click="updateQueryFromFavorites(query)"
+                                            class="dropdown-menuitem">
+                                            <a>
+                                                <span class="dropdown-menuitem-content">Edit</span>
+                                            </a>
+                                        </li>
+                                        <li ng-click="confirmQueryDelete($event, query)"
+                                            class="dropdown-menuitem">
+                                            <a>
+                                                <span class="dropdown-menuitem-content">Delete</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </i>
+                                </div>
+                            </div>
+                            <span class="query">{{query.descriptor.query}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>

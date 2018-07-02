@@ -1,6 +1,434 @@
-<div id=data-model> <div id=status-bar> <div class="input-wrapper pull-left"> <table style=width:100%;table-layout:fixed> <tr> <td style=width:105px> <button class="btn toolbar-button close-data-model pull-left" ng-click=closeIndex()> <i class="fa fa-level-up fa-rotate-270 fa-lg"></i> </button> <button class="btn toolbar-button view-mode pull-left" style=margin-left:4px ng-click="viewMode = true" tooltip-placement=top tooltip-append-to-body=true uib-tooltip="Go To Visualization" ng-show=selectedTable.committed> <i class="fa fa-eye fa-lg"></i> </button> </td> <td style=width:300px> <object-select selected=selectedTable.name on-update=renameIndex> </object-select> </td> <td> <div class=data-model-progress ng-show="isCommitRunning || progressBar.isFinished" ng-switch on=isCommitRunning> <div ng-switch-when=true> <uib-progressbar class="progress-striped active" max=100 value=progressBar.value> <span class=progress-step>Step {{progressBar.step}}/{{progressBar.steps}} ({{progressBar.value}}%) {{progressBar.remainingStr}}</span> </uib-progressbar> </div> <span ng-switch-when=false class="progress-success-msg pull-right"> All done processing! <a style=cursor:pointer ng-click=progressBar.viewMode()>Visualize my data</a> </span> </div> </td> <td style=width:150px> <div style=display:inline> <div id=commit-btn class=pull-right uib-tooltip="Please fix errors before commit" tooltip-placement=bottom tooltip-enable="errors.length > 0" ng-show=!isCommitRunning style=display:inline-block> <div class=btn-group uib-dropdown> <button id=split-button type=button class="btn btn-primary btn-sm btn-commit" ng-click=api.commit() ladda=isPreviewRunning> {{selectedTable.committed ? 'Save Changes' : 'Save Index'}} </button> <button type=button class="btn btn-primary btn-sm btn-commit" uib-dropdown-toggle> <i class="fa fa-caret-down"></i> </button> <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role=menu aria-labelledby=split-button> <li role=menuitem><a ng-click=api.configureRefresh()>Schedule Refresh</a></li> </ul> </div> </div> <div id=cancel-btn class=pull-right style=display:inline-block> <button class="btn btn-sm btn-filters" ladda=isCommitCancelling ng-show=isCommitRunning ng-click=api.cancel()> Cancel </button> </div> </div> </td> </tr> </table> </div> </div> <div class="page-content no-select"> <div id=page-content-scrollable widget-container> <div class="data-model-wrapper widget" style=height:auto> <div class=data-model-header> <div class=data-model-title> <div class=data-model-title-text>Data Model</div> <div class=data-model-title-icon uib-tooltip-template="'static/templates/include/tooltip/dm.html'" tooltip-placement=right tooltip-trigger=outsideClick tooltip-append-to-body=true> <i class="fa fa-info-circle"></i> </div> <div class=toolbar-warning ng-show="errors.length > 0"> <i class="fa fa-lg fa-exclamation-triangle"></i> <div class=btn-group uib-dropdown dropdown-append-to=appendToEl is-open=dropdownMenu.status> <a class=warning-text uib-dropdown-toggle ng-mouseenter=dropdownMenu.toggle() ng-mouseleave="dropdownMenu.mouseOverButton = false; dropdownMenu.close()">{{getWarningText()}}</a> <ul class=dropdown-menu uib-dropdown-menu role=menu ng-mouseenter="dropdownMenu.mouseOverList = true" ng-mouseleave="dropdownMenu.mouseOverList = false; dropdownMenu.close()"> <li role=menuitem ng-repeat="e in errors" ng-mouseenter="highlightError(e.nodeId, true)" ng-mouseleave="highlightError(e.nodeId, false)"><span>{{e.message}}</span></li> </ul> </div> </div> </div> <div id=toolbar class=pull-right> <div id=join-button class=toolbar-icon> <div class=join-button> <i class="fa fa-link join-button-rotate fa-2x"></i> <div class=icon-text>Add Join</div> </div> </div> <div class=control-buttons> <a class=ctrl-btn href=javascript:void(0) ng-class="{'disabled': !api.history.hasPrev()}" ng-click=api.history.undo()><i class="fa fa-arrow-left"></i></a> <a class=ctrl-btn href=javascript:void(0) ng-class="{'disabled': !api.history.hasNext()}" ng-click=api.history.redo()><i class="fa fa-arrow-right"></i></a> </div> </div> </div> <div class=data-model-body v-resizable v-resizable-min=50 v-resizable-max=800 v-resizable-min-snap v-resizable-callback=onWorkspaceResize v-resizable-storage-attr=workspaceH> <div id=flow-execution ng-show=isCommitRunning></div> <div id=data-loading ng-show=isModelLoading> <table><tr><td> <i class="fa fa-spinner fa-spin fa-4x"></i> </td></tr></table> </div> <div id=worksheet ng-class="{'data-model-blur': isModelLoading}"> </div> <div class=arrow style=display:none> <div class=head><div class=inner></div></div> <div class=body></div> </div> </div> </div> <div class="data-preview-wrapper widget" style=height:auto> <div class=data-preview-header> <div class="data-preview-title dropdown-options"> <div class=data-preview-title-text>Data Preview</div> <div class="data-preview-skipped pull-left" ng-show=previewSettings.skippedCount> <i class="fa fa-warning fa-lg"></i> <ng-pluralize count=previewSettings.skippedCount when="{
+<div id="data-model">
+    <div id="status-bar">
+        <div class="input-wrapper pull-left">
+            <table style="width: 100%; table-layout: fixed">
+                <tr>
+                    <td style="width: 105px">
+                        <button class="btn toolbar-button close-data-model pull-left"
+                                ng-click="closeIndex()">
+                            <i class="fa fa-level-up fa-rotate-270 fa-lg"></i>
+                        </button>
+
+                        <button class="btn toolbar-button view-mode pull-left" style="margin-left: 4px;"
+                                ng-click="viewMode = true"
+                                tooltip-placement="top"
+                                tooltip-append-to-body="true"
+                                uib-tooltip="Go To Visualization"
+                                ng-show="selectedTable.committed">
+                            <i class="fa fa-eye fa-lg"></i>
+                        </button>
+                    </td>
+                    <td style="width: 300px">
+                        <object-select selected="selectedTable.name"
+                                       on-update="renameIndex">
+                        </object-select>
+                    </td>
+                    <td>
+                        <div class="data-model-progress"
+                             ng-show="isCommitRunning || progressBar.isFinished" ng-switch on="isCommitRunning">
+                            <div ng-switch-when="true">
+                                <uib-progressbar class="progress-striped active" max="100"
+                                                 value="progressBar.value">
+                                    <span class="progress-step">Step {{progressBar.step}}/{{progressBar.steps}} ({{progressBar.value}}%) {{progressBar.remainingStr}}</span>
+                                </uib-progressbar>
+                            </div>
+                            <span ng-switch-when="false" class="progress-success-msg pull-right">
+                                All done processing! <a style="cursor: pointer" ng-click="progressBar.viewMode()">Visualize my data</a>
+                            </span>
+                        </div>
+                    </td>
+                    <td style="width: 150px">
+                        <div style="display: inline">
+                            <div id="commit-btn" class="pull-right"
+                                 uib-tooltip="Please fix errors before commit"
+                                 tooltip-placement="bottom"
+                                 tooltip-enable="errors.length > 0"
+                                 ng-show="!isCommitRunning"
+                                 style="display: inline-block">
+
+                                <div class="btn-group"
+                                     uib-dropdown>
+                                    <button id="split-button"
+                                            type="button"
+                                            class="btn btn-primary btn-sm btn-commit"
+                                            ng-click="api.commit()"
+                                            ladda="isPreviewRunning">
+                                        <!-- todo ng-disabled="false ||errors.length > 0 || (!isIndexChanged && selectedTable.committed)"-->
+                                        {{selectedTable.committed ? 'Save Changes' : 'Save Index'}}
+                                    </button>
+                                    <button type="button"
+                                            class="btn btn-primary btn-sm btn-commit"
+                                            uib-dropdown-toggle>
+                                        <!-- todo ng-disabled="isCommitRunning || isPreviewRunning || errors.length > 0 || (!isIndexChanged && selectedTable.committed)"-->
+                                        <i class="fa fa-caret-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right"
+                                        uib-dropdown-menu
+                                        role="menu"
+                                        aria-labelledby="split-button">
+                                        <li role="menuitem"><a ng-click="api.configureRefresh()">Schedule Refresh</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="cancel-btn" class="pull-right"
+                                 style="display: inline-block">
+                                <button class="btn btn-sm btn-filters"
+                                        ladda="isCommitCancelling"
+                                        ng-show="isCommitRunning"
+                                        ng-click="api.cancel()">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="page-content no-select">
+        <div id="page-content-scrollable" widget-container>
+            <div class="data-model-wrapper widget" style="height: auto">
+                <div class="data-model-header">
+                    <div class="data-model-title">
+                        <div class="data-model-title-text">Data Model</div>
+                        <div class="data-model-title-icon"
+                             uib-tooltip-template="'static/templates/include/tooltip/dm.html'"
+                             tooltip-placement="right"
+                             tooltip-trigger="outsideClick"
+                             tooltip-append-to-body="true">
+                            <i class="fa fa-info-circle"></i>
+                        </div>
+                        <div class="toolbar-warning"
+                             ng-show="errors.length > 0">
+                            <i class="fa fa-lg fa-exclamation-triangle"></i>
+                            <div class="btn-group"
+                                 uib-dropdown
+                                 dropdown-append-to="appendToEl"
+                                 is-open="dropdownMenu.status">
+                                <a class="warning-text"
+                                   uib-dropdown-toggle
+                                   ng-mouseenter="dropdownMenu.toggle()"
+                                   ng-mouseleave="dropdownMenu.mouseOverButton = false; dropdownMenu.close()">{{getWarningText()}}</a>
+                                <ul class="dropdown-menu"
+                                    uib-dropdown-menu role="menu"
+                                    ng-mouseenter="dropdownMenu.mouseOverList = true"
+                                    ng-mouseleave="dropdownMenu.mouseOverList = false; dropdownMenu.close()">
+                                    <li role="menuitem"
+                                        ng-repeat="e in errors"
+                                        ng-mouseenter="highlightError(e.nodeId, true)"
+                                        ng-mouseleave="highlightError(e.nodeId, false)"><span>{{e.message}}</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="toolbar" class="pull-right">
+
+                        <div id="join-button" class="toolbar-icon">
+                            <div class="join-button">
+                                <i class="fa fa-link join-button-rotate fa-2x"></i>
+                                <div class="icon-text">Add Join</div>
+                            </div>
+                        </div>
+
+                        <div class="control-buttons">
+                            <a class="ctrl-btn"
+                               href="javascript:void(0)"
+                               ng-class="{'disabled': !api.history.hasPrev()}"
+                               ng-click="api.history.undo()"><i class="fa fa-arrow-left"></i></a>
+                            <a class="ctrl-btn" href="javascript:void(0)"
+                               ng-class="{'disabled': !api.history.hasNext()}"
+                               ng-click="api.history.redo()"><i class="fa fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="data-model-body"
+                     v-resizable
+                     v-resizable-min="50"
+                     v-resizable-max="800"
+                     v-resizable-min-snap
+                     v-resizable-callback="onWorkspaceResize"
+                     v-resizable-storage-attr="workspaceH">
+                    <div id="flow-execution"
+                         ng-show="isCommitRunning"></div>
+                    <div id="data-loading"
+                         ng-show="isModelLoading">
+                        <table><tr><td>
+                            <i class="fa fa-spinner fa-spin fa-4x"></i>
+                        </td></tr></table>
+                    </div>
+
+                    <div id="worksheet"
+                         ng-class="{'data-model-blur': isModelLoading}">
+                    </div>
+
+                    <div class="arrow" style="display: none">
+                        <div class="head"><div class="inner"></div></div>
+                        <div class="body"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="data-preview-wrapper widget" style="height: auto">
+                <div class="data-preview-header">
+                    <div class="data-preview-title dropdown-options">
+                        <div class="data-preview-title-text">Data Preview</div>
+                        <div class="data-preview-skipped pull-left"
+                             ng-show="previewSettings.skippedCount">
+                            <i class="fa fa-warning fa-lg"></i>
+                            <ng-pluralize
+                                    count="previewSettings.skippedCount"
+                                    when="{
                             '1': '1 row skipped',
-                            'other': '{{previewSettings.skippedCount | number}} rows skipped'}"> </ng-pluralize> </div> <div class="data-preview-rows pull-right" ng-show=previewSettings> <ng-pluralize count=previewSettings.rows when="{
+                            'other': '{{previewSettings.skippedCount | number}} rows skipped'}">
+                            </ng-pluralize>
+                        </div>
+
+                        <div class="data-preview-rows pull-right"
+                             ng-show="previewSettings">
+                            <ng-pluralize
+                                    count="previewSettings.rows"
+                                    when="{
                             '1': '{{ 1 | number }} row returned',
                             '1000': '{{ 1000 | number }} rows returned (max in preview)',
-                            'other': '{{ previewSettings.rows | number }} rows returned'}"> </ng-pluralize> </div> <div class="data-preview-columns pull-right" ng-switch on=previewSettings.editable> <div ng-switch-when=true> <div ng-switch=previewSettings.enableNestedView class=pull-left> <div class=btn-group ng-switch-when=true style="padding:2px 20px 2px 2px"> <label class="btn btn-xs btn-default" ng-change=refreshCurrentView(ViewType.TABLE) ng-model=currentView uib-btn-radio=ViewType.TABLE> <i class="fa fa-fw fa-table" uib-tooltip="Table View"></i></label> <label class="btn btn-xs btn-default" ng-change=refreshCurrentView(ViewType.LIST) ng-model=currentView uib-btn-radio=ViewType.LIST> <i class="fa fa-fw fa-list" uib-tooltip="List View"></i></label> <label class="btn btn-xs btn-default" ng-change=refreshCurrentView(ViewType.NESTED) ng-model=currentView uib-btn-radio=ViewType.NESTED> <i class="fa fa-fw fa-indent" uib-tooltip="Nested View"></i></label> </div> <div class=btn-group ng-switch-when=false style="padding:2px 20px 2px 2px"> <label class="btn btn-xs btn-default" ng-change=refreshCurrentView(ViewType.TABLE) ng-model=currentView uib-btn-radio=ViewType.TABLE> <i class="fa fa-fw fa-table" uib-tooltip="Table View"></i></label> <label class="btn btn-xs btn-default" ng-change=refreshCurrentView(ViewType.LIST) ng-model=currentView uib-btn-radio=ViewType.LIST> <i class="fa fa-fw fa-list" uib-tooltip="List View"></i></label> </div> </div> <div class=pull-left uib-dropdown dropdown-append-to=columnsListMenu.appendTo is-open=columnsListMenu.isOpen> <a uib-dropdown-toggle=columnsListMenu.toggleMenu() auto-close=outsideClick> <ng-pluralize count=previewSettings.columns when="{ '1': '1 column', 'other': '{{previewSettings.columns}} columns'}"> </ng-pluralize></a><span ng-show=previewSettings.removedColumns>, {{previewSettings.removedColumns}} removed</span> <ul class="dropdown-menu sidebar-ul dropdown-settings" role=menu uib-dropdown-menu> <li class=filter-settings-header> View: </li> <li class=menu-item-table ng-click=refreshCurrentView(ViewType.TABLE)> <span> <input type=checkbox class="regular-checkbox arrowed" ng-checked="currentView == ViewType.TABLE"> <label></label> </span> <a>Table</a> </li> <li class=menu-item-table ng-click=refreshCurrentView(ViewType.LIST)> <span> <input type=checkbox class="regular-checkbox arrowed" ng-checked="currentView == ViewType.LIST"> <label></label> </span> <a>List</a> </li> <li ng-if=previewSettings.enableNestedView class=menu-item-table ng-click=refreshCurrentView(ViewType.NESTED)> <span> <input type=checkbox class="regular-checkbox arrowed" ng-checked="currentView == ViewType.NESTED"> <label></label> </span> <a>Nested</a> </li> <li class=filter-settings-header> Display columns: </li> <ul class="sidebar-ul inner-ul" role=menu sv-root=previewGridOptions.columnDefs sv-part=previewGridOptions.columnDefs sv-on-sort="endSortFields($indexFrom, $indexTo);" ng-click=$event.stopPropagation();> <li role=menuitem class=menu-item-table ng-click=selectAllNoneFields()> <span> <input type=checkbox ng-checked=selectAllNone class=regular-checkbox> <label></label> </span> <a href=javascript:void(0)><strong>Select All</strong></a> </li> <li role=menuitem ng-repeat="columnDef in previewGridOptions.columnDefs" class=menu-item-table sv-element ng-click=switchVisibility(columnDef);> <span sv-handle class=handle><i class="fa fa-grip fa-rotate-90"></i></span> <span> <input type=checkbox ng-model=columnDef.visible class=regular-checkbox> <label></label> </span> <a href=javascript:void(0)>{{columnDef.displayName}}</a> </li> </ul> </ul> </div> </div> <div ng-switch-when=false> <span style=font-size:14px;font-style:normal> <ng-pluralize count=previewSettings.columns when="{ '1': '1 column', 'other': '{{previewSettings.columns}} columns'}"> </ng-pluralize> </span> <span ng-show=previewSettings.removedColumns>, {{previewSettings.removedColumns}} removed</span> </div> <span style=display:none>, 1 removed</span> </div> <div class=data-preview-info ng-show=previewSettings> <div class=pull-left> <span>Currently showing a preview of data in the <b>{{previewSettings.name}}</b>.</span> <span ng-show=previewSettings.editable>Any data modifications you do will be applied here.</span> </div> <div class="sidebar-title-icon pull-left" ng-show=previewSettings.editable uib-tooltip-template="" tooltip-placement=right tooltip-trigger=outsideClick tooltip-append-to-body=true> <i class="fa fa-info-circle"></i> </div> </div> </div> </div> <div class=data-preview-body v-resizable v-resizable-min=50 v-resizable-max=800 v-resizable-min-snap v-resizable-storage-attr=dataPreviewH> <div ng-class="transformHistory.length > 0 ? 'col-md-10' : 'col-md-12'" style=padding-left:0;height:100%;padding-bottom:30px> <div class=data-preview style=height:100%> <div class=no-data ng-show=isPreviewRunning> <div class=msg> <span><i class="fa fa-spinner fa-spin fa-2x"></i></span> </div> </div> <div class=data-preview-table ng-show="currentView == ViewType.TABLE" ui-grid=previewGridOptions ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns> </div> <div class=data-preview-list ng-if="currentView == ViewType.LIST"> <div class=items-table> <table class=item-table> <tbody ng-repeat="items in listView.data"> <tr ng-repeat="item in items"> <td>{{item.name}}</td> <td style=text-align:left;width:5px>:</td> <td class=value ng-init="arr = wrapArray(item.data)"> <span ng-switch="arr.length > 10"> <span ng-switch-when=false> <span ng-if=isArray(item.data);>[</span> <span ng-repeat="v in arr track by $index"> <span ng-switch=getValueType(v)> <span ng-switch-when=error class=error-value uib-tooltip="{{v.description | errorValueDescriptionFilter }}" tooltip-append-to-body=true>Ø</span> <span ng-switch-when=default>{{v}}</span></span><span ng-if=!$last class=comma>, </span> </span> <span ng-if=isArray(item.data);>]</span> </span> <span ng-switch-when=true>[…] <span>({{arr.length}} items)</span></span> </span> </td> </tr> <tr style=height:10px><td colspan=3></td></tr> <tr style=height:10px><td colspan=3></td></tr> </tbody> </table> </div> <div class="pagination pagination-custom" ng-show="listView.pagination.length > 1 && listView.data.length > 0"> <span ng-if="listView.currentPagination>1"> <a ng-click="switchPaginate(listView, listView.currentPagination - 1)">&laquo; Prev</a> </span> <span ng-repeat="pag in listView.pagination track by $index"> <a сlass=pagination-blue ng-if="pag!=='...' && pag!=listView.currentPagination" ng-click="switchPaginate(listView, pag)">{{pag}}</a> <span ng-if="pag==='...' || pag==listView.currentPagination">{{pag}}</span> </span> <span ng-if="listView.currentPagination<listView.pagination[listView.pagination.length-1]"> <a ng-click="switchPaginate(listView, listView.currentPagination + 1)">Next &raquo;</a> </span> </div> </div> <div class=data-preview-nested ng-if="currentView == ViewType.NESTED"> <div ng-repeat="item in nestedView.data track by $index" style="padding:10px 20px 0"> <json-formatter json=item open=1></json-formatter> <div ng-if=!$last style="margin-top:10px;border-bottom:1px dotted #eee"></div> </div> <div class="pagination pagination-custom" ng-show="nestedView.pagination.length > 1 && nestedView.data.length > 0"> <span ng-if="nestedView.currentPagination>1"> <a ng-click="switchPaginate(nestedView, nestedView.currentPagination - 1)">&laquo; Prev</a> </span> <span ng-repeat="pag in nestedView.pagination track by $index"> <a сlass=pagination-blue ng-if="pag!=='...' && pag!=nestedView.currentPagination" ng-click="switchPaginate(nestedView, pag)">{{pag}}</a> <span ng-if="pag==='...' || pag==nestedView.currentPagination">{{pag}}</span> </span> <span ng-if="nestedView.currentPagination<nestedView.pagination[nestedView.pagination.length-1]"> <a ng-click="switchPaginate(nestedView, nestedView.currentPagination + 1)">Next &raquo;</a> </span> </div> </div> </div> <div class=clearfix></div> </div> <div ng-class="transformHistory.length > 0 ? 'col-md-2' : 'none'"> <ul style=padding-left:0> <li ng-repeat="t in transformHistory">{{t.title | uppercase}} for {{getTransformColumnNames(t)}} <a href=javascript:void(0) ng-click=deleteTransform($index)><i class="fa fa-close"></i></a></li> </ul> <div class=clearfix></div> </div> </div> </div> </div> </div> </div>
+                            'other': '{{ previewSettings.rows | number }} rows returned'}">
+                            </ng-pluralize>
+                        </div>
+                        <div class="data-preview-columns pull-right"
+                             ng-switch on="previewSettings.editable">
+                            <div ng-switch-when="true">
+                                <!--active state is incorrectly defined for uib-btn-radio with ng-if or ng-show-->
+                                <div ng-switch="previewSettings.enableNestedView"
+                                     class="pull-left">
+                                    <div class="btn-group"
+                                         ng-switch-when="true"
+                                         style="padding: 2px 20px 2px 2px;">
+                                        <label class="btn btn-xs btn-default"
+                                               ng-change="refreshCurrentView(ViewType.TABLE)"
+                                               ng-model="currentView"
+                                               uib-btn-radio="ViewType.TABLE">
+                                            <i class="fa fa-fw fa-table"
+                                               uib-tooltip="Table View"></i></label>
+                                        <label class="btn btn-xs btn-default"
+                                               ng-change="refreshCurrentView(ViewType.LIST)"
+                                               ng-model="currentView"
+                                               uib-btn-radio="ViewType.LIST">
+                                            <i class="fa fa-fw fa-list"
+                                               uib-tooltip="List View"></i></label>
+                                        <label class="btn btn-xs btn-default"
+                                               ng-change="refreshCurrentView(ViewType.NESTED)"
+                                               ng-model="currentView"
+                                               uib-btn-radio="ViewType.NESTED">
+                                            <i class="fa fa-fw fa-indent"
+                                               uib-tooltip="Nested View"></i></label>
+                                    </div>
+
+                                    <div class="btn-group"
+                                         ng-switch-when="false"
+                                         style="padding: 2px 20px 2px 2px;">
+                                        <label class="btn btn-xs btn-default"
+                                               ng-change="refreshCurrentView(ViewType.TABLE)"
+                                               ng-model="currentView"
+                                               uib-btn-radio="ViewType.TABLE">
+                                            <i class="fa fa-fw fa-table"
+                                               uib-tooltip="Table View"></i></label>
+                                        <label class="btn btn-xs btn-default"
+                                               ng-change="refreshCurrentView(ViewType.LIST)"
+                                               ng-model="currentView"
+                                               uib-btn-radio="ViewType.LIST">
+                                            <i class="fa fa-fw fa-list"
+                                               uib-tooltip="List View"></i></label>
+                                    </div>
+                                </div>
+
+
+                                <div class="pull-left" uib-dropdown dropdown-append-to="columnsListMenu.appendTo" is-open="columnsListMenu.isOpen">
+                                    <a uib-dropdown-toggle="columnsListMenu.toggleMenu()" auto-close="outsideClick">
+                                        <ng-pluralize count="previewSettings.columns"
+                                                      when="{ '1': '1 column', 'other': '{{previewSettings.columns}} columns'}">
+                                        </ng-pluralize></a><span ng-show="previewSettings.removedColumns">, {{previewSettings.removedColumns}} removed</span>
+                                    <ul class="dropdown-menu sidebar-ul dropdown-settings" role="menu"
+                                        uib-dropdown-menu>
+                                        <li class="filter-settings-header">
+                                            View:
+                                        </li>
+                                        <li class="menu-item-table" ng-click="refreshCurrentView(ViewType.TABLE)">
+                                        <span>
+                                            <input type="checkbox" class="regular-checkbox arrowed"
+                                                   ng-checked="currentView == ViewType.TABLE">
+                                            <label></label>
+                                        </span>
+                                            <a>Table</a>
+                                        </li>
+                                        <li class="menu-item-table" ng-click="refreshCurrentView(ViewType.LIST)">
+                                        <span>
+                                            <input type="checkbox" class="regular-checkbox arrowed"
+                                                   ng-checked="currentView == ViewType.LIST">
+                                            <label></label>
+                                        </span>
+                                            <a>List</a>
+                                        </li>
+                                        <li ng-if="previewSettings.enableNestedView" class="menu-item-table" ng-click="refreshCurrentView(ViewType.NESTED)">
+                                        <span>
+                                            <input type="checkbox" class="regular-checkbox arrowed"
+                                                   ng-checked="currentView == ViewType.NESTED">
+                                            <label></label>
+                                        </span>
+                                            <a>Nested</a>
+                                        </li>
+                                        <li class="filter-settings-header">
+                                            Display columns:
+                                        </li>
+
+                                        <ul class="sidebar-ul inner-ul"
+                                            role="menu"
+                                            sv-root="previewGridOptions.columnDefs"
+                                            sv-part="previewGridOptions.columnDefs"
+                                            sv-on-sort="endSortFields($indexFrom, $indexTo);"
+                                            ng-click="$event.stopPropagation();">
+                                            <li role="menuitem" class="menu-item-table" ng-click="selectAllNoneFields()">
+                                            <span>
+                                                <input type="checkbox" ng-checked="selectAllNone" class="regular-checkbox">
+                                                <label></label>
+                                            </span>
+                                                <a href="javascript:void(0)"><strong>Select All</strong></a>
+                                            </li>
+                                            <li role="menuitem" ng-repeat="columnDef in previewGridOptions.columnDefs"
+                                                class="menu-item-table"
+                                                sv-element
+                                                ng-click="switchVisibility(columnDef);">
+                                                <span sv-handle class="handle"><i class="fa fa-grip fa-rotate-90"></i></span>
+                                            <span>
+                                                <input type="checkbox"
+                                                       ng-model="columnDef.visible"
+                                                       class="regular-checkbox">
+                                                <label></label>
+                                            </span>
+                                                <a href="javascript:void(0)">{{columnDef.displayName}}</a>
+                                            </li>
+                                        </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div ng-switch-when="false">
+                            <span style="font-size: 14px; font-style: normal;">
+                                <ng-pluralize count="previewSettings.columns"
+                                              when="{ '1': '1 column', 'other': '{{previewSettings.columns}} columns'}">
+                                </ng-pluralize>
+                            </span>
+                                <span ng-show="previewSettings.removedColumns">, {{previewSettings.removedColumns}} removed</span>
+                            </div>
+                            <span style="display: none;">, 1 removed</span>
+                        </div>
+                        <div class="data-preview-info"
+                             ng-show="previewSettings">
+                            <div class="pull-left">
+                                <span>Currently showing a preview of data in the <b>{{previewSettings.name}}</b>.</span>
+                                <span ng-show="previewSettings.editable">Any data modifications you do will be applied here.</span>
+                            </div>
+                            <div class="sidebar-title-icon pull-left"
+                                 ng-show="previewSettings.editable"
+                                 uib-tooltip-template=""
+                                 tooltip-placement="right"
+                                 tooltip-trigger="outsideClick"
+                                 tooltip-append-to-body="true">
+                                <i class="fa fa-info-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="data-preview-body"
+                     v-resizable
+                     v-resizable-min="50"
+                     v-resizable-max="800"
+                     v-resizable-min-snap
+                     v-resizable-storage-attr="dataPreviewH">
+                    <div ng-class="transformHistory.length > 0 ? 'col-md-10' : 'col-md-12'" style="padding-left: 0; height: 100%; padding-bottom: 30px;">
+                        <div class="data-preview" style="height: 100%">
+                            <div class="no-data" ng-show="isPreviewRunning">
+                                <div class="msg">
+                                    <span><i class="fa fa-spinner fa-spin fa-2x"></i></span>
+                                </div>
+                            </div>
+                            <div class="data-preview-table" ng-show="currentView == ViewType.TABLE"
+                                 ui-grid="previewGridOptions"
+                                 ui-grid-auto-resize
+                                 ui-grid-resize-columns
+                                 ui-grid-move-columns>
+                            </div>
+                            <div class="data-preview-list" ng-if="currentView == ViewType.LIST">
+                                <div class="items-table">
+                                    <table class="item-table">
+                                        <tbody ng-repeat="items in listView.data">
+                                        <tr ng-repeat="item in items">
+                                            <td>{{item.name}}</td>
+                                            <td style="text-align: left; width: 5px;">:</td>
+                                            <td class="value" ng-init="arr = wrapArray(item.data)">
+                                                    <span ng-switch="arr.length > 10">
+                                                        <span ng-switch-when="false">
+                                                            <span ng-if="isArray(item.data);">[</span>
+                                                            <span ng-repeat="v in arr track by $index">
+                                                                <span ng-switch="getValueType(v)">
+                                                                    <span ng-switch-when="error" class="error-value" uib-tooltip="{{v.description | errorValueDescriptionFilter }}" tooltip-append-to-body="true">Ø</span>
+                                                                    <span ng-switch-when="default">{{v}}</span></span><span ng-if="!$last" class="comma">, </span>
+                                                            </span>
+                                                            <span ng-if="isArray(item.data);">]</span>
+                                                        </span>
+                                                        <span ng-switch-when="true">[…] <span>({{arr.length}} items)</span></span>
+                                                    </span>
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 10px;"><td colspan="3"></td></tr>
+                                        <tr style="height: 10px;"><td colspan="3"></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="pagination pagination-custom" ng-show="listView.pagination.length > 1 && listView.data.length > 0">
+                                <span ng-if="listView.currentPagination>1">
+                                    <a ng-click="switchPaginate(listView, listView.currentPagination - 1)">&laquo; Prev</a>
+                                </span>
+                                <span ng-repeat="pag in listView.pagination track by $index">
+                                    <a сlass="pagination-blue" ng-if="pag!=='...' && pag!=listView.currentPagination"
+                                       ng-click="switchPaginate(listView, pag)">{{pag}}</a>
+                                    <span ng-if="pag==='...' || pag==listView.currentPagination">{{pag}}</span>
+                                </span>
+                                <span ng-if="listView.currentPagination<listView.pagination[listView.pagination.length-1]">
+                                    <a ng-click="switchPaginate(listView, listView.currentPagination + 1)">Next &raquo;</a>
+                                </span>
+                                </div>
+                            </div>
+                            <div class="data-preview-nested" ng-if="currentView == ViewType.NESTED">
+                                <div ng-repeat="item in nestedView.data track by $index" style="padding: 10px 20px 0;">
+                                    <json-formatter json="item" open="1"></json-formatter>
+                                    <div ng-if="!$last" style="margin-top: 10px; border-bottom: 1px dotted #eee;"></div>
+                                </div>
+                                <div class="pagination pagination-custom" ng-show="nestedView.pagination.length > 1 && nestedView.data.length > 0">
+                                <span ng-if="nestedView.currentPagination>1">
+                                    <a ng-click="switchPaginate(nestedView, nestedView.currentPagination - 1)">&laquo; Prev</a>
+                                </span>
+                                <span ng-repeat="pag in nestedView.pagination track by $index">
+                                    <a сlass="pagination-blue" ng-if="pag!=='...' && pag!=nestedView.currentPagination"
+                                       ng-click="switchPaginate(nestedView, pag)">{{pag}}</a>
+                                    <span ng-if="pag==='...' || pag==nestedView.currentPagination">{{pag}}</span>
+                                </span>
+                                <span ng-if="nestedView.currentPagination<nestedView.pagination[nestedView.pagination.length-1]">
+                                    <a ng-click="switchPaginate(nestedView, nestedView.currentPagination + 1)">Next &raquo;</a>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div ng-class="transformHistory.length > 0 ? 'col-md-2' : 'none'">
+                        <ul style="padding-left: 0">
+                            <li ng-repeat="t in transformHistory">{{t.title | uppercase}} for {{getTransformColumnNames(t)}}
+                                <a href="javascript:void(0)"
+                                   ng-click="deleteTransform($index)"><i class="fa fa-close"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,1 +1,36 @@
- <div class=range-date-picker-wrap> <date-picker-reports> <div class=month> <header class=controls> <span ng-click="getYear(calLabel, -1)" class="scroller prev"><i class="fa fa-chevron-left"></i></span> <span class=current-label>{{calLabel * 1000 | date:'yyyy'}}</span> <span ng-click="getYear(calLabel, 1)" class="scroller next"><i class="fa fa-chevron-right"></i></span> </header> </div> <table class=calendar> <tbody> <tr> <td ng-click=selectMonth(0) ng-class="{'selected': isSelected(0)}" class=selectable><span class=label>Jan</span></td> <td ng-click=selectMonth(1) ng-class="{'selected': isSelected(1)}" class=selectable><span class=label>Feb</span></td> <td ng-click=selectMonth(2) ng-class="{'selected': isSelected(2)}" class=selectable><span class=label>Mar</span></td> </tr> <tr> <td ng-click=selectMonth(3) ng-class="{'selected': isSelected(3)}" class=selectable><span class=label>Apr</span></td> <td ng-click=selectMonth(4) ng-class="{'selected': isSelected(4)}" class=selectable><span class=label>May</span></td> <td ng-click=selectMonth(5) ng-class="{'selected': isSelected(5)}" class=selectable><span class=label>Jun</span></td> </tr> <tr> <td ng-click=selectMonth(6) ng-class="{'selected': isSelected(6)}" class=selectable><span class=label>Jul</span></td> <td ng-click=selectMonth(7) ng-class="{'selected': isSelected(7)}" class=selectable><span class=label>Aug</span></td> <td ng-click=selectMonth(8) ng-class="{'selected': isSelected(8)}" class=selectable><span class=label>Sep</span></td> </tr> <tr> <td ng-click=selectMonth(9) ng-class="{'selected': isSelected(9)}" class=selectable><span class=label>Oct</span></td> <td ng-click=selectMonth(10) ng-class="{'selected': isSelected(10)}" class=selectable><span class=label>Nov</span></td> <td ng-click=selectMonth(11) ng-class="{'selected': isSelected(11)}" class=selectable><span class=label>Dec</span></td> </tr> </tbody> </table> </date-picker-reports> </div>
+<!-- month -->
+<div class="range-date-picker-wrap">
+	<date-picker-reports>
+		<div class="month">
+			<header class="controls">
+				<span ng-click="getYear(calLabel, -1)" class="scroller prev"><i class="fa fa-chevron-left"></i></span>
+				<span class="current-label">{{calLabel * 1000 | date:'yyyy'}}</span>
+				<span ng-click="getYear(calLabel, 1)" class="scroller next"><i class="fa fa-chevron-right"></i></span>
+			</header>
+		</div>
+		<table class="calendar">
+			<tbody>
+				<tr class="">
+					<td ng-click="selectMonth(0)" ng-class="{'selected': isSelected(0)}" class="selectable"><span class="label">Jan</span></td>
+					<td ng-click="selectMonth(1)" ng-class="{'selected': isSelected(1)}" class="selectable"><span class="label">Feb</span></td>
+					<td ng-click="selectMonth(2)" ng-class="{'selected': isSelected(2)}" class="selectable"><span class="label">Mar</span></td>
+				</tr>
+				<tr class="">
+					<td ng-click="selectMonth(3)" ng-class="{'selected': isSelected(3)}" class="selectable"><span class="label">Apr</span></td>
+					<td ng-click="selectMonth(4)" ng-class="{'selected': isSelected(4)}" class="selectable"><span class="label">May</span></td>
+					<td ng-click="selectMonth(5)" ng-class="{'selected': isSelected(5)}"  class="selectable"><span class="label">Jun</span></td>
+				</tr>
+				<tr class="">
+					<td ng-click="selectMonth(6)" ng-class="{'selected': isSelected(6)}"  class="selectable"><span class="label">Jul</span></td>
+					<td ng-click="selectMonth(7)" ng-class="{'selected': isSelected(7)}"  class="selectable"><span class="label">Aug</span></td>
+					<td ng-click="selectMonth(8)" ng-class="{'selected': isSelected(8)}"  class="selectable"><span class="label">Sep</span></td>
+				</tr>
+				<tr class="">
+					<td ng-click="selectMonth(9)" ng-class="{'selected': isSelected(9)}"  class="selectable"><span class="label">Oct</span></td>
+					<td ng-click="selectMonth(10)" ng-class="{'selected': isSelected(10)}"  class="selectable"><span class="label">Nov</span></td>
+					<td ng-click="selectMonth(11)" ng-class="{'selected': isSelected(11)}"  class="selectable"><span class="label">Dec</span></td>
+				</tr>
+			</tbody>
+		</table>
+	</date-picker-reports>
+</div>

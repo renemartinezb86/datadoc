@@ -1,1 +1,40 @@
-<div class=presence-widgets> <div class=total-viewers ng-if=presenceDropdownOpened>{{presenceUsersCopy.length}} total viewers</div> <div class=presence-widget-container ng-repeat="user in presenceUsersCopy | limitTo: 10" id=presence-{{user.userId}} ng-show=!presenceDropdownOpened> <div class=presence-widget uib-tooltip="{{user.fullName || user.email}}" tooltip-placement=bottom tooltip-append-to-body=true tooltip-class=main-page-tooltip style=background-color:{};> <div class=img-wrapper ng-style="{'background-color': user.image ? '#f1f1f1' : user.color}"> <img ng-if=user.image ng-src={{user.image}} alt="{{user.fullName || user.email}}"> <div ng-if=!user.image class=initials-container ng-attr-data-initials={{getUserInitials(user)}}></div> </div> </div> </div> <div class=presence-dropdown-wrapper uib-dropdown is-open=presenceDropdownOpened ng-if="presenceUsersCopy.length >= 10"> <div class=presence-dropdown-button uib-tooltip="{{presenceUsersCopy.length}} total viewers" tooltip-placement=bottom tooltip-append-to-body=true tooltip-class=main-page-tooltip uib-dropdown-toggle> <div class=caret-down></div> </div> <div class="presence-dropdown-menu dropdown-menu-right" uib-dropdown-menu> <div class=presence-dropdown-menu-item ng-repeat="user in presenceUsersCopy"> <div class=img-wrapper ng-style="{'background-color': user.image ? '#f1f1f1' : user.color}"> <img ng-if=user.image ng-src={{user.image}} alt="{{user.fullName || user.email}}"> <div ng-if=!user.image class=initials-container ng-attr-data-initials={{getUserInitials(user)}}></div> </div> <div class=user-name>{{user.fullName || user.email}}</div> </div> </div> </div> </div>
+<div class="presence-widgets">
+    <div class="total-viewers" ng-if="presenceDropdownOpened">{{presenceUsersCopy.length}} total viewers</div>
+    <div class="presence-widget-container" ng-repeat="user in presenceUsersCopy | limitTo: 10"
+         id="presence-{{user.userId}}"
+         ng-show="!presenceDropdownOpened">
+        <div class="presence-widget"
+             uib-tooltip="{{user.fullName || user.email}}"
+             tooltip-placement="bottom"
+             tooltip-append-to-body="true"
+             tooltip-class="main-page-tooltip"
+             style="background-color: {{user.color}}">
+            <div class="img-wrapper" ng-style="{'background-color': user.image ? '#f1f1f1' : user.color}">
+                <img ng-if="user.image" ng-src="{{user.image}}" alt="{{user.fullName || user.email}}">
+                <div ng-if="!user.image" class="initials-container"
+                     ng-attr-data-initials="{{getUserInitials(user)}}"></div>
+            </div>
+        </div>
+    </div>
+    <div class="presence-dropdown-wrapper" uib-dropdown is-open="presenceDropdownOpened"
+         ng-if="presenceUsersCopy.length >= 10">
+        <div class="presence-dropdown-button"
+             uib-tooltip="{{presenceUsersCopy.length}} total viewers"
+             tooltip-placement="bottom"
+             tooltip-append-to-body="true"
+             tooltip-class="main-page-tooltip"
+             uib-dropdown-toggle>
+            <div class="caret-down"></div>
+        </div>
+        <div class="presence-dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+            <div class="presence-dropdown-menu-item" ng-repeat="user in presenceUsersCopy">
+                <div class="img-wrapper" ng-style="{'background-color': user.image ? '#f1f1f1' : user.color}">
+                    <img ng-if="user.image" ng-src="{{user.image}}" alt="{{user.fullName || user.email}}">
+                    <div ng-if="!user.image" class="initials-container"
+                         ng-attr-data-initials="{{getUserInitials(user)}}"></div>
+                </div>
+                <div class="user-name">{{user.fullName || user.email}}</div>
+            </div>
+        </div>
+    </div>
+</div>

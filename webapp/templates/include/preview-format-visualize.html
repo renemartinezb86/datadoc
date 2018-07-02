@@ -1,1 +1,50 @@
-<form> <div class=modal-header> <button type=button class=close ng-click=closePreviewFormatModal()>&times;</button> <h4 class=modal-title>Number Format</h4> </div> <div class=modal-body> <dl class=dl-horizontal style=margin-bottom:10px> <dt>Sample</dt> <dd style=padding-top:8px;white-space:nowrap>{{ -12250.0123456789 | numberFilter: formatModalSettings}}</dd> </dl> <dl class=dl-horizontal style=margin-bottom:10px> <dt>Decimal places</dt> <dd style=padding-top:5px> <select class=form-control style=width:65px ng-options="t as t for t in formatModalSettings.decimalPlacesAvailable" ng-model=formatModalSettings.decimal> </select> </dd> </dl> <dl class=dl-horizontal style=margin-bottom:10px> <dt>Symbol</dt> <dd> <select class=form-control style=width:65px ng-options="t as t for t in formatModalSettings.symbsAvailable" ng-model=formatModalSettings.symb> </select> </dd> </dl> <dl class=dl-horizontal style=margin-bottom:10px> <dt>Negative values</dt> <dd> <select class=form-control style=width:65px ng-options="t.key as t.name for t in formatModalSettings.negativeValues" ng-model=formatModalSettings.negative> </select> </dd> </dl> </div> <div class=modal-footer> <button type=submit class="btn btn-primary-cstm pull-right" style=width:100px;margin-left:10px ng-click=updatePreviewFormat()>Save</button> <button class="btn btn-default-cstm pull-left" style=width:100px ng-click=closePreviewFormatModal()>Cancel</button> </div> </form>
+<form>
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="closePreviewFormatModal()">&times;</button>
+        <h4 class="modal-title">Number Format</h4>
+    </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal" style="margin-bottom: 10px;">
+            <dt>Sample</dt>
+            <dd style="padding-top: 8px; white-space: nowrap;">{{ -12250.0123456789 | numberFilter: formatModalSettings}}</dd>
+        </dl>
+        <dl class="dl-horizontal" style="margin-bottom: 10px;">
+            <dt>Decimal places</dt>
+            <dd style="padding-top: 5px;">
+                <select class="form-control" style="width: 65px;"
+                        ng-options="t as t for t in formatModalSettings.decimalPlacesAvailable"
+                        ng-model="formatModalSettings.decimal">
+                </select>
+            </dd>
+        </dl>
+        <dl class="dl-horizontal" style="margin-bottom: 10px;">
+            <dt>Symbol</dt>
+            <dd>
+                <select class="form-control" style="width: 65px;"
+                        ng-options="t as t for t in formatModalSettings.symbsAvailable"
+                        ng-model="formatModalSettings.symb">
+                </select>
+            </dd>
+        </dl>
+        <dl class="dl-horizontal" style="margin-bottom: 10px;">
+            <dt>Negative values</dt>
+            <dd>
+                <select class="form-control" style="width: 65px;"
+                        ng-options="t.key as t.name for t in formatModalSettings.negativeValues"
+                        ng-model="formatModalSettings.negative">
+                </select>
+            </dd>
+        </dl>
+    </div>
+    <div class="modal-footer">
+        <button type="submit"
+                class="btn btn-primary-cstm pull-right"
+                style="width: 100px; margin-left: 10px"
+                ng-click="updatePreviewFormat()">Save</button>
+
+        <button class="btn btn-default-cstm pull-left"
+                style="width: 100px;"
+                ng-click="closePreviewFormatModal()">Cancel</button>
+
+    </div>
+</form>

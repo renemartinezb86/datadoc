@@ -1,1 +1,67 @@
-<div class="upload-item movable no-select" ng-class="{selected: isDocSelected(d), folder: d.type == 'folder', last: $last}"> <input type=hidden class=uid value={{d.id}}> <div class=col-md-6> <div class=first-column ng-switch="d == indexToRename"> <div class="icon drag-handler"> <div class="img {{getUploadIcon(d)}}"></div> </div> <div ng-switch-when=false class="name no-overflow"> <div class="no-overflow drag-handler" ng-switch on="d.type == 'folder'"> <div ng-switch-when=true class="no-overflow main"> <span uib-tooltip={{d.name}} tooltip-placement=bottom tooltip-append-to-body=true tooltip-popup-delay=250 tooltip-class=main-page-tooltip ng-bind-html=d.name></span> </div> <div ng-switch-when=false class="no-overflow main" style=position:relative> <span uib-tooltip={{d.name}} tooltip-placement=bottom tooltip-append-to-body=true tooltip-popup-delay=250 tooltip-class=main-page-tooltip ng-bind=d.name></span> </div> </div> </div> <input ng-switch-when=true class=name-input ng-click=$event.stopPropagation(); ng-dblclick=$event.stopPropagation(); ng-keydown=renameKeyEvent($event) ng-blur=doRenameDoc(d) ng-model=d.newName> </div> </div> <div class=col-md-3> <div ng-show="getDocsSelectedColumns()[COLUMN_NUMBERS.SECOND] == 'Last viewed by me'"> <div class=second-column ng-show="d.type != 'folder'"> {{(d.lastViewedByMe | date:'mediumDate') || 'Index not viewed'}} </div> </div> </div> <div class=col-md-3> <span ng-show="getDocsSelectedColumns()[COLUMN_NUMBERS.THIRD] == 'Data last refreshed'"> <div class=third-column ng-show="d.committed && d.type != 'folder'">{{d.committed | date:'mediumDate'}}</div> <div class=third-column ng-show="!d.committed && d.type != 'folder'">Index not committed</div> </span> <span ng-show="getDocsSelectedColumns()[COLUMN_NUMBERS.THIRD] == 'Added by'"> <div class=third-column ng-bind=d.userName></div> </span> <span ng-show="getDocsSelectedColumns()[COLUMN_NUMBERS.THIRD] == 'Added on'"> <div class=third-column>{{d.created | date:'mediumDate'}}</div> </span> <span ng-show="getDocsSelectedColumns()[COLUMN_NUMBERS.THIRD] == 'Last viewed'"> <div class=third-column>{{(d.lastViewedByMe | date:'mediumDate') || 'Index not viewed'}}</div> </span> </div> </div>
+<div class="upload-item movable no-select"
+     ng-class="{selected: isDocSelected(d), folder: d.type == 'folder', last: $last}">
+    <input type="hidden" class="uid" value="{{d.id}}">
+    <div class="col-md-6">
+        <div class="first-column"
+             ng-switch="d == indexToRename">
+            <div class="icon drag-handler">
+                <div class="img {{getUploadIcon(d)}}"></div>
+            </div>
+
+            <div ng-switch-when="false"
+                 class="name no-overflow">
+                <div class="no-overflow drag-handler" ng-switch on="d.type == 'folder'">
+                    <div ng-switch-when="true"
+                         class="no-overflow main">
+                            <span uib-tooltip="{{d.name}}"
+                                  tooltip-placement="bottom"
+                                  tooltip-append-to-body="true"
+                                  tooltip-popup-delay="250"
+                                  tooltip-class="main-page-tooltip"
+                                  ng-bind-html="d.name"></span>
+                    </div>
+                    <div ng-switch-when="false"
+                         class="no-overflow main"
+                         style="position: relative">
+                        <span uib-tooltip="{{d.name}}"
+                              tooltip-placement="bottom"
+                              tooltip-append-to-body="true"
+                              tooltip-popup-delay="250"
+                              tooltip-class="main-page-tooltip"
+                              ng-bind="d.name"></span>
+                    </div>
+                </div>
+            </div>
+            <input ng-switch-when="true"
+                   type="text"
+                   class="name-input"
+                   ng-click="$event.stopPropagation();"
+                   ng-dblclick="$event.stopPropagation();"
+                   ng-keydown="renameKeyEvent($event)"
+                   ng-blur="doRenameDoc(d)"
+                   ng-model="d.newName"/>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div ng-show="getDocsSelectedColumns()[COLUMN_NUMBERS.SECOND] == 'Last viewed by me'">
+            <div class="second-column" ng-show="d.type != 'folder'">
+                {{(d.lastViewedByMe | date:'mediumDate') || 'Index not viewed'}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <span ng-show="getDocsSelectedColumns()[COLUMN_NUMBERS.THIRD] == 'Data last refreshed'">
+            <div class="third-column" ng-show="d.committed && d.type != 'folder'">{{d.committed | date:'mediumDate'}}</div>
+            <div class="third-column" ng-show="!d.committed && d.type != 'folder'">Index not committed</div>
+        </span>
+        <span ng-show="getDocsSelectedColumns()[COLUMN_NUMBERS.THIRD] == 'Added by'">
+            <div class="third-column" ng-bind="d.userName"></div>
+        </span>
+        <span ng-show="getDocsSelectedColumns()[COLUMN_NUMBERS.THIRD] == 'Added on'">
+            <div class="third-column">{{d.created | date:'mediumDate'}}</div>
+        </span>
+        <span ng-show="getDocsSelectedColumns()[COLUMN_NUMBERS.THIRD] == 'Last viewed'">
+            <div class="third-column">{{(d.lastViewedByMe | date:'mediumDate') || 'Index not viewed'}}</div>
+        </span>
+    </div>
+</div>

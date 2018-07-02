@@ -1,0 +1,156 @@
+embed-settings {
+
+  display: block;
+  width: 900px;
+  height: 500px;
+  color: #6a6a6a;
+  padding-top: 5px;
+
+  #widget-container {
+    padding-right: 0;
+  }
+
+  #settings-pane {
+    padding-right: 50px;
+    .url-btn {
+      /*background-color: #96ff6a;*/
+    }
+    .btn {
+      outline: none;
+      //width: 55px;
+      font-size: 13px;
+      font-weight: bold;
+      padding: 7px 5px;
+      user-select: none;
+    }
+    .btn-primary {
+      color: #868686;
+      border-color: #c5c5c5;
+      background-color: #f4f4f4;
+      box-shadow: none;
+    }
+    .btn-primary.active,
+    .btn-primary.focus,
+    .btn-primary:active,
+    .btn-primary:focus,
+    .btn-primary:hover {
+      color: black;
+      background-color: #d5d2d2;
+    }
+    .preview-link {
+      position: absolute;
+      font-size: 16px;
+      color: #33b7f5;
+      top: 10px;
+      right: 25px;
+    }
+    .embed-url {
+      margin-bottom: 10px;
+      input {
+        background: white;
+        color: #666;
+        font-size: 14px;
+
+        &::selection {
+          color: white;
+          background-color: #33b7f5;
+        }
+      }
+    }
+    .dl-horizontal dt {
+      width: 50px;
+      text-align: left;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #6a6a6a;
+    }
+    .dl-horizontal dd {
+      margin-left: 50px;
+      margin-right: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+    }
+    .embed-checkbox {
+      margin-left: 28px;
+      margin-bottom: 10px;
+      label {
+        font-weight: normal;
+
+        input[type=checkbox] {
+          margin-right: 10px;
+        }
+      }
+    }
+    .embed-caution-text {
+      white-space: normal;
+      font-size: 11px;
+      line-height: 2;
+    }
+    .form-control {
+      border-radius: 2px;
+      padding: 1px 4px;
+    }
+  }
+  .save-buttons {
+    position: absolute;
+    bottom: 25px;
+    right: 20px;
+    text-align: right;
+
+    .btn {
+      height: 30px;
+      width: 130px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 13px;
+      -webkit-transition: none !important;
+      -moz-transition: none !important;
+      -ms-transition: none !important;
+      -o-transition: none !important;
+    }
+    .btn-primary-embed {
+      background-color: #0678c9 !important;
+      background-repeat: repeat-x;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#8178a5", endColorstr="#5e5580");
+      background-image: -khtml-gradient(linear, left top, left bottom, from(#3fabd9), to(#0678c9));
+      background-image: -moz-linear-gradient(top, #3fabd9, #0678c9);
+      background-image: -ms-linear-gradient(top, #3fabd9, #0678c9);
+      background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3fabd9), color-stop(100%, #0678c9));
+      background-image: -webkit-linear-gradient(top, #3fabd9, #0678c9);
+      background-image: -o-linear-gradient(top, #3fabd9, #0678c9);
+      background-image: linear-gradient(#3fabd9, #0678c9);
+      border-color: #3fabd9 #2d8abd #0678c9;
+      color: #fff !important;
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.23);
+      -webkit-font-smoothing: antialiased;
+      border-radius: 2px;
+    }
+    .btn-primary-embed:hover {
+      background-image: -khtml-gradient(linear, left top, left bottom, from(#3a9ec8), to(#056bb4));
+      background-image: -moz-linear-gradient(top, #3a9ec8, #056bb4);
+      background-image: -ms-linear-gradient(top, #3a9ec8, #056bb4);
+      background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3a9ec8), color-stop(100%, #056bb4));
+      background-image: -webkit-linear-gradient(top, #3a9ec8, #056bb4);
+      background-image: -o-linear-gradient(top, #3a9ec8, #056bb4);
+      background-image: linear-gradient(#3a9ec8, #056bb4);
+    }
+
+    .comment-text {
+      font-size: 11px;
+      clear:both;
+      text-align: right;
+      margin-top: 5px;
+    }
+  }
+}
+
+.embed-modal {
+  padding: 20px;
+  position: absolute;
+  top: 26px;
+  right: 0;
+  z-index: 100;
+  border-radius: 4px 0 4px 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #f4f4f4;
+}

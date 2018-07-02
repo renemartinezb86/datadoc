@@ -1,1 +1,19 @@
-<form class=delete-modal> <div class=modal-header> <button type=button class=close ng-click=closeUploadCloseModal(false)>&times;</button> <h4 class=modal-title>Cancel uploads?</h4> </div> <div class=modal-body> <div style=margin-top:20px>Your upload is not complete. Would you like to cancel the upload?</div> </div> <div class=modal-footer> <button class="btn btn-default-flat-goog pull-right" style=margin-left:10px ng-click=closeUploadCloseModal(true)>Cancel upload</button> <button type=submit class="btn btn-primary-goog pull-right" ng-click=closeUploadCloseModal(false) autofocus>Continue upload</button> </div> </form>
+<form class="delete-modal">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="closeUploadCloseModal(false)">&times;</button>
+        <h4 class="modal-title">Cancel uploads?</h4>
+    </div>
+    <div class="modal-body">
+        <div style="margin-top: 20px;">Your upload is not complete. Would you like to cancel the upload?</div>
+    </div>
+    <div class="modal-footer">
+
+        <button class="btn btn-default-flat-goog pull-right"
+                style="margin-left: 10px"
+                ng-click="closeUploadCloseModal(true)">Cancel upload</button>
+
+        <button type="submit"
+                class="btn btn-primary-goog pull-right"
+                ng-click="closeUploadCloseModal(false)" autofocus>Continue upload</button>
+    </div>
+</form>

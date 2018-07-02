@@ -1,1 +1,105 @@
-<div class=sort-section click-out=closeDropdown()> <div class=sort-section-pill> <div class=sort-section-pill-section> <span>Order by:</span> <div class="sort-section-pill-nodrag inline-block sort-section-select"> <div class="inline-block sort-section-select-inner-box"> <span uib-dropdown> <div class="inline-block sort-section-select-caption droppable" uib-dropdown-toggle> <span class=caption ng-bind-html=item.selectedDirection></span> </div> <ul class=dropdown-menu uib-dropdown-menu> <li ng-repeat="choice in item.directionChoices" ng-click=item.setDirection(choice) class=dropdown-menuitem> <span class=dropdown-menuitem-content ng-bind=choice.title></span> </li> </ul> </span> </div> </div> </div> <div class="sort-section-pill-section sort-section-pill-section-top-border"> <span class=sort-section-pill-sort-by>Sort by:</span> <div class="sort-section-pill-nodrag inline-block sort-section-select waffle-pivot-pill-sort-by"> <div class="inline-block sort-section-select-inner-box"> <span uib-dropdown> <div class="inline-block sort-section-select-caption droppable" uib-dropdown-toggle> <span class=caption ng-bind-html=item.selectedSortBy></span> </div> <ul class=dropdown-menu uib-dropdown-menu> <li ng-repeat="choice in item.sortByChoices" ng-click=item.setSortBy(choice) class=dropdown-menuitem> <span class=dropdown-menuitem-content ng-bind-html=choice.title></span> </li> </ul> </span> </div> <div ng-repeat="multiplyChoice in item.multiplyChoices |orderBy:$index" ng-if="multiplyChoice.match === item.selectedSortBy" click-out=multiplyChoice.closeDropdown() click-out-excluding-classes="['dropdown-menu']" class="sort-section-pivot-pill-nodrag sort-section-multi-select"> <div class=inline-block ng-repeat="resultChoice in multiplyChoice.resultChoices" ng-if="resultChoice.index === 0 || resultChoice.isMatched"> <div class="inline-block sort-section-select"> <div class="inline-block sort-section-select-outer-box"> <div class="inline-block sort-section-select-inner-box"> <span uib-dropdown ng-class="{'open': resultChoice.parent.isDropdownOpened && resultChoice.isOpen}" ng-mouseover=resultChoice.parent.setIsOpen(resultChoice)> <div class="inline-block sort-section-select-caption droppable" ng-click=resultChoice.parent.onToggle(resultChoice) uib-dropdown-toggle> <span class=caption ng-bind-html="resultChoice.parent.filteredValue(resultChoice.selectedChoice, resultChoice)"></span> </div> <ul class=dropdown-menu uib-dropdown-menu> <li ng-repeat="choice in resultChoice.choices" ng-class="{'disabled': choice.disabled}" ng-click="choice.disabled ? $event.stopPropagation() : resultChoice.setMultiplyChoice(choice)" class=dropdown-menuitem> <span class=dropdown-menuitem-content ng-bind-html="resultChoice.parent.filteredValue((choice.title || choice), resultChoice)"></span> </li> </ul> </span> </div> </div> </div> <div ng-if="multiplyChoice.resultChoices.length !== $index+1" class="inline-block sort-section-select-divider">:</div> </div> </div> </div> </div> <div class="sort-section-pill-section sort-section-pill-section-top-border"> <span class=sort-section-pill-sort-by>Limit:</span> <div class="sort-section-pill-nodrag inline-block sort-section-select"> <div class="inline-block sort-section-select-inner-box"> <div class="inline-block sort-section-select-caption"> <div class=limit-input-wrapper> <input type=number ng-keydown="onKeyDownLimitInput($event, item)" ng-blur=item.limitByBlur(item.limit) ng-model=item.limit placeholder=Type... min=0 max=1000> </div> </div> </div> </div> </div> <div class="sort-section-pill-section sort-section-pill-section-top-border" ng-if=isShowTotalAvailable ng-click=toggleShowTotal(item)> <span> <input type=checkbox ng-model=item.itemFromModel.id.settings.showTotal class=regular-checkbox> <label></label> </span> Show totals </div> </div> </div> 
+<div class="sort-section" click-out="closeDropdown()">
+    <div class="sort-section-pill">
+        <div class="sort-section-pill-section">
+            <span>Order by:</span>
+            <div class="sort-section-pill-nodrag inline-block sort-section-select">
+                <div class="inline-block sort-section-select-inner-box">
+                    <span uib-dropdown>
+                        <div class="inline-block sort-section-select-caption droppable"
+                             uib-dropdown-toggle>
+                            <span class="caption" ng-bind-html="item.selectedDirection"></span>
+                        </div>
+                        <ul class="dropdown-menu" uib-dropdown-menu>
+                            <li ng-repeat="choice in item.directionChoices"
+                                ng-click="item.setDirection(choice)"
+                                class="dropdown-menuitem">
+                                <span class="dropdown-menuitem-content" ng-bind="choice.title"></span>
+                            </li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="sort-section-pill-section sort-section-pill-section-top-border">
+            <span class="sort-section-pill-sort-by">Sort by:</span>
+            <div class="sort-section-pill-nodrag inline-block sort-section-select waffle-pivot-pill-sort-by">
+                <div class="inline-block sort-section-select-inner-box">
+                    <span uib-dropdown>
+                        <div class="inline-block sort-section-select-caption droppable"
+                             uib-dropdown-toggle>
+                            <span class="caption" ng-bind-html="item.selectedSortBy"></span>
+                        </div>
+                        <ul class="dropdown-menu" uib-dropdown-menu>
+                            <li ng-repeat="choice in item.sortByChoices"
+                                ng-click="item.setSortBy(choice)"
+                                class="dropdown-menuitem">
+                                <span class="dropdown-menuitem-content" ng-bind-html="choice.title"></span>
+                            </li>
+                        </ul>
+                    </span>
+                </div>
+                <div ng-repeat="multiplyChoice in item.multiplyChoices |orderBy:$index"
+                     ng-if="multiplyChoice.match === item.selectedSortBy"
+                     click-out="multiplyChoice.closeDropdown()"
+                     click-out-excluding-classes="['dropdown-menu']"
+                     class="sort-section-pivot-pill-nodrag sort-section-multi-select">
+                    <div class="inline-block"
+                         ng-repeat="resultChoice in multiplyChoice.resultChoices"
+                         ng-if="resultChoice.index === 0 || resultChoice.isMatched">
+                        <div class="inline-block sort-section-select">
+                            <div class="inline-block sort-section-select-outer-box">
+                                <div class="inline-block sort-section-select-inner-box">
+                                    <span uib-dropdown
+                                          ng-class="{'open': resultChoice.parent.isDropdownOpened && resultChoice.isOpen}"
+                                          ng-mouseover="resultChoice.parent.setIsOpen(resultChoice)">
+                                        <div class="inline-block sort-section-select-caption droppable" ng-click="resultChoice.parent.onToggle(resultChoice)"
+                                             uib-dropdown-toggle>
+                                            <span class="caption" ng-bind-html="resultChoice.parent.filteredValue(resultChoice.selectedChoice, resultChoice)"></span>
+                                        </div>
+                                        <ul class="dropdown-menu" uib-dropdown-menu>
+                                            <li ng-repeat="choice in resultChoice.choices"
+                                                ng-class="{'disabled': choice.disabled}"
+                                                ng-click="choice.disabled ? $event.stopPropagation() : resultChoice.setMultiplyChoice(choice)"
+                                                class="dropdown-menuitem">
+                                                <span class="dropdown-menuitem-content" ng-bind-html="resultChoice.parent.filteredValue((choice.title || choice), resultChoice)"></span>
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="multiplyChoice.resultChoices.length !== $index+1" class="inline-block sort-section-select-divider">:</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sort-section-pill-section sort-section-pill-section-top-border">
+            <span class="sort-section-pill-sort-by">Limit:</span>
+            <div class="sort-section-pill-nodrag inline-block sort-section-select">
+                <div class="inline-block sort-section-select-inner-box">
+                    <div class="inline-block sort-section-select-caption">
+                        <div class="limit-input-wrapper">
+                            <input type="number"
+                                   ng-keydown="onKeyDownLimitInput($event, item)"
+                                   ng-blur="item.limitByBlur(item.limit)"
+                                   ng-model="item.limit"
+                                   placeholder="Type..."
+                                   min="0"
+                                   max="1000">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sort-section-pill-section sort-section-pill-section-top-border"
+             ng-if="isShowTotalAvailable"
+             ng-click="toggleShowTotal(item)">
+            <span>
+                <input type="checkbox" ng-model="item.itemFromModel.id.settings.showTotal"
+                       class="regular-checkbox">
+                <label></label>
+            </span>
+            Show totals
+        </div>
+    </div>
+</div>

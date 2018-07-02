@@ -1,0 +1,258 @@
+.datepicker-range {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  div {
+    text-align: center;
+
+    &.datepicker {
+      width: 105px;
+      position: relative;
+
+      .focus-border-wrapper {
+        position: relative;
+      }
+
+      input {
+        border: none;
+        width: 100%;
+        background-color: #f5f5f5;
+        height: 36px;
+        text-align: center;
+        color: #000;
+        outline: none;
+
+        &[disabled] {
+          color: #ccc !important;
+        }
+
+        &::selection {
+          color: black;
+          background: #aed3fb;
+        }
+
+        & ~ .focus-border {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          width: 0;
+          height: 2px;
+          background-color: #3399FF;
+          transition: 0.4s;
+        }
+        &:focus ~ .focus-border {
+          width: 100%;
+          transition: 0.4s;
+          left: 0;
+        }
+
+        &.ng-invalid  {
+          border: none;
+
+          & ~ .focus-border {
+            width: 100%;
+            left: 0;
+            background-color: #F44336;
+          }
+        }
+      }
+
+      .timepicker-wrapper {
+        margin-top: 5px;
+
+        input.timepicker {
+          background-color: #fff;
+          font-size: 12px;
+          height: auto;
+          left: 0;
+          color: #333;
+          opacity: .8;
+          bottom: -23px;
+        }
+      }
+
+      span.date-container {
+        display: block;
+        width: 105px;
+        text-align: left;
+
+        span.date-of-week {
+          font-size: 13px;
+          color: #9d9d9d;
+        }
+      }
+
+      &.from {
+
+      }
+      &.to {
+
+      }
+    }
+    &.icon {
+      align-self: flex-start;
+      padding:5px;
+    }
+  }
+}
+
+.uib-datepicker-popup {
+  cursor: default;
+  border: none;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2);
+
+  .btn {
+    border: none; // reset bootstrap borders
+
+    &.btn-info {
+      color: #4285f4;
+      background-color: #fff;
+    }
+
+    &.active, &:active {
+      color: #fff;
+      background-color: #4285f4;
+    }
+  }
+
+  .uib-daypicker {
+    outline: none;
+
+    .uib-title-wrapper {
+      line-height: 30px; // height = 40px
+    }
+
+    .uib-day-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #757575;
+    }
+
+    .uib-title {
+      width: auto;
+      font-size: 12px;
+      font-weight: 400;
+      color: #757575;
+      opacity: .8;
+      background-color: #fff;
+      text-align: left;
+      transition: opacity 100ms linear;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .uib-left, .uib-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 6px;
+      font-weight: 400;
+      color: rgba(0,0,0,0.54);
+      height: 24px;
+      width: 24px;
+      padding: 0;
+      border-radius: 50%;
+      background-color: #fff;
+      transition: background-color,opacity 100ms linear;
+
+
+      &:hover {
+        background-color: rgba(0,0,0,.07);
+      }
+    }
+
+    .uib-date-button {
+      width: 36px;
+      height: 28px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+
+      &.active .uib-date-label {
+        color: white !important;
+        background-color: #4285f4 !important;
+
+        &:hover {
+          background-color: #4285f4;
+        }
+      }
+
+      & .uib-date-label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        font-size: 12px;
+        background-color: #fff;
+        transition: background-color 100ms linear;
+
+        &.current-date {
+          color: #4285f4;
+        }
+
+        &:hover {
+          background-color: #e0e0e0;
+        }
+      }
+    }
+
+    div {
+      font-weight: normal;
+      height: 30px;
+      small {
+        font-size: 14px;
+
+        // display only first letter of the DoW
+        display:block;
+        position: relative;
+        visibility:hidden;
+        left: 7px;
+        &:first-letter {
+          visibility:visible;
+        }
+      }
+    }
+
+    button {
+      border-radius: 0;
+      border: 0;
+      padding: 5px 10px;
+      font-size: 14px;
+
+      &[disabled]{
+        color: graytext;
+      }
+    }
+  }
+
+  .uib-options-bar {
+    margin: 5px 10px;
+    border-top: 1px solid #e9e9e9;
+    padding: 5px 0 0;
+
+    > * {
+      display: inline-block;
+    }
+    > span {
+      color: #767676;
+      font-size: 12px;
+      padding-left: 10px;
+    }
+    > div > select {
+      margin-left: 10px;
+      border-radius: 2px;
+      padding: 0 5px;
+      height: 28px;
+      font-size: 13px;
+    }
+  }
+}

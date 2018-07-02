@@ -1,2 +1,78 @@
-<div ng-repeat="col in sortColumnsOptions.columns" ng-class=col.class> <div ng-if="col.choices.length > 1"> <span uib-dropdown> <span uib-dropdown-toggle class=col-name-wrapper ng-class="{'hovered': col.hovered}" ng-click="col.onHeaderClick($event, col)" ng-mouseover="col.hovered = true;" ng-mouseout="col.hovered = false;"> <span ng-class=col.innerClass compile=col.selected.title></span> <span class=sort-section-wrapper ng-show="!col.selected.sortDisabled && !col.sort.disabled && (col.hovered || col.sort.direction)" ng-click="sortColumnsOptions.onSort($event, col)"> <span ng-if="col.sort.direction == SortDirection.ASC" class=goog-arrow></span> <span ng-if="col.sort.direction == SortDirection.DESC" class="goog-arrow goog-arrow-down"></span> </span> </span> <ul class=main-page-dropdown-menu uib-dropdown-menu> <li ng-repeat="choice in col.choices" ng-click=col.onChoiceSelected(choice) class=main-page-dropdown-menuitem ng-class="{'selected': choice == col.selected}"> <span ng-bind-html=choice.title></span> </li> </ul> </span> </div> <div ng-if="col.selected.title === 'Type' && activeSection !== SECTIONS.SEARCH"> <span uib-dropdown auto-close=outsideClick> <span uib-dropdown-toggle class=col-name-wrapper ng-class="{'hovered': col.hovered}" ng-click="col.onHeaderClick($event, col)" ng-mouseover="col.hovered = true;" ng-mouseout="col.hovered = false;"> <span ng-class=col.innerClass> {{ col.selected.title }} ({{(showUploadsTypes | filter:{selected:true}).length }}/{{ showUploadsTypes.length }}) </span> <span class=sort-section-wrapper ng-show="!col.selected.sortDisabled && !col.sort.disabled && (col.hovered || col.sort.direction)" ng-click="sortColumnsOptions.onSort($event, col)"> <span ng-if="col.sort.direction == SortDirection.ASC" class=goog-arrow></span> <span ng-if="col.sort.direction == SortDirection.DESC" class="goog-arrow goog-arrow-down"></span> </span> </span> <ul class="main-page-dropdown-menu upload-types-dropdown" uib-dropdown-menu> <li class=header-li>Show</li> <li ng-repeat="type in showUploadsTypes" ng-click=changeUploadTypes(type)> <span> <input type=checkbox class=regular-checkbox ng-checked=type.selected> <label></label> </span> <span>{{type.name}}</span> </li> </ul> </span> </div> <span ng-if="col.choices.length === 1 && col.selected.title !== 'Type'" class=col-name-wrapper ng-class="{'without-click-action': !col.onHeaderClick,
-                     'hovered': col.hovered}" ng-click="col.onHeaderClick($event, col)" ng-mouseover="col.hovered = true;" ng-mouseout="col.hovered = false;"> <span ng-if=!col.templateUrl ng-class=col.innerClass compile=col.selected.title></span> <span ng-if=col.templateUrl ng-class=col.innerClass ng-include=col.templateUrl></span> <span class=sort-section-wrapper ng-show="!col.selected.sortDisabled && !col.sort.disabled && (col.hovered || col.sort.direction)" ng-click="sortColumnsOptions.onSort($event, col)"> <span ng-if="col.sort.direction == SortDirection.ASC" class=goog-arrow></span> <span ng-if="col.sort.direction == SortDirection.DESC" class="goog-arrow goog-arrow-down"></span> </span> </span> </div>
+<div ng-repeat="col in sortColumnsOptions.columns" ng-class="col.class">
+    <div ng-if="col.choices.length > 1">
+
+        <span uib-dropdown>
+            <span uib-dropdown-toggle
+                  class="col-name-wrapper"
+                  ng-class="{'hovered': col.hovered}"
+                  ng-click="col.onHeaderClick($event, col)"
+                  ng-mouseover="col.hovered = true;"
+                  ng-mouseout="col.hovered = false;">
+                <span ng-class="col.innerClass" compile="col.selected.title"></span>
+
+                <span class="sort-section-wrapper" ng-show="!col.selected.sortDisabled && !col.sort.disabled && (col.hovered || col.sort.direction)" ng-click="sortColumnsOptions.onSort($event, col)">
+                    <span ng-if="col.sort.direction == SortDirection.ASC" class="goog-arrow"></span>
+                    <span ng-if="col.sort.direction == SortDirection.DESC" class="goog-arrow goog-arrow-down"></span>
+                </span>
+            </span>
+
+            <ul class="main-page-dropdown-menu" uib-dropdown-menu>
+                <li ng-repeat="choice in col.choices"
+                    ng-click="col.onChoiceSelected(choice)"
+                    class="main-page-dropdown-menuitem"
+                    ng-class="{'selected': choice == col.selected}">
+                    <span ng-bind-html="choice.title"></span>
+                </li>
+            </ul>
+        </span>
+    </div>
+    <div ng-if="col.selected.title === 'Type' && activeSection !== SECTIONS.SEARCH">
+        <span uib-dropdown auto-close="outsideClick">
+            <span uib-dropdown-toggle
+                  class="col-name-wrapper"
+                  ng-class="{'hovered': col.hovered}"
+                  ng-click="col.onHeaderClick($event, col)"
+                  ng-mouseover="col.hovered = true;"
+                  ng-mouseout="col.hovered = false;">
+                <span ng-class="col.innerClass" >
+                    {{ col.selected.title }}
+                    ({{(showUploadsTypes | filter:{selected:true}).length }}/{{ showUploadsTypes.length }})
+                </span>
+
+                <span class="sort-section-wrapper"
+                      ng-show="!col.selected.sortDisabled && !col.sort.disabled && (col.hovered || col.sort.direction)"
+                      ng-click="sortColumnsOptions.onSort($event, col)">
+                    <span ng-if="col.sort.direction == SortDirection.ASC" class="goog-arrow"></span>
+                    <span ng-if="col.sort.direction == SortDirection.DESC" class="goog-arrow goog-arrow-down"></span>
+                </span>
+            </span>
+
+            <ul class="main-page-dropdown-menu upload-types-dropdown" uib-dropdown-menu>
+                <li class="header-li">Show</li>
+                <li ng-repeat="type in showUploadsTypes"
+                    ng-click="changeUploadTypes(type)">
+                    <span>
+                        <input type="checkbox" class="regular-checkbox"
+                               ng-checked="type.selected">
+                        <label></label>
+                    </span>
+                    <span>{{type.name}}</span>
+                </li>
+            </ul>
+        </span>
+    </div>
+    <span ng-if="col.choices.length === 1 && col.selected.title !== 'Type'"
+          class="col-name-wrapper"
+          ng-class="{'without-click-action': !col.onHeaderClick,
+                     'hovered': col.hovered}"
+          ng-click="col.onHeaderClick($event, col)"
+          ng-mouseover="col.hovered = true;"
+          ng-mouseout="col.hovered = false;">
+        <span ng-if="!col.templateUrl" ng-class="col.innerClass" compile="col.selected.title"></span>
+        <span ng-if="col.templateUrl" ng-class="col.innerClass" ng-include="col.templateUrl"></span>
+        <span class="sort-section-wrapper" ng-show="!col.selected.sortDisabled && !col.sort.disabled && (col.hovered || col.sort.direction)" ng-click="sortColumnsOptions.onSort($event, col)">
+            <span ng-if="col.sort.direction == SortDirection.ASC" class="goog-arrow"></span>
+            <span ng-if="col.sort.direction == SortDirection.DESC" class="goog-arrow goog-arrow-down"></span>
+        </span>
+    </span>
+</div>
