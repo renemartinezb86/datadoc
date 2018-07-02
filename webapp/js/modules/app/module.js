@@ -25,8 +25,7 @@ define([
     'modules/app/services/index',
     'intl-tel-input',
     'ng-intl-tel-input',
-    'ng-intl-tel-input-util',
-    'socialLogin'
+    'ng-intl-tel-input-util'
 ], function (angular, _, alertify, cc, NotificationsUtils) {
     'use strict';
 
@@ -41,11 +40,9 @@ define([
         'templates-app',
         'app.services',
         'app.directives',
-        'ngIntlTelInput',
-        'socialLogin'
-    ]).config(['$provide', '$httpProvider', '$compileProvider', '$urlMatcherFactoryProvider', 'ngIntlTelInputProvider','socialProvider', function($provide, $httpProvider, $compileProvider, $urlMatcherFactoryProvider, ngIntlTelInputProvider, socialProvider){
+        'ngIntlTelInput'
+    ]).config(['$provide', '$httpProvider', '$compileProvider', '$urlMatcherFactoryProvider', 'ngIntlTelInputProvider', function($provide, $httpProvider, $compileProvider, $urlMatcherFactoryProvider, ngIntlTelInputProvider){
 
-        socialProvider.setGoogleKey("164608449514-5ev0q7e77gvl9k6nappm9gbaac6lal0q.apps.googleusercontent.com");
         ngIntlTelInputProvider.set({
             initialCountry: 'us',
             utilsScript: 'lib/intl-tel-input/build/js/utils.js'

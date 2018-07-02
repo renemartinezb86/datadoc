@@ -59,8 +59,7 @@ require.config({
         'bluebird': 'lib/bluebird',
         'ng-intl-tel-input': 'lib/ng-intl-tel-input/dist/ng-intl-tel-input.min',
         'intl-tel-input': 'lib/intl-tel-input/build/js/intlTelInput.min',
-        'ng-intl-tel-input-util': 'lib/intl-tel-input/build/js/utils',
-        'socialLogin':'lib/angularjs-social-login'
+        'ng-intl-tel-input-util': 'lib/intl-tel-input/build/js/utils'
     },
 
     /**
@@ -94,10 +93,6 @@ require.config({
             deps: ['angular']
         },
         'angular-sanitize': {
-            deps: ['angular']
-        }
-        ,
-        'socialLogin': {
             deps: ['angular']
         },
         'angular-clipboard': {

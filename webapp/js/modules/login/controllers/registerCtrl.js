@@ -36,8 +36,6 @@ define(['./module', 'common', 'lodash'], function (controllers, cc, _) {
             $scope.submit = function () {
                 if (!$scope.user.email) {
                     cc.showError({message: "Email is required!"})
-                } else if (validateEmail($scope.user.email)) {
-                    cc.showError({message: "Email is not correct!"})
                 }
                 else if (!$scope.user.password) {
                     cc.showError({message: "Password is required!"})
@@ -51,12 +49,6 @@ define(['./module', 'common', 'lodash'], function (controllers, cc, _) {
                     }
                 }
             };
-
-
-            function validateEmail(email) {
-                var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                return re.test(String(email).toLowerCase());
-            }
 
             $scope.uploader.onAfterAddingFile = function (item) {
                 item.headers['Datadocs-API-Arg'] = JSON.stringify({fileSize: item.file.size});
