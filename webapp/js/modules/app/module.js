@@ -45,7 +45,7 @@ define([
         'socialLogin'
     ]).config(['$provide', '$httpProvider', '$compileProvider', '$urlMatcherFactoryProvider', 'ngIntlTelInputProvider','socialProvider', function($provide, $httpProvider, $compileProvider, $urlMatcherFactoryProvider, ngIntlTelInputProvider, socialProvider){
 
-        socialProvider.setGoogleKey("164608449514-ua7s2gg1hqnam2k8gu3e6opp9bbe6ppp.apps.googleusercontent.com");
+        socialProvider.setGoogleKey("164608449514-5ev0q7e77gvl9k6nappm9gbaac6lal0q.apps.googleusercontent.com");
         ngIntlTelInputProvider.set({
             initialCountry: 'us',
             utilsScript: 'lib/intl-tel-input/build/js/utils.js'
